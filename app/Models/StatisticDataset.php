@@ -39,11 +39,16 @@ class StatisticDataset extends Model
         ];
     }
 
+    /** @return HasMany<StatisticDataPoint, $this> */
     public function dataPoints(): HasMany
     {
         return $this->hasMany(StatisticDataPoint::class);
     }
 
+    /**
+     * @param  Builder<StatisticDataset> $query
+     * @return Builder<StatisticDataset>
+     */
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);

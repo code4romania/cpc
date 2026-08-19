@@ -28,6 +28,7 @@ class IndexCountyScore extends Model
         ];
     }
 
+    /** @return BelongsTo<County, $this> */
     public function county(): BelongsTo
     {
         return $this->belongsTo(County::class);

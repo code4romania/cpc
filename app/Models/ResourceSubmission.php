@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'submitter_name',
     'submitter_email',
     'submitter_organization',
-    'file_path',
     'external_url',
     'locale',
     'status',
@@ -41,11 +40,13 @@ class ResourceSubmission extends Model
         ];
     }
 
+    /** @return BelongsTo<User, $this> */
     public function reviewedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'reviewed_by');
     }
 
+    /** @return BelongsTo<\App\Models\Resource, $this> */
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class);

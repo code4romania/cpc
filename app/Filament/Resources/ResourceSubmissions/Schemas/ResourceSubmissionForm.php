@@ -22,7 +22,7 @@ class ResourceSubmissionForm
                     ->required()
                     ->columnSpanFull(),
                 Select::make('type')
-                    ->options(ResourceType::class)
+                    ->options(ResourceType::options())
                     ->required(),
                 TextInput::make('category'),
                 TextInput::make('submitter_name')
@@ -31,14 +31,13 @@ class ResourceSubmissionForm
                     ->email()
                     ->required(),
                 TextInput::make('submitter_organization'),
-                TextInput::make('file_path'),
                 TextInput::make('external_url')
                     ->url(),
                 TextInput::make('locale')
                     ->required()
                     ->default('ro'),
                 Select::make('status')
-                    ->options(SubmissionStatus::class)
+                    ->options(SubmissionStatus::options())
                     ->default('pending')
                     ->required(),
                 Textarea::make('rejection_reason')

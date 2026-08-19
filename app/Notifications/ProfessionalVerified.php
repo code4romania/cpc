@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -16,7 +17,7 @@ class ProfessionalVerified extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(User $notifiable): array
     {
         return ['mail'];
     }
@@ -24,12 +25,11 @@ class ProfessionalVerified extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(User $notifiable): MailMessage
     {
-        $locale = $notifiable->locale ?? config('cpc.default_locale', 'ro');
+        $locale = $notifiable->locale;
 
         return (new MailMessage)
-            ->locale($locale)
             ->subject(__('auth.verified_email_subject', [], $locale))
             ->greeting(__('auth.verified_email_greeting', ['name' => $notifiable->name], $locale))
             ->line(__('auth.verified_email_body', [], $locale))
@@ -45,7 +45,7 @@ class ProfessionalVerified extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(User $notifiable): array
     {
         return [];
     }

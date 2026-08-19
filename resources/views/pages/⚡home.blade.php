@@ -51,7 +51,7 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <x-ui.alert variant="emergency" :title="__('home.emergency_title')">
             {{ __('home.emergency_text') }}
-            <strong>{{ config('cpc.emergency_hotline', '119') }}</strong>.
+            <strong>{{ config('cpc.emergency_hotline', '112') }}</strong>.
         </x-ui.alert>
     </div>
 

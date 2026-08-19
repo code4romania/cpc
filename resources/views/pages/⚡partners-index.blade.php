@@ -24,9 +24,9 @@ new #[Layout('layouts.app')] #[Title('Partners')] class extends Component
             @forelse ($this->partners() as $partner)
                 <x-ui.card wire:key="partner-{{ $partner->id }}" class="p-6">
                     <div class="flex flex-col sm:flex-row items-start gap-6">
-                        @if ($partner->logo_path)
+                        @if ($partner->logo_url)
                             <div class="w-32 h-32 shrink-0 bg-background rounded-lg p-4 flex items-center justify-center">
-                                <img src="{{ asset('storage/'.$partner->logo_path) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain">
+                                <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain">
                             </div>
                         @endif
                         <div>

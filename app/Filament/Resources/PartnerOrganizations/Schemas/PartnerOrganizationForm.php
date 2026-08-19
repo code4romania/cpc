@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\PartnerOrganizations\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -18,10 +18,9 @@ class PartnerOrganizationForm
             ->components([
                 TextInput::make('name')
                     ->required(),
-                FileUpload::make('logo_path')
-                    ->image()
-                    ->directory('partners')
-                    ->visibility('public'),
+                SpatieMediaLibraryFileUpload::make('logo')
+                    ->collection('logo')
+                    ->image(),
                 Tabs::make('Translations')
                     ->tabs([
                         Tab::make('Română')->schema([

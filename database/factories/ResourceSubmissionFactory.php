@@ -27,7 +27,6 @@ class ResourceSubmissionFactory extends Factory
             'submitter_name' => fake()->name(),
             'submitter_email' => fake()->safeEmail(),
             'submitter_organization' => fake()->optional()->company(),
-            'file_path' => null,
             'external_url' => fake()->optional()->url(),
             'locale' => fake()->randomElement(['ro', 'en']),
             'status' => SubmissionStatus::Pending->value,

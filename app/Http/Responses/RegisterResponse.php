@@ -14,7 +14,9 @@ class RegisterResponse implements RegisterResponseContract
             return new JsonResponse('', 201);
         }
 
-        $locale = $request->user()?->locale
+        $user = $request->user();
+
+        $locale = ($user !== null ? $user->locale : null)
             ?? session('locale')
             ?? config('cpc.default_locale', 'ro');
 

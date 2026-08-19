@@ -22,7 +22,7 @@ class StatisticDatasetForm
                     ->required()
                     ->unique(ignoreRecord: true),
                 Select::make('chart_type')
-                    ->options(ChartType::class)
+                    ->options(ChartType::options())
                     ->required(),
                 Tabs::make('Translations')
                     ->tabs([

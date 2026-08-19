@@ -34,7 +34,6 @@ class ProfessionalResourceSeeder extends Seeder
                     'description_en' => $description,
                     'category' => $category,
                     'type' => $type,
-                    'file_path' => null,
                     'file_size' => $fileSize,
                     'is_published' => true,
                     'last_updated_at' => $updatedAt,

@@ -3,6 +3,9 @@
 use App\Support\LocaleUrl;
 
 if (! function_exists('localized_route')) {
+    /**
+     * @param array<string, mixed> $parameters
+     */
     function localized_route(string $name, array $parameters = [], ?string $locale = null): string
     {
         return LocaleUrl::localized($name, $parameters, $locale);

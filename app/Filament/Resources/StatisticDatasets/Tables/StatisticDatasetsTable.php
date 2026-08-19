@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\StatisticDatasets\Tables;
 
+use App\Enums\ChartType;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -19,6 +20,7 @@ class StatisticDatasetsTable
                     ->searchable(),
                 TextColumn::make('chart_type')
                     ->badge()
+                    ->formatStateUsing(fn (ChartType $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('title_ro')
                     ->searchable(),

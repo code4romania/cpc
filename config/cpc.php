@@ -6,6 +6,6 @@ return [
 
     'default_locale' => 'ro',
 
-    'emergency_hotline' => '119',
+    'emergency_hotline' => '112',
 
 ];

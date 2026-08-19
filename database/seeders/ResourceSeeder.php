@@ -16,6 +16,7 @@ class ResourceSeeder extends Seeder
      */
     public function run(): void
     {
+        /** @var list<array{0: string, 1: string, 2: ResourceType, 3: string, 4: list<string>, 5: string, 6: string, 7: bool, 8?: string}> $resources */
         $resources = [
             ['Recognizing Warning Signs: A Complete Guide', 'A detailed guide for educators and healthcare workers on identifying behavioral and physical indicators of child trafficking and abuse. Includes practical observation checklists and guidance for schools, clinics, and social services.', ResourceType::Guide, 'Identificare și referire', ['warning signs', 'behavioral indicators', 'physical signs'], 'Dr. Maria Popescu', '2026-02-01', true],
             ['Quick Reference Card: Risk Indicators', 'A printable wallet-sized card listing critical indicators that may signal a child is at risk of trafficking or exploitation, emergency contacts, and reporting procedures.', ResourceType::Printable, 'Identificare și referire', ['risk indicators', 'quick reference', 'pocket guide'], 'Child Protection Institute', '2026-01-28', true],
@@ -46,7 +47,14 @@ class ResourceSeeder extends Seeder
         $categories = ResourceCategory::query()->pluck('id', 'name_ro');
 
         foreach ($resources as $resource) {
-            [$title, $description, $type, $category, $tags, $author, $publishedAt, $featured] = $resource;
+            $title = $resource[0];
+            $description = $resource[1];
+            $type = $resource[2];
+            $category = $resource[3];
+            $tags = $resource[4];
+            $author = $resource[5];
+            $publishedAt = $resource[6];
+            $featured = $resource[7];
             $videoUrl = $resource[8] ?? null;
 
             Resource::query()->updateOrCreate(
@@ -62,7 +70,6 @@ class ResourceSeeder extends Seeder
                     'author' => $author,
                     'download_url' => $type === ResourceType::Video ? null : '#',
                     'video_url' => $videoUrl ?? ($type === ResourceType::Video ? '#' : null),
-                    'file_path' => null,
                     'featured' => $featured,
                     'status' => ResourceStatus::Published->value,
                     'published_at' => $publishedAt,

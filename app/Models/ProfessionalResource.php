@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 #[Fillable([
     'slug',
@@ -17,16 +19,16 @@ use Illuminate\Database\Eloquent\Model;
     'description_en',
     'category',
     'type',
-    'file_path',
     'file_size',
     'is_published',
     'last_updated_at',
 ])]
-class ProfessionalResource extends Model
+class ProfessionalResource extends Model implements HasMedia
 {
     /** @use HasFactory<ProfessionalResourceFactory> */
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
 
     protected function casts(): array
     {
@@ -36,6 +38,10 @@ class ProfessionalResource extends Model
         ];
     }
 
+    /**
+     * @param  Builder<ProfessionalResource> $query
+     * @return Builder<ProfessionalResource>
+     */
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);
@@ -54,5 +60,15 @@ class ProfessionalResource extends Model
     public function getDescriptionAttribute(): ?string
     {
         return $this->getTranslated('description');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('file')->singleFile();
+    }
+
+    public function getFileUrlAttribute(): ?string
+    {
+        return $this->getFirstMediaUrl('file') ?: null;
     }
 }

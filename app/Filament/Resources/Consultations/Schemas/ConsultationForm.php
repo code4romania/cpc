@@ -24,11 +24,11 @@ class ConsultationForm
                     ->required()
                     ->columnSpanFull(),
                 Select::make('urgency')
-                    ->options(ConsultationUrgency::class)
+                    ->options(ConsultationUrgency::options())
                     ->default('medium')
                     ->required(),
                 Select::make('status')
-                    ->options(ConsultationStatus::class)
+                    ->options(ConsultationStatus::options())
                     ->default('open')
                     ->required(),
                 TextInput::make('category'),

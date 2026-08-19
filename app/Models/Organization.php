@@ -41,11 +41,16 @@ class Organization extends Model
         ];
     }
 
+    /** @return BelongsTo<County, $this> */
     public function county(): BelongsTo
     {
         return $this->belongsTo(County::class);
     }
 
+    /**
+     * @param  Builder<Organization> $query
+     * @return Builder<Organization>
+     */
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);

@@ -32,6 +32,7 @@ class StatisticDataPoint extends Model
         ];
     }
 
+    /** @return BelongsTo<StatisticDataset, $this> */
     public function dataset(): BelongsTo
     {
         return $this->belongsTo(StatisticDataset::class, 'statistic_dataset_id');

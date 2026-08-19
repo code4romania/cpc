@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 #[Fillable([
     'slug',
@@ -24,16 +26,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'author',
     'download_url',
     'video_url',
-    'file_path',
     'featured',
     'status',
     'published_at',
 ])]
-class Resource extends Model
+class Resource extends Model implements HasMedia
 {
     /** @use HasFactory<ResourceFactory> */
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
 
     protected function casts(): array
     {
@@ -46,11 +48,16 @@ class Resource extends Model
         ];
     }
 
+    /** @return BelongsTo<ResourceCategory, $this> */
     public function resourceCategory(): BelongsTo
     {
         return $this->belongsTo(ResourceCategory::class);
     }
 
+    /**
+     * @param  Builder<\App\Models\Resource> $query
+     * @return Builder<\App\Models\Resource>
+     */
     public function scopePublished(Builder $query): Builder
     {
         return $query
@@ -59,6 +66,10 @@ class Resource extends Model
             ->where('published_at', '<=', now());
     }
 
+    /**
+     * @param  Builder<\App\Models\Resource> $query
+     * @return Builder<\App\Models\Resource>
+     */
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('featured', true);
@@ -77,5 +88,15 @@ class Resource extends Model
     public function getDescriptionAttribute(): ?string
     {
         return $this->getTranslated('description');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('file')->singleFile();
+    }
+
+    public function getFileUrlAttribute(): ?string
+    {
+        return $this->getFirstMediaUrl('file') ?: null;
     }
 }

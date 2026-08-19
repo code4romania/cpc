@@ -53,8 +53,8 @@ new #[Layout('layouts.app')] #[Title('Professional Resources')] class extends Co
                     <h2 class="text-xl font-semibold text-navy">{{ $resource->title }}</h2>
                     <p class="text-muted mt-2">{{ $resource->description }}</p>
                     <div class="flex flex-wrap gap-2 mt-4"><x-ui.badge variant="accent">{{ $resource->category }}</x-ui.badge><x-ui.badge>{{ $resource->type }}</x-ui.badge></div>
-                    @if ($resource->file_path)
-                        <x-ui.button class="mt-5" href="{{ asset('storage/'.$resource->file_path) }}" target="_blank">{{ __('portal.download') }}</x-ui.button>
+                    @if ($resource->file_url)
+                        <x-ui.button class="mt-5" href="{{ $resource->file_url }}" target="_blank">{{ __('portal.download') }}</x-ui.button>
                     @endif
                 </x-ui.card>
             @empty

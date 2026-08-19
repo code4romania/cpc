@@ -8,11 +8,15 @@
     "require": {
         "php": "^8.4",
         "filament/filament": "^5.6",
+        "filament/spatie-laravel-media-library-plugin": "^5.0",
         "laravel/fortify": "^1.36",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
+        "league/flysystem-aws-s3-v3": "^3.25",
         "livewire/blaze": "^1.0",
-        "livewire/livewire": "^4.1"
+        "livewire/livewire": "^4.1",
+        "sentry/sentry-laravel": "^4.27",
+        "spatie/laravel-medialibrary": "^11.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",

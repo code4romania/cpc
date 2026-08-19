@@ -27,14 +27,16 @@ class ConsultationsTable
                     ->searchable(),
                 TextColumn::make('urgency')
                     ->badge()
+                    ->formatStateUsing(fn (ConsultationUrgency $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('status')
                     ->badge()
+                    ->formatStateUsing(fn (ConsultationStatus $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('category')
                     ->searchable(),
                 TextColumn::make('assignedTo.name')
-                    ->label('Assigned to')
+                    ->label(__('admin.fields.assigned_to'))
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -47,9 +49,9 @@ class ConsultationsTable
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options(ConsultationStatus::class),
+                    ->options(ConsultationStatus::options()),
                 SelectFilter::make('urgency')
-                    ->options(ConsultationUrgency::class),
+                    ->options(ConsultationUrgency::options()),
             ])
             ->recordActions([
                 Action::make('assign')

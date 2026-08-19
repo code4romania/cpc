@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Professionals\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -34,9 +34,8 @@ class ProfessionalForm
                     ->columnSpanFull(),
                 TextInput::make('category')->required(),
                 TextInput::make('type')->required(),
-                FileUpload::make('file_path')
-                    ->directory('professional-resources')
-                    ->visibility('public'),
+                SpatieMediaLibraryFileUpload::make('file')
+                    ->collection('file'),
                 TextInput::make('file_size')->numeric(),
                 Toggle::make('is_published'),
                 DateTimePicker::make('last_updated_at'),

@@ -20,7 +20,7 @@ return [
         'cases' => ['title' => 'Case Studies', 'body' => 'Anonymized examples that turn real experience into practical learning.'],
     ],
     'notice_title' => 'Important Notice',
-    'notice_body' => 'This educational resource center does not replace professional training, legal advice, or clinical supervision. For immediate danger, call 119.',
+    'notice_body' => 'This educational resource center does not replace professional training, legal advice, or clinical supervision. For immediate danger, call 112.',
     'cta_title' => 'Become a Partner',
     'cta_body' => 'Explore the library and equip yourself to make a difference for vulnerable children.',
     'cta_button' => 'Explore resources',

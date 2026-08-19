@@ -20,7 +20,7 @@ class UserForm
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('admin.fields.email_address'))
                     ->email()
                     ->required()
                     ->maxLength(255)
@@ -31,14 +31,14 @@ class UserForm
                     ->dehydrated(fn (?string $state): bool => filled($state))
                     ->maxLength(255),
                 Select::make('role')
-                    ->options(UserRole::class)
+                    ->options(UserRole::options())
                     ->required()
                     ->live(),
                 TextInput::make('organization')
                     ->maxLength(255)
                     ->visible(fn (Get $get): bool => $get('role') === UserRole::Professional->value),
                 Select::make('professional_role')
-                    ->options(ProfessionalRole::class)
+                    ->options(ProfessionalRole::options())
                     ->visible(fn (Get $get): bool => $get('role') === UserRole::Professional->value),
                 DateTimePicker::make('verified_at'),
                 Select::make('locale')

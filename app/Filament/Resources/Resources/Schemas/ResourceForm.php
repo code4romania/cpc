@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Resources\Schemas;
 use App\Enums\ResourceStatus;
 use App\Enums\ResourceType;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -39,7 +39,7 @@ class ResourceForm
                     ])
                     ->columnSpanFull(),
                 Select::make('type')
-                    ->options(ResourceType::class)
+                    ->options(ResourceType::options())
                     ->required(),
                 Select::make('resource_category_id')
                     ->relationship('resourceCategory', 'name_ro')
@@ -52,12 +52,11 @@ class ResourceForm
                     ->url(),
                 TextInput::make('video_url')
                     ->url(),
-                FileUpload::make('file_path')
-                    ->directory('resources')
-                    ->visibility('public'),
+                SpatieMediaLibraryFileUpload::make('file')
+                    ->collection('file'),
                 Toggle::make('featured'),
                 Select::make('status')
-                    ->options(ResourceStatus::class)
+                    ->options(ResourceStatus::options())
                     ->default('draft')
                     ->required(),
                 DateTimePicker::make('published_at'),

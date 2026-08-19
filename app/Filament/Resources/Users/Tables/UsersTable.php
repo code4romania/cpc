@@ -27,7 +27,7 @@ class UsersTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label(__('admin.fields.email_address'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('role')
@@ -41,7 +41,7 @@ class UsersTable
                     ->formatStateUsing(fn ($state): ?string => $state?->label())
                     ->toggleable(),
                 IconColumn::make('verified_at')
-                    ->label('Verified')
+                    ->label(__('admin.fields.verified'))
                     ->boolean()
                     ->getStateUsing(fn (User $record): bool => $record->verified_at !== null),
                 TextColumn::make('verified_at')
@@ -55,9 +55,9 @@ class UsersTable
             ])
             ->filters([
                 SelectFilter::make('role')
-                    ->options(UserRole::class),
+                    ->options(UserRole::options()),
                 TernaryFilter::make('verified')
-                    ->label('Verified')
+                    ->label(__('admin.fields.verified'))
                     ->queries(
                         true: fn (Builder $query) => $query->whereNotNull('verified_at'),
                         false: fn (Builder $query) => $query->whereNull('verified_at'),
@@ -65,7 +65,7 @@ class UsersTable
             ])
             ->recordActions([
                 Action::make('verify')
-                    ->label('Verify')
+                    ->label(__('admin.fields.verify'))
                     ->icon('heroicon-o-check-badge')
                     ->color('success')
                     ->visible(fn (User $record): bool => $record->isProfessional() && $record->verified_at === null)

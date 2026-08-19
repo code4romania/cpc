@@ -24,6 +24,7 @@ class ResourceCategory extends Model
     use HasFactory;
     use HasTranslations;
 
+    /** @return HasMany<\App\Models\Resource, $this> */
     public function resources(): HasMany
     {
         return $this->hasMany(Resource::class);

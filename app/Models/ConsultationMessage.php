@@ -26,11 +26,13 @@ class ConsultationMessage extends Model
         ];
     }
 
+    /** @return BelongsTo<Consultation, $this> */
     public function consultation(): BelongsTo
     {
         return $this->belongsTo(Consultation::class);
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

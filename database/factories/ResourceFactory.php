@@ -4,13 +4,12 @@ namespace Database\Factories;
 
 use App\Enums\ResourceStatus;
 use App\Enums\ResourceType;
-use App\Models\Resource;
 use App\Models\ResourceCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<resource>
+ * @extends Factory<\App\Models\Resource>
  */
 class ResourceFactory extends Factory
 {
@@ -36,7 +35,6 @@ class ResourceFactory extends Factory
             'author' => fake()->name(),
             'download_url' => fake()->optional()->url(),
             'video_url' => null,
-            'file_path' => null,
             'featured' => fake()->boolean(20),
             'status' => $isPublished ? ResourceStatus::Published->value : ResourceStatus::Draft->value,
             'published_at' => $isPublished ? fake()->dateTimeBetween('-2 years') : null,

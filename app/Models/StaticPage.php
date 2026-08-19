@@ -30,6 +30,10 @@ class StaticPage extends Model
         ];
     }
 
+    /**
+     * @param  Builder<StaticPage> $query
+     * @return Builder<StaticPage>
+     */
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);

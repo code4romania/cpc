@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ResourceSubmissions\Tables;
 
 use App\Actions\ApproveResourceSubmission;
+use App\Enums\ResourceType;
 use App\Enums\SubmissionStatus;
 use App\Models\ResourceSubmission;
 use App\Models\User;
@@ -25,6 +26,7 @@ class ResourceSubmissionsTable
                     ->searchable(),
                 TextColumn::make('type')
                     ->badge()
+                    ->formatStateUsing(fn (ResourceType $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('category')
                     ->searchable(),
@@ -34,23 +36,22 @@ class ResourceSubmissionsTable
                     ->searchable(),
                 TextColumn::make('submitter_organization')
                     ->searchable(),
-                TextColumn::make('file_path')
-                    ->searchable(),
                 TextColumn::make('external_url')
                     ->searchable(),
                 TextColumn::make('locale')
                     ->searchable(),
                 TextColumn::make('status')
                     ->badge()
+                    ->formatStateUsing(fn (SubmissionStatus $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('reviewedBy.name')
-                    ->label('Reviewed by')
+                    ->label(__('admin.fields.reviewed_by'))
                     ->sortable(),
                 TextColumn::make('reviewed_at')
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('resource.title_ro')
-                    ->label('Resource')
+                    ->label(__('admin.fields.resource'))
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -63,7 +64,7 @@ class ResourceSubmissionsTable
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options(SubmissionStatus::class),
+                    ->options(SubmissionStatus::options()),
             ])
             ->recordActions([
                 ViewAction::make(),

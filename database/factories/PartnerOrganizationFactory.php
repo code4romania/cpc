@@ -19,7 +19,6 @@ class PartnerOrganizationFactory extends Factory
     {
         return [
             'name' => fake()->company(),
-            'logo_path' => null,
             'description_ro' => fake()->sentence(),
             'description_en' => fake()->sentence(),
             'url' => fake()->url(),

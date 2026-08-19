@@ -23,15 +23,16 @@ class OrganizationsTable
                 TextColumn::make('city')
                     ->searchable(),
                 TextColumn::make('county.name_ro')
-                    ->label('County')
+                    ->label(__('admin.fields.county'))
                     ->searchable(),
                 TextColumn::make('organization_type')
                     ->badge()
+                    ->formatStateUsing(fn (OrganizationType $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('phone')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label(__('admin.fields.email_address'))
                     ->searchable(),
                 TextColumn::make('website')
                     ->searchable(),
@@ -56,7 +57,7 @@ class OrganizationsTable
                     ->searchable()
                     ->preload(),
                 SelectFilter::make('organization_type')
-                    ->options(OrganizationType::class),
+                    ->options(OrganizationType::options()),
                 TernaryFilter::make('is_published'),
             ])
             ->recordActions([

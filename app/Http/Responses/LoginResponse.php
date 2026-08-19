@@ -15,7 +15,7 @@ class LoginResponse implements LoginResponseContract
         }
 
         $user = $request->user();
-        $locale = $user?->locale
+        $locale = ($user !== null ? $user->locale : null)
             ?? session('locale')
             ?? config('cpc.default_locale', 'ro');
 

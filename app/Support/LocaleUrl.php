@@ -17,6 +17,9 @@ class LocaleUrl
         return config('cpc.default_locale', 'ro');
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public static function localized(string $name, array $parameters = [], ?string $locale = null): string
     {
         $locale ??= self::currentLocale();

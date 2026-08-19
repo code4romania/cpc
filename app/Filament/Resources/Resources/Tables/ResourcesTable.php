@@ -26,9 +26,10 @@ class ResourcesTable
                     ->searchable(),
                 TextColumn::make('type')
                     ->badge()
+                    ->formatStateUsing(fn (ResourceType $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('resourceCategory.name_ro')
-                    ->label('Category')
+                    ->label(__('admin.fields.category'))
                     ->searchable(),
                 TextColumn::make('author')
                     ->searchable(),
@@ -36,12 +37,11 @@ class ResourcesTable
                     ->searchable(),
                 TextColumn::make('video_url')
                     ->searchable(),
-                TextColumn::make('file_path')
-                    ->searchable(),
                 IconColumn::make('featured')
                     ->boolean(),
                 TextColumn::make('status')
                     ->badge()
+                    ->formatStateUsing(fn (ResourceStatus $state): string => $state->label())
                     ->searchable(),
                 TextColumn::make('published_at')
                     ->dateTime()
@@ -57,9 +57,9 @@ class ResourcesTable
             ])
             ->filters([
                 SelectFilter::make('type')
-                    ->options(ResourceType::class),
+                    ->options(ResourceType::options()),
                 SelectFilter::make('status')
-                    ->options(ResourceStatus::class),
+                    ->options(ResourceStatus::options()),
                 SelectFilter::make('resource_category_id')
                     ->relationship('resourceCategory', 'name_ro')
                     ->searchable()

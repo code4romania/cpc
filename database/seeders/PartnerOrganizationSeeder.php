@@ -22,7 +22,7 @@ class PartnerOrganizationSeeder extends Seeder
         foreach ($partners as $sortOrder => $partner) {
             PartnerOrganization::query()->updateOrCreate(
                 ['name' => $partner['name']],
-                [...$partner, 'logo_path' => null, 'sort_order' => $sortOrder, 'is_published' => true],
+                [...$partner, 'sort_order' => $sortOrder, 'is_published' => true],
             );
         }
     }

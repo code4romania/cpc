@@ -96,7 +96,7 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
     <x-page-header :title="__('organizations.title')" :subtitle="__('organizations.subtitle')" />
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <x-ui.alert variant="emergency" class="mb-8">{{ __('organizations.emergency') }} <strong>119</strong>.</x-ui.alert>
+        <x-ui.alert variant="emergency" class="mb-8">{{ __('organizations.emergency') }} <strong>{{ config('cpc.emergency_hotline', '112') }}</strong>.</x-ui.alert>
 
         <section class="bg-white rounded-xl border border-[color:var(--color-border)] p-6 mb-8">
             <label for="organization-search" class="block text-sm font-medium text-navy mb-2">{{ __('organizations.search_label') }}</label>

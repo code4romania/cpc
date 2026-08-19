@@ -33,16 +33,19 @@ class Consultation extends Model
         ];
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /** @return BelongsTo<User, $this> */
     public function assignedTo(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
+    /** @return HasMany<ConsultationMessage, $this> */
     public function messages(): HasMany
     {
         return $this->hasMany(ConsultationMessage::class);

@@ -8,21 +8,23 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 #[Fillable([
     'name',
-    'logo_path',
     'description_ro',
     'description_en',
     'url',
     'sort_order',
     'is_published',
 ])]
-class PartnerOrganization extends Model
+class PartnerOrganization extends Model implements HasMedia
 {
     /** @use HasFactory<PartnerOrganizationFactory> */
     use HasFactory;
     use HasTranslations;
+    use InteractsWithMedia;
 
     protected function casts(): array
     {
@@ -31,6 +33,10 @@ class PartnerOrganization extends Model
         ];
     }
 
+    /**
+     * @param  Builder<PartnerOrganization> $query
+     * @return Builder<PartnerOrganization>
+     */
     public function scopePublished(Builder $query): Builder
     {
         return $query
@@ -41,5 +47,15 @@ class PartnerOrganization extends Model
     public function getDescriptionAttribute(): ?string
     {
         return $this->getTranslated('description');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('logo')->singleFile();
+    }
+
+    public function getLogoUrlAttribute(): ?string
+    {
+        return $this->getFirstMediaUrl('logo') ?: null;
     }
 }

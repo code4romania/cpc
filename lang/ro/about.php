@@ -20,7 +20,7 @@ return [
         'cases' => ['title' => 'Studii de caz', 'body' => 'Exemple anonimizate care transformă experiența reală în învățare practică.'],
     ],
     'notice_title' => 'Notă importantă',
-    'notice_body' => 'Acest centru educațional nu înlocuiește formarea profesională, consultanța juridică sau supervizarea clinică. Pentru pericol imediat, sunați la 119.',
+    'notice_body' => 'Acest centru educațional nu înlocuiește formarea profesională, consultanța juridică sau supervizarea clinică. Pentru pericol imediat, sunați la 112.',
     'cta_title' => 'Devino partener',
     'cta_body' => 'Explorează biblioteca și pregătește-te să faci o diferență pentru copiii vulnerabili.',
     'cta_button' => 'Explorează resursele',

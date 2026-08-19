@@ -37,13 +37,13 @@ class OrganizationForm
                     ->searchable()
                     ->preload(),
                 Select::make('organization_type')
-                    ->options(OrganizationType::class)
+                    ->options(OrganizationType::options())
                     ->required(),
                 TagsInput::make('services'),
                 TextInput::make('phone')
                     ->tel(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('admin.fields.email_address'))
                     ->email(),
                 TextInput::make('website')
                     ->url(),

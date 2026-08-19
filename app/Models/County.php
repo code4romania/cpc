@@ -20,11 +20,13 @@ class County extends Model
     use HasFactory;
     use HasTranslations;
 
+    /** @return HasMany<Organization, $this> */
     public function organizations(): HasMany
     {
         return $this->hasMany(Organization::class);
     }
 
+    /** @return HasMany<IndexCountyScore, $this> */
     public function indexCountyScores(): HasMany
     {
         return $this->hasMany(IndexCountyScore::class);

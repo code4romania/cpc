@@ -28,7 +28,6 @@ class ProfessionalResourceFactory extends Factory
             'description_en' => fake()->paragraph(),
             'category' => fake()->randomElement(['Investigation', 'Case Management', 'Legal']),
             'type' => fake()->randomElement(['PDF Guide', 'Template Pack', 'Video Series']),
-            'file_path' => null,
             'file_size' => fake()->randomFloat(1, 1, 250) . ' MB',
             'is_published' => true,
             'last_updated_at' => fake()->dateTimeBetween('-1 year'),

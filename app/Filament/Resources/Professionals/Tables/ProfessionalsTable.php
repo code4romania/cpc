@@ -17,7 +17,7 @@ class ProfessionalsTable
         return $table
             ->columns([
                 TextColumn::make('title_ro')
-                    ->label('Title')
+                    ->label(__('admin.fields.title'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('category')

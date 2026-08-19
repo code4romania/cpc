@@ -2,10 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\SetUserLocale;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -39,6 +41,14 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
             ])
+            ->navigationGroups([
+                'Directory' => NavigationGroup::make()->label(fn (): string => __('admin.navigation.directory')),
+                'Content' => NavigationGroup::make()->label(fn (): string => __('admin.navigation.content')),
+                'Statistics' => NavigationGroup::make()->label(fn (): string => __('admin.navigation.statistics')),
+                'Lookups' => NavigationGroup::make()->label(fn (): string => __('admin.navigation.lookups')),
+                'Portal' => NavigationGroup::make()->label(fn (): string => __('admin.navigation.portal')),
+                'Moderation' => NavigationGroup::make()->label(fn (): string => __('admin.navigation.moderation')),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -49,6 +59,10 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                SetUserLocale::class,
+            ])
+            ->persistentMiddleware([
+                SetUserLocale::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
