@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Portal profesional',
+    'subtitle' => 'Resurse și instrumente exclusive pentru profesioniștii verificați.',
+    'welcome' => 'Bine ai revenit, :name.',
+    'resources' => 'Resurse profesionale',
+    'resources_body' => 'Accesează materiale restricționate și instrumente avansate.',
+    'consultations' => 'Consultațiile mele',
+    'consultations_body' => 'Solicită îndrumare și vezi răspunsurile experților.',
+    'profile' => 'Profilul meu',
+    'profile_body' => 'Gestionează informațiile profesionale și preferințele.',
+    'account' => 'Informațiile tale profesionale',
+    'organization' => 'Organizație',
+    'role' => 'Rol',
+    'available_resources' => 'Resurse disponibile',
+    'search' => 'Caută resurse',
+    'category' => 'Categorie',
+    'all_categories' => 'Toate categoriile',
+    'download' => 'Descarcă',
+    'no_resources' => 'Nu s-au găsit resurse profesionale.',
+    'name' => 'Nume complet',
+    'email' => 'Adresă de email',
+    'locale' => 'Limba preferată',
+    'save' => 'Salvează modificările',
+    'profile_saved' => 'Profilul a fost actualizat.',
+];

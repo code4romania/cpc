@@ -1,7 +1,7 @@
 <?php
 
-test('returns a successful response', function () {
+test('application redirects to default locale home', function () {
     $response = $this->get('/');
 
-    $response->assertOk();
+    $response->assertRedirect('/ro');
 });

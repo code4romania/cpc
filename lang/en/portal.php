@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Professional Portal',
+    'subtitle' => 'Exclusive resources and tools for verified child protection professionals.',
+    'welcome' => 'Welcome back, :name.',
+    'resources' => 'Professional Resources',
+    'resources_body' => 'Access restricted materials and advanced tools.',
+    'consultations' => 'My Consultations',
+    'consultations_body' => 'Request guidance and view expert responses.',
+    'profile' => 'My Profile',
+    'profile_body' => 'Manage your professional information and preferences.',
+    'account' => 'Your Professional Information',
+    'organization' => 'Organization',
+    'role' => 'Role',
+    'available_resources' => 'Available resources',
+    'search' => 'Search resources',
+    'category' => 'Category',
+    'all_categories' => 'All categories',
+    'download' => 'Download',
+    'no_resources' => 'No professional resources found.',
+    'name' => 'Full name',
+    'email' => 'Email address',
+    'locale' => 'Preferred language',
+    'save' => 'Save changes',
+    'profile_saved' => 'Profile updated successfully.',
+];

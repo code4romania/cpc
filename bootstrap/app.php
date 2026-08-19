@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureProfessionalVerified;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -7,12 +8,27 @@ use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->trustProxies('*');
+
+        $middleware->alias([
+            'professional.verified' => EnsureProfessionalVerified::class,
+        ]);
+
+        $middleware->redirectGuestsTo(fn () => localized_route('login'));
+        $middleware->redirectUsersTo(function () {
+            $user = auth()->user();
+
+            if ($user?->isProfessional() && $user->verified_at === null) {
+                return localized_route('auth.pending');
+            }
+
+            return localized_route('portal.index');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

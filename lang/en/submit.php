@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Submit a Resource',
+    'subtitle' => 'Share your organization’s materials with the resource library.',
+    'guidelines_title' => 'Submission guidelines',
+    'guidelines' => 'Materials are reviewed for accuracy, relevance, distribution rights, and accessibility before publication.',
+    'organization_section' => 'Contact information',
+    'contact_name' => 'Contact person',
+    'email' => 'Email address',
+    'organization' => 'Organization',
+    'source_url' => 'Resource or reference URL',
+    'resource_section' => 'Resource details',
+    'resource_title' => 'Resource title',
+    'resource_type' => 'Resource type',
+    'category' => 'Category',
+    'description' => 'Description',
+    'choose' => 'Choose an option',
+    'rights' => 'I hold the copyright or necessary publication rights.',
+    'review' => 'I agree that ANITP may review the material and request changes.',
+    'button' => 'Submit resource',
+    'success_title' => 'Submission received!',
+    'success_body' => 'Thank you. Our editorial team will review your contribution.',
+    'another' => 'Submit another resource',
+    'browse' => 'Browse resources',
+];

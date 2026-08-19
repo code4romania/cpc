@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Livewire\Blaze\Blaze;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configureBlaze();
         $this->configureDefaults();
+    }
+
+    protected function configureBlaze(): void
+    {
+        Blaze::optimize()
+            ->in(resource_path('views/components/ui'))
+            ->in(resource_path('views/components/layout'))
+            ->in(resource_path('views/components/cookie-consent.blade.php'))
+            ->in(resource_path('views/components/resource-card.blade.php'))
+            ->in(resource_path('views/components/organization-card.blade.php'))
+            ->in(resource_path('views/components/stat-card.blade.php'))
+            ->in(resource_path('views/components/embed-card.blade.php'))
+            ->in(resource_path('views/components/page-header.blade.php'));
     }
 
     /**
@@ -37,7 +52,8 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
+        Password::defaults(
+            fn (): ?Password => app()->isProduction()
             ? Password::min(12)
                 ->mixedCase()
                 ->letters()

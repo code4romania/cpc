@@ -48,3 +48,9 @@ function something()
 {
     // ..
 }
+
+use Illuminate\Support\Facades\Vite;
+
+beforeEach(function () {
+    Vite::fake();
+});

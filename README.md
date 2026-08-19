@@ -38,13 +38,71 @@ Mention all related repos and projects.
 
 ## Deployment
 
-Guide users through getting your code up and running on their own system. In this section you can talk about:
-1. Installation process
-2. Software dependencies
-3. Latest releases
-4. API references
+### Local development (Laravel Sail)
 
-Describe and show how to build your code and run the tests.
+This project uses [Laravel Sail](https://laravel.com/docs/sail), Laravel's Docker development environment.
+
+**Initial setup:**
+
+```sh
+# 1. Install composer dependencies
+docker run --rm -v ${PWD}:/app -w /app composer:latest composer install --ignore-platform-reqs --no-scripts --no-interaction --prefer-dist --optimize-autoloader
+
+# 2. Copy the environment variables file
+cp .env.example .env
+
+# 3. Start the application
+./vendor/bin/sail up -d
+
+# 4. Install npm dependencies and build frontend assets
+./vendor/bin/sail npm ci
+./vendor/bin/sail npm run build
+
+# 5. Generate the app secret key
+./vendor/bin/sail artisan key:generate
+
+# 6. Migrate and seed the database
+./vendor/bin/sail artisan migrate:fresh --seed
+```
+
+**Day-to-day:**
+
+```sh
+./vendor/bin/sail up -d
+./vendor/bin/sail npm run dev
+```
+
+The app runs at `http://localhost`. Mailpit is available at `http://localhost:8025`.
+
+If ports 80 or 5173 are already in use, set alternate values in `.env` (e.g. `APP_PORT=8888`, `VITE_PORT=5174`) before running `sail up`.
+
+### Production Docker image
+
+The production image is built from [`code4romania/php:8.4`](https://github.com/code4romania/php) using a multi-stage Dockerfile. Images are published to Docker Hub as `code4romania/cpc` on pushes to `main` and version tags.
+
+**Build locally:**
+
+```sh
+docker build -t code4romania/cpc:local \
+  --build-arg VERSION=dev \
+  --build-arg REVISION=local .
+```
+
+On Apple Silicon, the base image is `linux/amd64` only — add `--platform linux/amd64` when building locally. CI publishes the amd64 image automatically.
+
+**Run locally (smoke test):**
+
+```sh
+docker run -p 8080:8080 --env-file .env code4romania/cpc:local
+```
+
+The container listens on port **8080** and exposes a healthcheck at `/up`.
+
+### Running tests
+
+```sh
+./vendor/bin/sail artisan test --compact
+```
 
 ## Feedback
 

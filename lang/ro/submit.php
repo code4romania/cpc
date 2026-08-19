@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Trimite o resursă',
+    'subtitle' => 'Împărtășiți materialele organizației cu biblioteca de resurse.',
+    'guidelines_title' => 'Ghid de trimitere',
+    'guidelines' => 'Materialele sunt verificate înainte de publicare pentru acuratețe, relevanță, drepturi și accesibilitate.',
+    'organization_section' => 'Informații de contact',
+    'contact_name' => 'Persoana de contact',
+    'email' => 'Adresă de email',
+    'organization' => 'Organizație',
+    'source_url' => 'URL-ul resursei sau al referinței',
+    'resource_section' => 'Detalii resursă',
+    'resource_title' => 'Titlul resursei',
+    'resource_type' => 'Tipul resursei',
+    'category' => 'Categorie',
+    'description' => 'Descriere',
+    'choose' => 'Alegeți o opțiune',
+    'rights' => 'Dețin drepturile de autor sau drepturile necesare publicării.',
+    'review' => 'Sunt de acord ca ANITP să revizuiască materialul și să solicite modificări.',
+    'button' => 'Trimite resursa',
+    'success_title' => 'Trimitere primită!',
+    'success_body' => 'Vă mulțumim. Echipa editorială va analiza contribuția.',
+    'another' => 'Trimite altă resursă',
+    'browse' => 'Explorează resursele',
+];
