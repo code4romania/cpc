@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ResourceCategories;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\ResourceCategories\Pages\CreateResourceCategory;
 use App\Filament\Resources\ResourceCategories\Pages\EditResourceCategory;
 use App\Filament\Resources\ResourceCategories\Pages\ListResourceCategories;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class ResourceCategoryResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = ResourceCategory::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -47,5 +50,10 @@ class ResourceCategoryResource extends Resource
             'create' => CreateResourceCategory::route('/create'),
             'edit' => EditResourceCategory::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'resource_categories';
     }
 }

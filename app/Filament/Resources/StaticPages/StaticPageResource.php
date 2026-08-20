@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\StaticPages;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\StaticPages\Pages\CreateStaticPage;
 use App\Filament\Resources\StaticPages\Pages\EditStaticPage;
 use App\Filament\Resources\StaticPages\Pages\ListStaticPages;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class StaticPageResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = StaticPage::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -47,5 +50,10 @@ class StaticPageResource extends Resource
             'create' => CreateStaticPage::route('/create'),
             'edit' => EditStaticPage::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'static_pages';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\StatisticDatasets;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\StatisticDatasets\Pages\CreateStatisticDataset;
 use App\Filament\Resources\StatisticDatasets\Pages\EditStatisticDataset;
 use App\Filament\Resources\StatisticDatasets\Pages\ListStatisticDatasets;
@@ -18,6 +19,8 @@ use UnitEnum;
 
 class StatisticDatasetResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = StatisticDataset::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -48,5 +51,10 @@ class StatisticDatasetResource extends Resource
             'create' => CreateStatisticDataset::route('/create'),
             'edit' => EditStatisticDataset::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'statistic_datasets';
     }
 }

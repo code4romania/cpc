@@ -14,10 +14,16 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class MessagesRelationManager extends RelationManager
 {
     protected static string $relationship = 'messages';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('admin.relations.messages');
+    }
 
     public function form(Schema $schema): Schema
     {

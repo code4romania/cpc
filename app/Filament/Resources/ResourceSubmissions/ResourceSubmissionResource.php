@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ResourceSubmissions;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\ResourceSubmissions\Pages\ListResourceSubmissions;
 use App\Filament\Resources\ResourceSubmissions\Schemas\ResourceSubmissionForm;
 use App\Filament\Resources\ResourceSubmissions\Tables\ResourceSubmissionsTable;
@@ -15,6 +16,8 @@ use UnitEnum;
 
 class ResourceSubmissionResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = ResourceSubmission::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -43,5 +46,10 @@ class ResourceSubmissionResource extends Resource
         return [
             'index' => ListResourceSubmissions::route('/'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'resource_submissions';
     }
 }

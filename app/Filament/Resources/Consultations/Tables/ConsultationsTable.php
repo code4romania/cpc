@@ -73,7 +73,7 @@ class ConsultationsTable
                         ]);
 
                         Notification::make()
-                            ->title('Consultation assigned')
+                            ->title(__('admin.notifications.consultation_assigned'))
                             ->success()
                             ->send();
                     }),

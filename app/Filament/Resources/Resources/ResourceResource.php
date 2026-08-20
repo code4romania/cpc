@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Resources;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\Resources\Pages\CreateResource;
 use App\Filament\Resources\Resources\Pages\EditResource;
 use App\Filament\Resources\Resources\Pages\ListResources;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class ResourceResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = ResourceModel::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -47,5 +50,10 @@ class ResourceResource extends Resource
             'create' => CreateResource::route('/create'),
             'edit' => EditResource::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'resources';
     }
 }

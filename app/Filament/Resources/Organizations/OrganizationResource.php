@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Organizations;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\Organizations\Pages\CreateOrganization;
 use App\Filament\Resources\Organizations\Pages\EditOrganization;
 use App\Filament\Resources\Organizations\Pages\ListOrganizations;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class OrganizationResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = Organization::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -47,5 +50,10 @@ class OrganizationResource extends Resource
             'create' => CreateOrganization::route('/create'),
             'edit' => EditOrganization::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'organizations';
     }
 }

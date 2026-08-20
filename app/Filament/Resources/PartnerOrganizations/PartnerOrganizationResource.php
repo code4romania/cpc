@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PartnerOrganizations;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\PartnerOrganizations\Pages\CreatePartnerOrganization;
 use App\Filament\Resources\PartnerOrganizations\Pages\EditPartnerOrganization;
 use App\Filament\Resources\PartnerOrganizations\Pages\ListPartnerOrganizations;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class PartnerOrganizationResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = PartnerOrganization::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -47,5 +50,10 @@ class PartnerOrganizationResource extends Resource
             'create' => CreatePartnerOrganization::route('/create'),
             'edit' => EditPartnerOrganization::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'partner_organizations';
     }
 }

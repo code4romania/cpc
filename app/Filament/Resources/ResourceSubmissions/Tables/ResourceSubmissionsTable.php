@@ -79,7 +79,7 @@ class ResourceSubmissionsTable
                         $approve($record, $reviewer);
 
                         Notification::make()
-                            ->title('Submission approved')
+                            ->title(__('admin.notifications.submission_approved'))
                             ->success()
                             ->send();
                     }),
@@ -103,7 +103,7 @@ class ResourceSubmissionsTable
                         ]);
 
                         Notification::make()
-                            ->title('Submission rejected')
+                            ->title(__('admin.notifications.submission_rejected'))
                             ->success()
                             ->send();
                     }),

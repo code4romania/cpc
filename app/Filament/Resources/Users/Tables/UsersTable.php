@@ -74,7 +74,7 @@ class UsersTable
                         app(VerifyProfessional::class)($record);
 
                         Notification::make()
-                            ->title('Professional verified')
+                            ->title(__('admin.notifications.professional_verified'))
                             ->success()
                             ->send();
                     }),

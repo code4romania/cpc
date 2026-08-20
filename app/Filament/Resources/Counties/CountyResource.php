@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Counties;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\Counties\Pages\CreateCounty;
 use App\Filament\Resources\Counties\Pages\EditCounty;
 use App\Filament\Resources\Counties\Pages\ListCounties;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class CountyResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = County::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -47,5 +50,10 @@ class CountyResource extends Resource
             'create' => CreateCounty::route('/create'),
             'edit' => EditCounty::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'counties';
     }
 }

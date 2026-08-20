@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Consultations;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\Consultations\Pages\CreateConsultation;
 use App\Filament\Resources\Consultations\Pages\EditConsultation;
 use App\Filament\Resources\Consultations\Pages\ListConsultations;
@@ -18,6 +19,8 @@ use UnitEnum;
 
 class ConsultationResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = Consultation::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -48,5 +51,10 @@ class ConsultationResource extends Resource
             'create' => CreateConsultation::route('/create'),
             'edit' => EditConsultation::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'consultations';
     }
 }

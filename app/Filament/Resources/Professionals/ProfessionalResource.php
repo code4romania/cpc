@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Professionals;
 
+use App\Filament\Concerns\HasTranslatedLabels;
 use App\Filament\Resources\Professionals\Pages\CreateProfessional;
 use App\Filament\Resources\Professionals\Pages\EditProfessional;
 use App\Filament\Resources\Professionals\Pages\ListProfessionals;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class ProfessionalResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = ProfessionalResourceModel::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -47,5 +50,10 @@ class ProfessionalResource extends Resource
             'create' => CreateProfessional::route('/create'),
             'edit' => EditProfessional::route('/{record}/edit'),
         ];
+    }
+
+    protected static function translationKey(): string
+    {
+        return 'professional_resources';
     }
 }

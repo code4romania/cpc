@@ -17,7 +17,12 @@ test('admin panel uses romanian labels for romanian admin', function () {
     $this->actingAs($admin)
         ->get('/admin')
         ->assertOk()
-        ->assertSee(__('admin.stats.published_resources', locale: 'ro'));
+        ->assertSee(__('admin.stats.published_resources', locale: 'ro'))
+        ->assertSee(__('admin.resources.users.navigation', locale: 'ro'))
+        ->assertSee(__('admin.resources.organizations.navigation', locale: 'ro'))
+        ->assertSee(__('admin.resources.partner_organizations.navigation', locale: 'ro'))
+        ->assertSee(__('admin.resources.resources.navigation', locale: 'ro'))
+        ->assertSee(__('admin.resources.consultations.navigation', locale: 'ro'));
 
     Livewire::test(ListOrganizations::class)
         ->assertSee(OrganizationType::Ngo->label());
