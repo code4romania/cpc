@@ -113,10 +113,10 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
                 <p class="text-lg text-muted max-w-3xl mx-auto">{{ __('home.stats_subtitle') }}</p>
             </div>
             <div class="grid md:grid-cols-4 gap-6 mb-8">
-                <x-stat-card :label="__('home.stat_cases')" :value="number_format($statCases)" tone="primary" />
-                <x-stat-card :label="__('home.stat_victims')" :value="number_format($statVictims)" tone="accent" />
-                <x-stat-card :label="__('home.stat_conviction')" :value="$statConviction" suffix="%" tone="muted" />
-                <x-stat-card :label="__('home.stat_recovered')" :value="$statRecovered" suffix="%" tone="navy" />
+                <x-stat-card :label="__('home.stat_cases')" :value="$statCases" tone="primary" animate />
+                <x-stat-card :label="__('home.stat_victims')" :value="$statVictims" tone="accent" animate />
+                <x-stat-card :label="__('home.stat_conviction')" :value="$statConviction" suffix="%" tone="muted" animate />
+                <x-stat-card :label="__('home.stat_recovered')" :value="$statRecovered" suffix="%" tone="navy" animate />
             </div>
             <div class="text-center">
                 <x-ui.button href="{{ localized_route('statistics.index') }}" variant="primary">
