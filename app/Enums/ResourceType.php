@@ -8,12 +8,11 @@ enum ResourceType: string
     case Document = 'document';
     case Video = 'video';
     case Printable = 'printable';
-    case Template = 'template';
-    case Material = 'material';
+    case Online = 'online';
 
     public function label(): string
     {
-        return __('enums.resource_type.' . $this->value);
+        return __('enums.resource_type.'.$this->value);
     }
 
     /**

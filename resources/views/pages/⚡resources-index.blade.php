@@ -43,7 +43,7 @@ new #[Layout('layouts.app')] #[Title('Resources')] class extends Component
     /** @return array<int, string> */
     public function typeOptions(): array
     {
-        return collect(ResourceType::cases())->map(fn (ResourceType $type): string => $type->value)->all();
+        return collect(ResourceType::cases())->map(fn (ResourceType $type): string => $type->label())->all();
     }
 
     /** @return array<int, string> */
@@ -71,7 +71,14 @@ new #[Layout('layouts.app')] #[Title('Resources')] class extends Component
                 'resourceCategory',
                 fn ($query) => $query->whereIn('name_'.$locale, $this->categories),
             ))
-            ->when($this->types, fn ($query) => $query->whereIn('type', $this->types))
+            ->when($this->types, function ($query): void {
+                $values = collect(ResourceType::cases())
+                    ->filter(fn (ResourceType $type): bool => in_array($type->label(), $this->types, true))
+                    ->map(fn (ResourceType $type): string => $type->value)
+                    ->all();
+
+                $query->whereIn('type', $values);
+            })
             ->when($this->authors, fn ($query) => $query->whereIn('author', $this->authors))
             ->latest('published_at')
             ->paginate(12);
