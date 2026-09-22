@@ -28,20 +28,7 @@ new #[Layout('layouts.app')] #[Title('Statistics')] class extends Component
         </header>
 
         <x-ui.card class="p-8">
-            @php($maximum = max(1, (float) $dataset->dataPoints->max('value')))
-            <div class="space-y-5">
-                @foreach ($dataset->dataPoints as $point)
-                    <div wire:key="point-{{ $point->id }}">
-                        <div class="flex justify-between gap-4 text-sm mb-2">
-                            <span class="font-medium text-navy">{{ $point->label }}</span>
-                            <span class="font-bold text-primary">{{ number_format($point->value, 2) }}</span>
-                        </div>
-                        <div class="h-4 bg-surface-muted rounded-full overflow-hidden">
-                            <div class="h-full bg-primary rounded-full" style="width: {{ min(100, ($point->value / $maximum) * 100) }}%"></div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+            <x-statistic-chart :dataset="$dataset" />
         </x-ui.card>
 
         @if ($dataset->narrative)

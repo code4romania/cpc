@@ -9,7 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('seed application data migration populates production content', function () {
-    expect(County::query()->count())->toBe(42)
+    expect(County::query()->count())->toBe(44)
+        ->and(County::query()->whereIn('code', ['NA', 'DS'])->count())->toBe(2)
         ->and(Resource::query()->count())->toBeGreaterThan(0)
         ->and(StaticPage::query()->where('slug', 'terms')->exists())->toBeTrue()
         ->and(User::query()->where('email', 'admin@cpc.test')->exists())->toBeTrue();
