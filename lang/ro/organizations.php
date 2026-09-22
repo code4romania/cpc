@@ -5,7 +5,7 @@ return [
     'subtitle' => 'Descoperă organizații și instituții care oferă servicii de sprijin victimelor traficului.',
     'emergency' => 'Dacă un copil este în pericol iminent, contactați autoritățile sau sunați la',
     'search_label' => 'Caută organizații',
-    'search_placeholder' => 'Caută după nume, descriere sau oraș...',
+    'search_placeholder' => 'Caută după nume, descriere, servicii sau județ',
     'county' => 'Județ',
     'service' => 'Serviciu',
     'type' => 'Tip de organizație',

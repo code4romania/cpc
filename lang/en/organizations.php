@@ -5,7 +5,7 @@ return [
     'subtitle' => 'Discover organizations and institutions offering support services for trafficking victims.',
     'emergency' => 'If a child is in imminent danger, contact law enforcement or call',
     'search_label' => 'Search organizations',
-    'search_placeholder' => 'Search by name, description, or city...',
+    'search_placeholder' => 'Search by name, description, services, or county',
     'county' => 'County',
     'service' => 'Service',
     'type' => 'Organization type',

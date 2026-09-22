@@ -63,11 +63,20 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
         return Organization::published()
             ->with('county')
             ->when($this->search, function ($query): void {
-                $query->where(function ($query): void {
-                    $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('description_ro', 'like', '%'.$this->search.'%')
-                        ->orWhere('description_en', 'like', '%'.$this->search.'%')
-                        ->orWhere('city', 'like', '%'.$this->search.'%');
+                $term = '%'.$this->search.'%';
+                $jsonTerm = '%'.trim(json_encode($this->search), '"').'%';
+
+                $query->where(function ($query) use ($term, $jsonTerm): void {
+                    $query->where('name', 'like', $term)
+                        ->orWhere('description_ro', 'like', $term)
+                        ->orWhere('description_en', 'like', $term)
+                        ->orWhere('city', 'like', $term)
+                        ->orWhere('services', 'like', $term)
+                        ->orWhere('services', 'like', $jsonTerm)
+                        ->orWhereHas('county', function ($query) use ($term): void {
+                            $query->where('name_ro', 'like', $term)
+                                ->orWhere('name_en', 'like', $term);
+                        });
                 });
             })
             ->when($this->counties, function ($query): void {
