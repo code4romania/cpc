@@ -6,6 +6,7 @@
     'type' => 'document',
     'tags' => [],
     'featured' => false,
+    'languages' => [],
 ])
 
 @php
@@ -34,7 +35,14 @@
                     <x-ui.badge variant="featured">{{ __('card.featured') }}</x-ui.badge>
                 @endif
             </div>
-            <p class="text-sm text-muted mb-3 line-clamp-3">{{ $description }}</p>
+            <p class="text-sm text-muted mb-3 line-clamp-6">{{ $description }}</p>
+            @if (count($languages) > 0)
+                <div class="flex flex-wrap gap-2 mb-3">
+                    @foreach ($languages as $language)
+                        <x-ui.badge wire:key="language-{{ $language }}">{{ $language }}</x-ui.badge>
+                    @endforeach
+                </div>
+            @endif
             @if (count($tags) > 0)
                 <div class="flex flex-wrap gap-2 mb-3">
                     @foreach (array_slice($tags, 0, 3) as $tag)
