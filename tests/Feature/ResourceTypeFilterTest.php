@@ -15,6 +15,32 @@ test('resource type filter lists the public categories', function () {
         ->assertSee('Materiale Online/Social-media', false);
 });
 
+test('resource cards use a different icon for each type', function () {
+    Resource::factory()->create([
+        'title_en' => 'Icon video resource',
+        'type' => ResourceType::Video,
+        'status' => ResourceStatus::Published,
+        'published_at' => now(),
+    ]);
+
+    Resource::factory()->create([
+        'title_en' => 'Icon online resource',
+        'type' => ResourceType::Online,
+        'status' => ResourceStatus::Published,
+        'published_at' => now(),
+    ]);
+
+    Livewire::test('pages::resources-index')
+        ->set('search', 'Icon video resource')
+        ->assertSee('data-resource-icon="video"', false)
+        ->assertSee('bg-tint-purple text-accent', false);
+
+    Livewire::test('pages::resources-index')
+        ->set('search', 'Icon online resource')
+        ->assertSee('data-resource-icon="online"', false)
+        ->assertSee('M21 12a9 9 0 01-9 9', false);
+});
+
 test('resource type filter matches the selected label', function () {
     $video = Resource::factory()->create([
         'title_en' => 'Video type filter',
