@@ -19,7 +19,7 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
     /** @return Collection<int, Resource> */
     public function featuredResources(): Collection
     {
-        return Resource::featured()->published()->latest('published_at')->limit(3)->get();
+        return Resource::featured()->published()->latest('published_at')->limit(6)->get();
     }
 };
 ?>
@@ -98,6 +98,7 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
                         :type="$resource->type->value"
                         :tags="$resource->tags ?? []"
                         :featured="$resource->featured"
+                        :languages="$resource->languageLabels()"
                         :url="localized_route('resources.show', ['slug' => $resource->slug])"
                     />
                 @endforeach

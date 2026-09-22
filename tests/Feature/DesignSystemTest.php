@@ -16,9 +16,10 @@ test('design system components render', function () {
 test('resource card renders translated strings', function () {
     app()->setLocale('ro');
 
-    $html = Blade::render('<x-resource-card title="Test" description="Desc" author="ANITP" url="/ro/resources" :featured="true" :tags="[\'tag1\']" />');
+    $html = Blade::render('<x-resource-card title="Test" description="Desc" author="ANITP" url="/ro/resources" :featured="true" :tags="[\'tag1\']" :languages="[\'RO\', \'EN\']" />');
     expect($html)->toContain(__('card.featured', [], 'ro'));
     expect($html)->toContain(__('card.read_more', [], 'ro'));
+    expect($html)->toContain('RO')->toContain('EN')->toContain('line-clamp-6');
 });
 
 test('home page shows featured resources section', function () {
