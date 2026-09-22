@@ -61,16 +61,44 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
             <h2 class="text-3xl font-bold text-navy mb-12 text-center">{{ __('home.features_title') }}</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach ([
-                    ['bg' => 'bg-tint-blue', 'color' => 'text-primary', 'title' => 'home.feat_edu_title', 'desc' => 'home.feat_edu_desc'],
-                    ['bg' => 'bg-tint-purple', 'color' => 'text-accent', 'title' => 'home.feat_tools_title', 'desc' => 'home.feat_tools_desc'],
-                    ['bg' => 'bg-surface-muted', 'color' => 'text-muted', 'title' => 'home.feat_org_title', 'desc' => 'home.feat_org_desc'],
-                    ['bg' => 'bg-tint-blue/50', 'color' => 'text-navy', 'title' => 'home.feat_stats_title', 'desc' => 'home.feat_stats_desc'],
+                    ['icon' => 'book', 'bg' => 'bg-tint-blue', 'color' => 'text-primary', 'title' => 'home.feat_edu_title', 'desc' => 'home.feat_edu_desc'],
+                    ['icon' => 'download', 'bg' => 'bg-tint-purple', 'color' => 'text-accent', 'title' => 'home.feat_tools_title', 'desc' => 'home.feat_tools_desc'],
+                    ['icon' => 'building', 'bg' => 'bg-tint-directory', 'color' => 'text-muted', 'title' => 'home.feat_org_title', 'desc' => 'home.feat_org_desc'],
+                    ['icon' => 'chart', 'bg' => 'bg-tint-stats', 'color' => 'text-navy', 'title' => 'home.feat_stats_title', 'desc' => 'home.feat_stats_desc'],
                 ] as $card)
-                    <div class="group text-center border border-[color:var(--color-border)] rounded-xl p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:border-accent">
-                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-110 {{ $card['bg'] }} {{ $card['color'] }}">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    <div data-feature-icon="{{ $card['icon'] }}" class="group cursor-default text-center border border-[color:var(--color-border)] rounded-xl p-6 transition-all duration-300 hover:scale-[1.06] hover:shadow-2xl hover:border-accent hover:bg-background">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg {{ $card['bg'] }} {{ $card['color'] }}">
+                            @if ($card['icon'] === 'book')
+                                <svg class="icon-book h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
+                                </svg>
+                            @elseif ($card['icon'] === 'download')
+                                <svg class="icon-arrow h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="7 10 12 15 17 10"/>
+                                    <line stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="15" y2="3"/>
+                                </svg>
+                            @elseif ($card['icon'] === 'building')
+                                <svg class="icon-building h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h4"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 10h4"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14h4"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18h4"/>
+                                </svg>
+                            @else
+                                <svg class="h-8 w-8" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                                    <rect class="bar-1" x="1" y="14" width="6" height="16" rx="1"/>
+                                    <rect class="bar-2" x="9" y="8" width="6" height="22" rx="1"/>
+                                    <rect class="bar-3" x="17" y="11" width="6" height="19" rx="1"/>
+                                    <rect class="bar-4" x="25" y="4" width="6" height="26" rx="1"/>
+                                </svg>
+                            @endif
                         </div>
-                        <h3 class="text-xl font-semibold text-navy mb-2 group-hover:text-accent transition-colors">{{ __($card['title']) }}</h3>
+                        <h3 class="text-xl font-semibold text-navy mb-2 transition-colors duration-300 group-hover:text-accent">{{ __($card['title']) }}</h3>
                         <p class="text-muted">{{ __($card['desc']) }}</p>
                     </div>
                 @endforeach

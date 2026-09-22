@@ -27,10 +27,19 @@ test('homepage statistics count up when scrolled into view', function () {
         ->assertSee('IntersectionObserver', false);
 });
 
-test('homepage feature icons move on hover', function () {
+test('homepage feature icons match the public design animation', function () {
     $this->get('/ro')
         ->assertOk()
-        ->assertSee('group-hover:-translate-y-1 group-hover:scale-110', false);
+        ->assertSee('data-feature-icon="book"', false)
+        ->assertSee('data-feature-icon="download"', false)
+        ->assertSee('data-feature-icon="building"', false)
+        ->assertSee('data-feature-icon="chart"', false)
+        ->assertSee('icon-book', false)
+        ->assertSee('icon-arrow', false)
+        ->assertSee('icon-building', false)
+        ->assertSee('bar-1', false)
+        ->assertSee('hover:scale-[1.06]', false)
+        ->assertSee('group-hover:scale-110 group-hover:shadow-lg', false);
 });
 
 test('homepage shows at most six featured resources', function () {
