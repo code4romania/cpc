@@ -2,12 +2,13 @@
     'label' => null,
     'error' => null,
     'hint' => null,
+    'requiredMark' => false,
 ])
 
 <div class="space-y-1">
     @if ($label)
         <label @if($attributes->has('id')) for="{{ $attributes->get('id') }}" @endif class="block text-sm font-medium text-navy">
-            {{ $label }}
+            {{ $label }}@if ($requiredMark)<span class="text-destructive"> *</span>@endif
         </label>
     @endif
 
