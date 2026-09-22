@@ -12,5 +12,8 @@ test('contact page lists partner organizations and code for romania', function (
 
     $this->get('/ro')
         ->assertSuccessful()
-        ->assertSee(__('contact.nav', [], 'ro'), false);
+        ->assertSee(__('contact.nav', [], 'ro'), false)
+        ->assertSee('images/partners/eliberare.svg', false)
+        ->assertSee('https://www.eliberare.com', false)
+        ->assertSee(localized_route('contact'), false);
 });
