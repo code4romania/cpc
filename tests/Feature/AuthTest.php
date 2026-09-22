@@ -4,6 +4,16 @@ use App\Enums\ProfessionalRole;
 use App\Enums\UserRole;
 use App\Models\User;
 
+test('public navigation hides professional login and the role is not offered to admins', function () {
+    $this->get('/ro')
+        ->assertOk()
+        ->assertDontSee(localized_route('login'), false)
+        ->assertDontSee(__('auth.login_nav', [], 'ro'), false);
+
+    expect(UserRole::options())->not->toHaveKey(UserRole::Professional->value)
+        ->and(UserRole::options())->toHaveKey(UserRole::Admin->value);
+});
+
 test('login page renders in romanian', function () {
     $this->get('/ro/login')
         ->assertOk()

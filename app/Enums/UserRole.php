@@ -10,7 +10,7 @@ enum UserRole: string
 
     public function label(): string
     {
-        return __('enums.user_role.' . $this->value);
+        return __('enums.user_role.'.$this->value);
     }
 
     /**
@@ -19,6 +19,7 @@ enum UserRole: string
     public static function options(): array
     {
         return collect(self::cases())
+            ->reject(fn (self $role): bool => $role === self::Professional)
             ->mapWithKeys(fn (self $role): array => [$role->value => $role->label()])
             ->all();
     }
