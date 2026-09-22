@@ -55,7 +55,7 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
     /** @return array<int, string> */
     public function typeOptions(): array
     {
-        return collect(OrganizationType::cases())->map(fn (OrganizationType $type): string => $type->value)->all();
+        return collect(OrganizationType::cases())->map(fn (OrganizationType $type): string => $type->label())->all();
     }
 
     public function organizations(): LengthAwarePaginator
@@ -85,7 +85,14 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
                     }
                 });
             })
-            ->when($this->types, fn ($query) => $query->whereIn('organization_type', $this->types))
+            ->when($this->types, function ($query): void {
+                $values = collect(OrganizationType::cases())
+                    ->filter(fn (OrganizationType $type): bool => in_array($type->label(), $this->types, true))
+                    ->map(fn (OrganizationType $type): string => $type->value)
+                    ->all();
+
+                $query->whereIn('organization_type', $values);
+            })
             ->orderBy('name')
             ->paginate(10);
     }

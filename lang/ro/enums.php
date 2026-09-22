@@ -22,8 +22,10 @@ return [
     ],
     'resource_status' => ['draft' => 'Schiță', 'published' => 'Publicat'],
     'organization_type' => [
-        'ngo' => 'ONG', 'public_institution' => 'Instituție publică',
-        'international' => 'Organizație internațională', 'other' => 'Altul',
+        'public_institution' => 'Instituții publice',
+        'ngo' => 'Organizații nonguvernamentale',
+        'company' => 'Companii/Societăți',
+        'support_group' => 'Grupuri de sprijin',
     ],
     'submission_status' => ['pending' => 'În așteptare', 'approved' => 'Aprobat', 'rejected' => 'Respins'],
     'consultation_status' => ['open' => 'Deschisă', 'in_progress' => 'În lucru', 'closed' => 'Închisă'],

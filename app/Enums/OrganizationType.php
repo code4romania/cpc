@@ -4,14 +4,14 @@ namespace App\Enums;
 
 enum OrganizationType: string
 {
-    case Ngo = 'ngo';
     case PublicInstitution = 'public_institution';
-    case International = 'international';
-    case Other = 'other';
+    case Ngo = 'ngo';
+    case Company = 'company';
+    case SupportGroup = 'support_group';
 
     public function label(): string
     {
-        return __('enums.organization_type.' . $this->value);
+        return __('enums.organization_type.'.$this->value);
     }
 
     /**
