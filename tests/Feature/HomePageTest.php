@@ -13,3 +13,9 @@ test('home page renders in english', function () {
     $response->assertOk();
     $response->assertSee(__('home.hero_title', [], 'en'), false);
 });
+
+test('homepage feature icons move on hover', function () {
+    $this->get('/ro')
+        ->assertOk()
+        ->assertSee('group-hover:-translate-y-1 group-hover:scale-110', false);
+});
