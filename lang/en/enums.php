@@ -17,8 +17,11 @@ return [
         'other' => 'Other Child Protection Professional',
     ],
     'resource_type' => [
-        'guide' => 'Guide', 'document' => 'Document', 'video' => 'Video',
-        'printable' => 'Printable', 'template' => 'Template', 'material' => 'Material',
+        'guide' => 'Guides and presentations',
+        'document' => 'Documents',
+        'video' => 'Videos',
+        'printable' => 'Printables',
+        'online' => 'Online / social media',
     ],
     'resource_status' => ['draft' => 'Draft', 'published' => 'Published'],
     'organization_type' => [

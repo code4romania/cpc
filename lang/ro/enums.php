@@ -17,8 +17,11 @@ return [
         'other' => 'Alt profesionist în protecția copilului',
     ],
     'resource_type' => [
-        'guide' => 'Ghid', 'document' => 'Document', 'video' => 'Video',
-        'printable' => 'Material printabil', 'template' => 'Șablon', 'material' => 'Material',
+        'guide' => 'Ghiduri și prezentări',
+        'document' => 'Documente',
+        'video' => 'Materiale video',
+        'printable' => 'Printabile',
+        'online' => 'Materiale Online/Social-media',
     ],
     'resource_status' => ['draft' => 'Schiță', 'published' => 'Publicat'],
     'organization_type' => [
