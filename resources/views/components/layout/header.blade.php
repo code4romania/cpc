@@ -63,15 +63,6 @@
                             {{ __('auth.logout') }}
                         </button>
                     </form>
-                @else
-                    <a href="{{ localized_route('login') }}"
-                       @class([
-                           'px-3 py-2 rounded-lg font-medium transition-colors',
-                           'text-white bg-primary/60' => request()->routeIs('login'),
-                           'text-muted hover:text-white hover:bg-primary/40' => ! request()->routeIs('login'),
-                       ])>
-                        {{ __('auth.login_nav') }}
-                    </a>
                 @endauth
 
                 <livewire:language-switcher />
@@ -116,10 +107,6 @@
                         {{ __('auth.logout') }}
                     </button>
                 </form>
-            @else
-                <a href="{{ localized_route('login') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-muted hover:bg-primary/40 hover:text-white" @click="mobileOpen = false">
-                    {{ __('auth.login_nav') }}
-                </a>
             @endauth
 
             <div class="mt-4 pt-4 border-t border-primary px-4">
