@@ -21,13 +21,6 @@ class StaticPageSeeder extends Seeder
                 'body_en' => 'The platform is intended for child-protection professionals. Resources must be used lawfully, confidentially, and solely for professional purposes. Materials may not be redistributed or commercialized without permission. Content is informational and does not replace professional judgment, legal advice, or institutional protocols.',
             ],
             [
-                'slug' => 'cookie-policy',
-                'title_ro' => 'Politica privind cookie-urile',
-                'title_en' => 'Cookie Policy',
-                'body_ro' => 'Folosim cookie-uri strict necesare pentru autentificare, securitate și gestionarea sesiunii, precum și cookie-uri funcționale și analitice opționale. Preferințele pot fi gestionate din browser. Nu vindem date și nu urmărim informații despre victime sau copii aflați în situații de risc.',
-                'body_en' => 'We use strictly necessary cookies for authentication, security, and session management, plus optional functional and analytics cookies. Preferences can be managed in your browser. We do not sell data or track information about victims or children at risk.',
-            ],
-            [
                 'slug' => 'privacy',
                 'title_ro' => 'Politica de confidențialitate',
                 'title_en' => 'Privacy Policy',
