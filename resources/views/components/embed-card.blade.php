@@ -1,19 +1,29 @@
 @props([
-    'title',
+    'title' => null,
     'embedCode',
+    'floating' => false,
 ])
 
 <div {{ $attributes->merge(['class' => 'relative']) }} x-data="{ showEmbed: false, copied: false }">
-    <x-ui.card>
-        <div class="flex items-start justify-between mb-4">
-            <h3 class="text-lg font-semibold text-navy">{{ $title }}</h3>
+    <x-ui.card class="h-full">
+        @unless ($floating)
+            <div class="flex items-start justify-between gap-3 mb-4">
+                <h3 class="text-lg font-semibold text-navy">{{ $title }}</h3>
+                <button type="button"
+                        @click="showEmbed = !showEmbed"
+                        class="flex shrink-0 items-center gap-2 rounded-full bg-tint-purple px-3 py-1.5 text-sm font-medium text-accent transition-colors hover:opacity-90">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    {{ __('embed.button') }}
+                </button>
+            </div>
+        @else
             <button type="button"
                     @click="showEmbed = !showEmbed"
-                    class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-accent bg-tint-purple rounded-lg hover:opacity-90 transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    class="absolute top-4 right-4 z-10 flex shrink-0 items-center gap-2 rounded-full bg-tint-purple px-3 py-1.5 text-sm font-medium text-accent transition-colors hover:opacity-90">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                 {{ __('embed.button') }}
             </button>
-        </div>
+        @endunless
 
         <div :class="showEmbed ? 'opacity-30' : ''">
             {{ $slot }}
