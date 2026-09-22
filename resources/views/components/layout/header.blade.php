@@ -7,6 +7,7 @@
         ['route' => 'organizations.index', 'label' => __('nav.organizations')],
         ['route' => 'submit.index', 'label' => __('nav.submit')],
         ['route' => 'about', 'label' => __('nav.about')],
+        ['route' => 'contact', 'label' => __('contact.nav')],
     ];
 @endphp
 
