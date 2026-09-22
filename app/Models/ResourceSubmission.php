@@ -18,6 +18,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'submitter_name',
     'submitter_email',
     'submitter_organization',
+    'organization_website',
+    'counties',
+    'phone',
+    'language',
+    'created_on',
+    'target_audience',
+    'tags',
+    'author_credentials',
+    'notes',
+    'file_paths',
     'external_url',
     'locale',
     'status',
@@ -36,6 +46,10 @@ class ResourceSubmission extends Model
         return [
             'type' => ResourceType::class,
             'status' => SubmissionStatus::class,
+            'counties' => 'array',
+            'tags' => 'array',
+            'file_paths' => 'array',
+            'created_on' => 'date',
             'reviewed_at' => 'datetime',
         ];
     }
