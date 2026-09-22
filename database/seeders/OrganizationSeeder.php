@@ -36,8 +36,8 @@ class OrganizationSeeder extends Seeder
         $organizationTypes = [
             'Organizații neguvernamentale' => OrganizationType::Ngo,
             'Instituții publice' => OrganizationType::PublicInstitution,
-            'Companii/Societăți' => OrganizationType::Other,
-            'Grupuri de sprijin' => OrganizationType::Other,
+            'Companii/Societăți' => OrganizationType::Company,
+            'Grupuri de sprijin' => OrganizationType::SupportGroup,
         ];
         $countyCodes = ['București' => 'B', 'Cluj' => 'CJ', 'Iași' => 'IS', 'Timișoara' => 'TM', 'Brașov' => 'BV', 'Constanța' => 'CT', 'Galați' => 'GL', 'Sibiu' => 'SB', 'Oradea' => 'BH'];
         $counties = County::query()->pluck('id', 'code');
