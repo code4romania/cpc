@@ -86,7 +86,7 @@ class extends Component
     <p class="mt-6 text-center text-xs text-muted">
         {!! __('auth.security_notice', [
             'terms' => '<a href="'.e(localized_route('terms')).'" class="text-primary hover:text-navy">'.e(__('auth.terms_link')).'</a>',
-            'cookies' => '<a href="'.e(localized_route('cookie-policy')).'" class="text-primary hover:text-navy">'.e(__('auth.cookie_policy')).'</a>',
+            'cookies' => '<a href="'.e(localized_route('privacy')).'" class="text-primary hover:text-navy">'.e(__('footer.privacy')).'</a>',
         ]) !!}
     </p>
 </div>

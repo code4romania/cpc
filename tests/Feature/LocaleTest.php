@@ -31,7 +31,7 @@ test('all public routes respond for both locales', function (string $path) {
     '/about',
     '/partner-organizations',
     '/terms',
-    '/cookie-policy',
+    '/contact',
     '/privacy',
     '/accessibility',
 ]);

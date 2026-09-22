@@ -12,5 +12,9 @@ test('contact page lists partner organizations and code for romania', function (
 
     $this->get('/ro')
         ->assertSuccessful()
-        ->assertSee(__('contact.nav', [], 'ro'), false);
+        ->assertSee(__('contact.nav', [], 'ro'), false)
+        ->assertSee(localized_route('contact'), false)
+        ->assertDontSee('/cookie-policy', false);
+
+    $this->get('/ro/cookie-policy')->assertNotFound();
 });

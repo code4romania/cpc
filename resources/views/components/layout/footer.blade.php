@@ -23,15 +23,14 @@
                     <li><a href="{{ localized_route('organizations.index') }}" class="hover:text-white transition-colors">{{ __('nav.organizations') }}</a></li>
                     <li><a href="{{ localized_route('submit.index') }}" class="hover:text-white transition-colors">{{ __('nav.submit') }}</a></li>
                     <li><a href="{{ localized_route('about') }}" class="hover:text-white transition-colors">{{ __('nav.about') }}</a></li>
+                    <li><a href="{{ localized_route('contact') }}" class="hover:text-white transition-colors">{{ __('contact.nav') }}</a></li>
                 </ul>
             </div>
             <div>
                 <h3 class="font-semibold text-white mb-4">{{ __('footer.legal') }}</h3>
                 <ul class="space-y-2 text-sm">
                     <li><a href="{{ localized_route('terms') }}" class="hover:text-white transition-colors">{{ __('footer.terms') }}</a></li>
-                    <li><a href="{{ localized_route('cookie-policy') }}" class="hover:text-white transition-colors">{{ __('footer.cookie') }}</a></li>
                     <li><a href="{{ localized_route('privacy') }}" class="hover:text-white transition-colors">{{ __('footer.privacy') }}</a></li>
-                    <li><a href="{{ localized_route('accessibility') }}" class="hover:text-white transition-colors">{{ __('footer.accessibility') }}</a></li>
                 </ul>
             </div>
         </div>

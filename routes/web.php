@@ -47,7 +47,6 @@ Route::prefix('{locale}')
         Route::livewire('/contact', 'pages::contact')->name('contact');
         Route::livewire('/partner-organizations', 'pages::partners-index')->name('partners.index');
         Route::livewire('/terms', 'pages::static-page')->defaults('slug', 'terms')->name('terms');
-        Route::livewire('/cookie-policy', 'pages::static-page')->defaults('slug', 'cookie-policy')->name('cookie-policy');
         Route::livewire('/privacy', 'pages::static-page')->defaults('slug', 'privacy')->name('privacy');
         Route::livewire('/accessibility', 'pages::static-page')->defaults('slug', 'accessibility')->name('accessibility');
     });
