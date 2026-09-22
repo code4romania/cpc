@@ -7,6 +7,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
+it('animates the about page value icons on hover', function () {
+    $this->get('/en/about')
+        ->assertSuccessful()
+        ->assertSee(__('about.values.evidence.title', [], 'en'), false)
+        ->assertSee('group-hover:-translate-y-1 group-hover:scale-110', false);
+});
+
 it('renders public pages', function (string $path) {
     $this->get($path)->assertSuccessful();
 })->with([
