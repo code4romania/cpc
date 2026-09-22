@@ -47,8 +47,11 @@ new #[Layout('layouts.app')] #[Title('Resource')] class extends Component
                     <span>{{ $resource->resourceCategory?->name }}</span>
                     <span>{{ __('card.author') }}: {{ $resource->author }}</span>
                     <span>{{ $resource->published_at?->translatedFormat('j F Y') }}</span>
+                    @foreach ($resource->languageLabels() as $language)
+                        <span class="font-semibold text-navy">{{ $language }}</span>
+                    @endforeach
                 </div>
-                <p class="text-lg text-navy">{{ $resource->description }}</p>
+                <p class="text-lg text-navy leading-7">{{ $resource->description }}</p>
                 <div class="flex flex-wrap gap-3 mt-6">
                     @if ($resource->download_url)
                         <x-ui.button href="{{ $resource->download_url }}" target="_blank">{{ __('resources.download') }}</x-ui.button>
@@ -78,6 +81,7 @@ new #[Layout('layouts.app')] #[Title('Resource')] class extends Component
                     @foreach ($this->relatedResources() as $related)
                         <a wire:key="related-{{ $related->id }}" href="{{ localized_route('resources.show', ['slug' => $related->slug]) }}"
                            class="bg-white border border-[color:var(--color-border)] rounded-lg p-5 hover:border-accent">
+                            <p class="text-xs font-semibold uppercase tracking-wide text-accent mb-2">{{ $related->type->label() }}</p>
                             <h3 class="font-semibold text-navy">{{ $related->title }}</h3>
                             <p class="text-sm text-muted mt-2 line-clamp-3">{{ $related->description }}</p>
                         </a>
