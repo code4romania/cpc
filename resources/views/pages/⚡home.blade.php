@@ -38,9 +38,9 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
                     </svg>
                     <h1 class="text-4xl md:text-5xl font-bold">{{ __('home.hero_title') }}</h1>
                 </div>
-                <p class="text-xl md:text-2xl mb-8 text-muted">{{ __('home.hero_subtitle') }}</p>
+                <p class="text-xl md:text-2xl mb-8 text-white">{{ __('home.hero_subtitle') }}</p>
                 <div class="flex flex-wrap gap-4">
-                    <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary">{{ __('home.explore') }}</x-ui.button>
+                    <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary" class="!text-navy">{{ __('home.explore') }}</x-ui.button>
                     <x-ui.button href="{{ localized_route('about') }}" variant="accent">{{ __('home.learn_more') }}</x-ui.button>
                 </div>
             </div>
