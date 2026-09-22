@@ -64,7 +64,8 @@ new #[Layout('layouts.app')] #[Title('Resources')] class extends Component
                         ->orWhere('title_en', 'like', '%'.$this->search.'%')
                         ->orWhere('description_ro', 'like', '%'.$this->search.'%')
                         ->orWhere('description_en', 'like', '%'.$this->search.'%')
-                        ->orWhere('author', 'like', '%'.$this->search.'%');
+                        ->orWhere('author', 'like', '%'.$this->search.'%')
+                        ->orWhere('tags', 'like', '%'.$this->search.'%');
                 });
             })
             ->when($this->categories, fn ($query) => $query->whereHas(
