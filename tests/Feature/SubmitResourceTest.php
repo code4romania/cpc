@@ -50,9 +50,14 @@ it('allows a visitor to submit a resource', function () {
     Storage::disk('local')->assertExists($submission->file_paths[0]);
 });
 
-it('shows the submission guidelines', function () {
+it('shows the submission form from the public design', function () {
     $this->get('/ro/submit')
         ->assertSuccessful()
         ->assertSee('interpretare în limbaj semne', false)
-        ->assertSee('Materiale Online/Social-media', false);
+        ->assertSee('Materiale Online/Social-media', false)
+        ->assertSee('Introduceți numele organizației', false)
+        ->assertSee('Județ / Arie de activitate', false)
+        ->assertSee('sau trageți și plasați', false)
+        ->assertSee('Informații suplimentare', false)
+        ->assertSee('Declar că dețin drepturile de autor sau drepturile necesare pentru publicarea materialului/ materialelor încărcate.', false);
 });

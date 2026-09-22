@@ -15,6 +15,8 @@ new class extends Component
 
     public string $placeholder = '';
 
+    public bool $requiredMark = false;
+
     public function selectAll(): void
     {
         $this->selected = array_values($this->options);
@@ -28,7 +30,7 @@ new class extends Component
 ?>
 
 <div class="space-y-2" x-data="{ open: false }" @keydown.escape.window="open = false">
-    <label class="block text-sm font-medium text-navy">{{ $label }}</label>
+    <label class="block text-sm font-medium text-navy">{{ $label }}@if ($requiredMark)<span class="text-destructive"> *</span>@endif</label>
 
     <div class="relative">
         <button type="button"
