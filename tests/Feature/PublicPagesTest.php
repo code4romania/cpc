@@ -7,6 +7,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
+it('matches the homepage emergency notice on the organizations page', function () {
+    $this->get('/ro/organizations')
+        ->assertSuccessful()
+        ->assertSee(__('home.emergency_title', [], 'ro'), false)
+        ->assertSee(__('home.emergency_text', [], 'ro'), false);
+});
+
 it('renders public pages', function (string $path) {
     $this->get($path)->assertSuccessful();
 })->with([
