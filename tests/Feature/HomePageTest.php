@@ -23,3 +23,9 @@ test('homepage statistics count up when scrolled into view', function () {
         ->assertSee('data-count-up="89"', false)
         ->assertSee('IntersectionObserver', false);
 });
+
+test('homepage feature icons move on hover', function () {
+    $this->get('/ro')
+        ->assertOk()
+        ->assertSee('group-hover:-translate-y-1 group-hover:scale-110', false);
+});
