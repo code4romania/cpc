@@ -17,6 +17,19 @@ test('organization filters list romanian counties and the four organization type
         ->assertDontSee('>other<', false);
 });
 
+test('organization cards use an icon for each organization type', function () {
+    $organization = Organization::factory()->create([
+        'name' => 'Instituție cu icon',
+        'organization_type' => OrganizationType::PublicInstitution,
+        'is_published' => true,
+    ]);
+
+    Livewire::test('pages::organizations-index')
+        ->set('search', $organization->name)
+        ->assertSee('data-organization-icon="public_institution"', false)
+        ->assertSee('bg-tint-blue text-primary', false);
+});
+
 test('organization type filter matches the selected label', function () {
     $company = Organization::factory()->create([
         'name' => 'Companie Filtru',
