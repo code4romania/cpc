@@ -34,6 +34,7 @@ class Resource extends Model implements HasMedia
 {
     /** @use HasFactory<ResourceFactory> */
     use HasFactory;
+
     use HasTranslations;
     use InteractsWithMedia;
 
@@ -55,7 +56,7 @@ class Resource extends Model implements HasMedia
     }
 
     /**
-     * @param  Builder<\App\Models\Resource> $query
+     * @param  Builder<\App\Models\Resource>  $query
      * @return Builder<\App\Models\Resource>
      */
     public function scopePublished(Builder $query): Builder
@@ -67,7 +68,7 @@ class Resource extends Model implements HasMedia
     }
 
     /**
-     * @param  Builder<\App\Models\Resource> $query
+     * @param  Builder<\App\Models\Resource>  $query
      * @return Builder<\App\Models\Resource>
      */
     public function scopeFeatured(Builder $query): Builder
@@ -88,6 +89,24 @@ class Resource extends Model implements HasMedia
     public function getDescriptionAttribute(): ?string
     {
         return $this->getTranslated('description');
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function languageLabels(): array
+    {
+        $labels = [];
+
+        if (filled($this->title_ro) || filled($this->description_ro)) {
+            $labels[] = 'RO';
+        }
+
+        if (filled($this->title_en) || filled($this->description_en)) {
+            $labels[] = 'EN';
+        }
+
+        return $labels;
     }
 
     public function registerMediaCollections(): void

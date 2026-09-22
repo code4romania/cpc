@@ -25,8 +25,10 @@ return [
     ],
     'resource_status' => ['draft' => 'Draft', 'published' => 'Published'],
     'organization_type' => [
-        'ngo' => 'NGO', 'public_institution' => 'Public institution',
-        'international' => 'International organization', 'other' => 'Other',
+        'public_institution' => 'Public institutions',
+        'ngo' => 'Non-governmental organizations',
+        'company' => 'Companies',
+        'support_group' => 'Support groups',
     ],
     'submission_status' => ['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'],
     'consultation_status' => ['open' => 'Open', 'in_progress' => 'In progress', 'closed' => 'Closed'],

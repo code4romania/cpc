@@ -4,7 +4,7 @@ return [
     'title' => 'Biblioteca de resurse',
     'subtitle' => 'Explorați materiale, ghiduri și instrumente pentru profesioniștii în protecția copilului.',
     'search_label' => 'Caută resurse',
-    'search_placeholder' => 'Caută după titlu, descriere sau autor...',
+    'search_placeholder' => 'Caută după titlu, descriere, autor sau etichetă',
     'category' => 'Categorie',
     'type' => 'Tip de resursă',
     'author' => 'Autor',

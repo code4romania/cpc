@@ -23,7 +23,7 @@ new class extends Component
     @if (! $mobile)
         <button type="button"
                 @click="open = !open"
-                class="flex items-center gap-2 px-3 py-2 text-muted hover:text-white hover:bg-primary/40 rounded-lg transition-colors border border-primary">
+                class="flex items-center gap-2 px-3 py-2 text-white hover:bg-primary/40 rounded-lg transition-colors border border-primary">
             <span class="text-lg">{{ $this->currentLocale() === 'en' ? '🇬🇧' : '🇷🇴' }}</span>
             <span class="text-sm font-medium uppercase">{{ $this->currentLocale() }}</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -34,7 +34,7 @@ new class extends Component
                    @class([
                        'w-full flex items-center gap-3 px-4 py-2 text-sm',
                        'bg-primary/40 text-white' => $this->currentLocale() === $locale,
-                       'text-muted hover:bg-primary/40 hover:text-white' => $this->currentLocale() !== $locale,
+                       'text-white hover:bg-primary/40' => $this->currentLocale() !== $locale,
                    ])>
                     <span class="text-lg">{{ $locale === 'en' ? '🇬🇧' : '🇷🇴' }}</span>
                     <span class="font-medium">{{ __('nav.lang_' . $locale) }}</span>
@@ -47,7 +47,7 @@ new class extends Component
                @class([
                    'w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg font-medium',
                    'bg-primary text-white' => $this->currentLocale() === $locale,
-                   'text-muted hover:bg-primary/40 hover:text-white' => $this->currentLocale() !== $locale,
+                   'text-white hover:bg-primary/40' => $this->currentLocale() !== $locale,
                ])>
                 <span class="text-lg">{{ $locale === 'en' ? '🇬🇧' : '🇷🇴' }}</span>
                 <span>{{ __('nav.lang_' . $locale) }}</span>

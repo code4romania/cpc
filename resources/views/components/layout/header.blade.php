@@ -7,6 +7,7 @@
         ['route' => 'organizations.index', 'label' => __('nav.organizations')],
         ['route' => 'submit.index', 'label' => __('nav.submit')],
         ['route' => 'about', 'label' => __('nav.about')],
+        ['route' => 'contact', 'label' => __('contact.nav')],
     ];
 @endphp
 
@@ -22,7 +23,7 @@
                     </div>
                     <div>
                         <div class="font-bold text-white text-sm leading-tight">{{ __('footer.brand') }}</div>
-                        <div class="text-xs text-muted">{{ __('footer.brand_sub') }}</div>
+                        <div class="text-xs text-white">{{ __('footer.brand_sub') }}</div>
                     </div>
                 </div>
             </a>
@@ -34,7 +35,7 @@
                            @class([
                                'block px-3 py-2 rounded-lg font-medium transition-colors',
                                'text-white bg-primary/60' => request()->routeIs($link['route']),
-                               'text-muted hover:text-white hover:bg-primary/40' => ! request()->routeIs($link['route']),
+                               'text-white hover:bg-primary/40' => ! request()->routeIs($link['route']),
                            ])>
                             {{ $link['label'] }}
                         </a>
@@ -47,31 +48,22 @@
                            @class([
                                'px-3 py-2 rounded-lg font-medium transition-colors',
                                'text-white bg-primary/60' => request()->routeIs('portal.*'),
-                               'text-muted hover:text-white hover:bg-primary/40' => ! request()->routeIs('portal.*'),
+                               'text-white hover:bg-primary/40' => ! request()->routeIs('portal.*'),
                            ])>
                             {{ __('auth.portal_nav') }}
                         </a>
                     @elseif (auth()->user()->isProfessional())
-                        <a href="{{ localized_route('auth.pending') }}" class="px-3 py-2 rounded-lg font-medium text-muted hover:text-white hover:bg-primary/40">
+                        <a href="{{ localized_route('auth.pending') }}" class="px-3 py-2 rounded-lg font-medium text-white hover:bg-primary/40">
                             {{ __('auth.pending_title') }}
                         </a>
                     @endif
 
                     <form method="POST" action="{{ url('/logout') }}">
                         @csrf
-                        <button type="submit" class="px-3 py-2 rounded-lg font-medium text-muted hover:text-white hover:bg-primary/40">
+                        <button type="submit" class="px-3 py-2 rounded-lg font-medium text-white hover:bg-primary/40">
                             {{ __('auth.logout') }}
                         </button>
                     </form>
-                @else
-                    <a href="{{ localized_route('login') }}"
-                       @class([
-                           'px-3 py-2 rounded-lg font-medium transition-colors',
-                           'text-white bg-primary/60' => request()->routeIs('login'),
-                           'text-muted hover:text-white hover:bg-primary/40' => ! request()->routeIs('login'),
-                       ])>
-                        {{ __('auth.login_nav') }}
-                    </a>
                 @endauth
 
                 <livewire:language-switcher />
@@ -93,7 +85,7 @@
                    @class([
                        'block py-2 px-4 text-sm font-medium rounded-lg mb-1',
                        'text-white bg-primary' => request()->routeIs($link['route']),
-                       'text-muted hover:bg-primary/40 hover:text-white' => ! request()->routeIs($link['route']),
+                       'text-white hover:bg-primary/40' => ! request()->routeIs($link['route']),
                    ])
                    @click="mobileOpen = false">
                     {{ $link['label'] }}
@@ -102,28 +94,24 @@
 
             @auth
                 @if (auth()->user()->isVerifiedProfessional())
-                    <a href="{{ localized_route('portal.index') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-muted hover:bg-primary/40 hover:text-white" @click="mobileOpen = false">
+                    <a href="{{ localized_route('portal.index') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-white hover:bg-primary/40" @click="mobileOpen = false">
                         {{ __('auth.portal_nav') }}
                     </a>
                 @elseif (auth()->user()->isProfessional())
-                    <a href="{{ localized_route('auth.pending') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-muted hover:bg-primary/40 hover:text-white" @click="mobileOpen = false">
+                    <a href="{{ localized_route('auth.pending') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-white hover:bg-primary/40" @click="mobileOpen = false">
                         {{ __('auth.pending_title') }}
                     </a>
                 @endif
                 <form method="POST" action="{{ url('/logout') }}" class="px-4">
                     @csrf
-                    <button type="submit" class="block w-full text-left py-2 text-sm font-medium text-muted hover:text-white">
+                    <button type="submit" class="block w-full text-left py-2 text-sm font-medium text-white">
                         {{ __('auth.logout') }}
                     </button>
                 </form>
-            @else
-                <a href="{{ localized_route('login') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-muted hover:bg-primary/40 hover:text-white" @click="mobileOpen = false">
-                    {{ __('auth.login_nav') }}
-                </a>
             @endauth
 
             <div class="mt-4 pt-4 border-t border-primary px-4">
-                <p class="text-xs text-muted mb-2">{{ __('nav.language') }}</p>
+                <p class="text-xs text-white mb-2">{{ __('nav.language') }}</p>
                 <livewire:language-switcher :mobile="true" />
             </div>
         </nav>

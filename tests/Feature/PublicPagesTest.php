@@ -7,6 +7,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
+it('animates the about page value icons on hover', function () {
+    $this->get('/en/about')
+        ->assertSuccessful()
+        ->assertSee(__('about.values.evidence.title', [], 'en'), false)
+        ->assertSee('group-hover:-translate-y-1 group-hover:scale-110', false);
+});
+
+it('matches the homepage emergency notice on the organizations page', function () {
+    $this->get('/ro/organizations')
+        ->assertSuccessful()
+        ->assertSee(__('home.emergency_title', [], 'ro'), false)
+        ->assertSee(__('home.emergency_text', [], 'ro'), false);
+});
+
 it('renders public pages', function (string $path) {
     $this->get($path)->assertSuccessful();
 })->with([
@@ -17,6 +31,30 @@ it('renders public pages', function (string $path) {
     '/ro/terms',
 ]);
 
+it('shows the resource language and the type of related resources', function () {
+    $resource = Resource::factory()->create([
+        'title_ro' => 'Resursă principală',
+        'title_en' => 'Primary resource',
+        'status' => ResourceStatus::Published,
+        'published_at' => now(),
+    ]);
+
+    $related = Resource::factory()->create([
+        'title_ro' => 'Resursă conexă',
+        'resource_category_id' => $resource->resource_category_id,
+        'type' => $resource->type,
+        'status' => ResourceStatus::Published,
+        'published_at' => now(),
+    ]);
+
+    $this->get('/ro/resources/'.$resource->slug)
+        ->assertSuccessful()
+        ->assertSee('RO', false)
+        ->assertSee('EN', false)
+        ->assertSee($related->type->label(), false)
+        ->assertSee('Resursă conexă', false);
+});
+
 it('renders public data detail pages', function () {
     $resource = Resource::factory()->create([
         'status' => ResourceStatus::Published,
@@ -24,8 +62,8 @@ it('renders public data detail pages', function () {
     ]);
     $dataset = StatisticDataset::factory()->create();
 
-    $this->get('/ro/resources/' . $resource->slug)->assertSuccessful();
-    $this->get('/ro/statistics/' . $dataset->slug)->assertSuccessful();
+    $this->get('/ro/resources/'.$resource->slug)->assertSuccessful();
+    $this->get('/ro/statistics/'.$dataset->slug)->assertSuccessful();
     $this->get('/ro/statistics/index-vulnerability')->assertSuccessful();
     $this->get('/ro/partner-organizations')->assertSuccessful();
     $this->get('/ro/submit')->assertSuccessful();

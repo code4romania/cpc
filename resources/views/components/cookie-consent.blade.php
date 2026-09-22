@@ -6,7 +6,7 @@
     <div class="max-w-4xl mx-auto bg-navy text-white rounded-lg shadow-lg border border-primary p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4">
         <p class="text-sm text-muted flex-1">
             {{ __('cookie.message') }}
-            <a href="{{ localized_route('cookie-policy') }}" class="text-white underline hover:text-accent">{{ __('cookie.policy_link') }}</a>.
+            <a href="{{ localized_route('privacy') }}" class="text-white underline hover:text-accent">{{ __('footer.privacy') }}</a>.
         </p>
         <div class="flex gap-3 shrink-0">
             <button type="button"

@@ -55,7 +55,7 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
     /** @return array<int, string> */
     public function typeOptions(): array
     {
-        return collect(OrganizationType::cases())->map(fn (OrganizationType $type): string => $type->value)->all();
+        return collect(OrganizationType::cases())->map(fn (OrganizationType $type): string => $type->label())->all();
     }
 
     public function organizations(): LengthAwarePaginator
@@ -63,11 +63,20 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
         return Organization::published()
             ->with('county')
             ->when($this->search, function ($query): void {
-                $query->where(function ($query): void {
-                    $query->where('name', 'like', '%'.$this->search.'%')
-                        ->orWhere('description_ro', 'like', '%'.$this->search.'%')
-                        ->orWhere('description_en', 'like', '%'.$this->search.'%')
-                        ->orWhere('city', 'like', '%'.$this->search.'%');
+                $term = '%'.$this->search.'%';
+                $jsonTerm = '%'.trim(json_encode($this->search), '"').'%';
+
+                $query->where(function ($query) use ($term, $jsonTerm): void {
+                    $query->where('name', 'like', $term)
+                        ->orWhere('description_ro', 'like', $term)
+                        ->orWhere('description_en', 'like', $term)
+                        ->orWhere('city', 'like', $term)
+                        ->orWhere('services', 'like', $term)
+                        ->orWhere('services', 'like', $jsonTerm)
+                        ->orWhereHas('county', function ($query) use ($term): void {
+                            $query->where('name_ro', 'like', $term)
+                                ->orWhere('name_en', 'like', $term);
+                        });
                 });
             })
             ->when($this->counties, function ($query): void {
@@ -85,7 +94,14 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
                     }
                 });
             })
-            ->when($this->types, fn ($query) => $query->whereIn('organization_type', $this->types))
+            ->when($this->types, function ($query): void {
+                $values = collect(OrganizationType::cases())
+                    ->filter(fn (OrganizationType $type): bool => in_array($type->label(), $this->types, true))
+                    ->map(fn (OrganizationType $type): string => $type->value)
+                    ->all();
+
+                $query->whereIn('organization_type', $values);
+            })
             ->orderBy('name')
             ->paginate(10);
     }
@@ -96,7 +112,10 @@ new #[Layout('layouts.app')] #[Title('Organizations')] class extends Component
     <x-page-header :title="__('organizations.title')" :subtitle="__('organizations.subtitle')" />
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <x-ui.alert variant="emergency" class="mb-8">{{ __('organizations.emergency') }} <strong>{{ config('cpc.emergency_hotline', '112') }}</strong>.</x-ui.alert>
+        <x-ui.alert variant="emergency" class="mb-8" :title="__('home.emergency_title')">
+            {{ __('home.emergency_text') }}
+            <strong>{{ config('cpc.emergency_hotline', '112') }}</strong>.
+        </x-ui.alert>
 
         <section class="bg-white rounded-xl border border-[color:var(--color-border)] p-6 mb-8">
             <label for="organization-search" class="block text-sm font-medium text-navy mb-2">{{ __('organizations.search_label') }}</label>

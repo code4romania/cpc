@@ -23,20 +23,22 @@ new #[Layout('layouts.app')] #[Title('Partners')] class extends Component
         <div class="grid md:grid-cols-2 gap-8">
             @forelse ($this->partners() as $partner)
                 <x-ui.card wire:key="partner-{{ $partner->id }}" class="p-6">
-                    <div class="flex flex-col sm:flex-row items-start gap-6">
-                        @if ($partner->logo_url)
-                            <div class="w-32 h-32 shrink-0 bg-background rounded-lg p-4 flex items-center justify-center">
-                                <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain">
-                            </div>
-                        @endif
-                        <div>
+                    <div class="flex items-start gap-6">
+                        <div class="w-24 h-24 shrink-0 bg-background rounded-lg p-3 flex items-center justify-center border border-[color:var(--color-border)]">
+                            @if ($partner->logo_url)
+                                <img src="{{ $partner->logo_url }}" alt="" class="max-w-full max-h-full object-contain">
+                            @else
+                                <span class="text-xs font-semibold text-muted text-center">{{ $partner->name }}</span>
+                            @endif
+                        </div>
+                        <div class="min-w-0">
                             <h2 class="text-xl font-semibold text-navy">{{ $partner->name }}</h2>
-                            <p class="text-muted mt-3 leading-6">{{ $partner->description }}</p>
                             @if ($partner->url)
-                                <a href="{{ $partner->url }}" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 text-primary font-semibold">
-                                    {{ __('partners.visit') }} →
+                                <a href="{{ $partner->url }}" target="_blank" rel="noopener noreferrer" class="inline-block mt-1 text-sm text-primary font-semibold break-all hover:text-navy">
+                                    {{ $partner->url }}
                                 </a>
                             @endif
+                            <p class="text-muted mt-3 leading-6 line-clamp-5">{{ $partner->description }}</p>
                         </div>
                     </div>
                 </x-ui.card>

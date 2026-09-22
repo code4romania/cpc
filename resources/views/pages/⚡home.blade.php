@@ -19,7 +19,7 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
     /** @return Collection<int, Resource> */
     public function featuredResources(): Collection
     {
-        return Resource::featured()->published()->latest('published_at')->limit(3)->get();
+        return Resource::featured()->published()->latest('published_at')->limit(6)->get();
     }
 };
 ?>
@@ -38,9 +38,9 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
                     </svg>
                     <h1 class="text-4xl md:text-5xl font-bold">{{ __('home.hero_title') }}</h1>
                 </div>
-                <p class="text-xl md:text-2xl mb-8 text-muted">{{ __('home.hero_subtitle') }}</p>
+                <p class="text-xl md:text-2xl mb-8 text-white">{{ __('home.hero_subtitle') }}</p>
                 <div class="flex flex-wrap gap-4">
-                    <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary">{{ __('home.explore') }}</x-ui.button>
+                    <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary" class="!text-navy">{{ __('home.explore') }}</x-ui.button>
                     <x-ui.button href="{{ localized_route('about') }}" variant="accent">{{ __('home.learn_more') }}</x-ui.button>
                 </div>
             </div>
@@ -67,7 +67,7 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
                     ['bg' => 'bg-tint-blue/50', 'color' => 'text-navy', 'title' => 'home.feat_stats_title', 'desc' => 'home.feat_stats_desc'],
                 ] as $card)
                     <div class="group text-center border border-[color:var(--color-border)] rounded-xl p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:border-accent">
-                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 {{ $card['bg'] }} {{ $card['color'] }}">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-110 {{ $card['bg'] }} {{ $card['color'] }}">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                         </div>
                         <h3 class="text-xl font-semibold text-navy mb-2 group-hover:text-accent transition-colors">{{ __($card['title']) }}</h3>
@@ -98,6 +98,7 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
                         :type="$resource->type->value"
                         :tags="$resource->tags ?? []"
                         :featured="$resource->featured"
+                        :languages="$resource->languageLabels()"
                         :url="localized_route('resources.show', ['slug' => $resource->slug])"
                     />
                 @endforeach
@@ -113,10 +114,10 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
                 <p class="text-lg text-muted max-w-3xl mx-auto">{{ __('home.stats_subtitle') }}</p>
             </div>
             <div class="grid md:grid-cols-4 gap-6 mb-8">
-                <x-stat-card :label="__('home.stat_cases')" :value="number_format($statCases)" tone="primary" />
-                <x-stat-card :label="__('home.stat_victims')" :value="number_format($statVictims)" tone="accent" />
-                <x-stat-card :label="__('home.stat_conviction')" :value="$statConviction" suffix="%" tone="muted" />
-                <x-stat-card :label="__('home.stat_recovered')" :value="$statRecovered" suffix="%" tone="navy" />
+                <x-stat-card :label="__('home.stat_cases')" :value="$statCases" tone="primary" animate />
+                <x-stat-card :label="__('home.stat_victims')" :value="$statVictims" tone="accent" animate />
+                <x-stat-card :label="__('home.stat_conviction')" :value="$statConviction" suffix="%" tone="muted" animate />
+                <x-stat-card :label="__('home.stat_recovered')" :value="$statRecovered" suffix="%" tone="navy" animate />
             </div>
             <div class="text-center">
                 <x-ui.button href="{{ localized_route('statistics.index') }}" variant="primary">

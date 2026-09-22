@@ -55,6 +55,8 @@ class CountySeeder extends Seeder
             ['code' => 'VS', 'name_ro' => 'Vaslui', 'name_en' => 'Vaslui'],
             ['code' => 'VL', 'name_ro' => 'Vâlcea', 'name_en' => 'Vâlcea'],
             ['code' => 'VN', 'name_ro' => 'Vrancea', 'name_en' => 'Vrancea'],
+            ['code' => 'NA', 'name_ro' => 'Național', 'name_en' => 'National'],
+            ['code' => 'DS', 'name_ro' => 'Diaspora', 'name_en' => 'Diaspora'],
         ];
 
         foreach ($counties as $county) {

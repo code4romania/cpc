@@ -64,7 +64,8 @@ new #[Layout('layouts.app')] #[Title('Resources')] class extends Component
                         ->orWhere('title_en', 'like', '%'.$this->search.'%')
                         ->orWhere('description_ro', 'like', '%'.$this->search.'%')
                         ->orWhere('description_en', 'like', '%'.$this->search.'%')
-                        ->orWhere('author', 'like', '%'.$this->search.'%');
+                        ->orWhere('author', 'like', '%'.$this->search.'%')
+                        ->orWhere('tags', 'like', '%'.$this->search.'%');
                 });
             })
             ->when($this->categories, fn ($query) => $query->whereHas(
@@ -122,6 +123,7 @@ new #[Layout('layouts.app')] #[Title('Resources')] class extends Component
                         :type="$resource->type->value"
                         :tags="$resource->tags ?? []"
                         :featured="$resource->featured"
+                        :languages="$resource->languageLabels()"
                         :url="localized_route('resources.show', ['slug' => $resource->slug])"
                     />
                 @endforeach

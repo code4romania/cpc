@@ -4,7 +4,7 @@ return [
     'title' => 'Resource Library',
     'subtitle' => 'Explore materials, guides, and tools for child protection professionals.',
     'search_label' => 'Search resources',
-    'search_placeholder' => 'Search by title, description, or author...',
+    'search_placeholder' => 'Search by title, description, author, or tag',
     'category' => 'Category',
     'type' => 'Resource type',
     'author' => 'Author',
