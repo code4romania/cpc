@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? config('app.name', 'CPC') }}</title>
+    <title>{{ $title ?? 'ZEROTRAFIC' }}</title>
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -14,7 +16,8 @@
 
     <header class="w-full border-b border-[color:var(--color-border)] bg-background">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-            <a href="{{ localized_route('home') }}" class="text-sm font-semibold text-navy hover:text-primary">
+            <a href="{{ localized_route('home') }}" class="flex items-center gap-2 text-sm font-semibold text-navy hover:text-primary">
+                <img src="{{ asset('images/brand/logo.png') }}" alt="" class="h-8 w-8 object-contain">
                 {{ __('footer.brand') }}
             </a>
             <livewire:language-switcher />

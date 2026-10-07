@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'brand' => 'Child Protection',
+    'brand' => 'ZEROTRAFIC',
     'brand_sub' => 'Resource Center',
     'tagline' => 'Platform developed by ANITP in partnership with Code for Romania Association within the Child Protection Compact Framework (CPC)',
     'quicklinks' => 'Quick Links',
