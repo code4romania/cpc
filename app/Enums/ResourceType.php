@@ -9,6 +9,7 @@ enum ResourceType: string
     case Video = 'video';
     case Printable = 'printable';
     case Online = 'online';
+    case Curriculum = 'curriculum';
 
     public function label(): string
     {

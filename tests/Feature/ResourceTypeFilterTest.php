@@ -12,7 +12,8 @@ test('resource type filter lists the public categories', function () {
         ->assertSee('Documente', false)
         ->assertSee('Materiale video', false)
         ->assertSee('Printabile', false)
-        ->assertSee('Materiale Online/Social-media', false);
+        ->assertSee('Materiale Online/Social-media', false)
+        ->assertSee('Curricule și materiale formări', false);
 });
 
 test('resource cards use a different icon for each type', function () {
@@ -39,6 +40,18 @@ test('resource cards use a different icon for each type', function () {
         ->set('search', 'Icon online resource')
         ->assertSee('data-resource-icon="online"', false)
         ->assertSee('M21 12a9 9 0 01-9 9', false);
+
+    Resource::factory()->create([
+        'title_en' => 'Icon curriculum resource',
+        'type' => ResourceType::Curriculum,
+        'status' => ResourceStatus::Published,
+        'published_at' => now(),
+    ]);
+
+    Livewire::test('pages::resources-index')
+        ->set('search', 'Icon curriculum resource')
+        ->assertSee('data-resource-icon="curriculum"', false)
+        ->assertSee('M12 14l9-5-9-5-9 5 9 5z', false);
 });
 
 test('resource type filter matches the selected label', function () {
