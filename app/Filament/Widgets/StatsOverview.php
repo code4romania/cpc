@@ -2,15 +2,12 @@
 
 namespace App\Filament\Widgets;
 
-use App\Enums\ConsultationStatus;
 use App\Enums\SubmissionStatus;
 use App\Enums\UserRole;
-use App\Filament\Resources\Consultations\ConsultationResource;
 use App\Filament\Resources\Organizations\OrganizationResource;
 use App\Filament\Resources\Resources\ResourceResource;
 use App\Filament\Resources\ResourceSubmissions\ResourceSubmissionResource;
 use App\Filament\Resources\Users\UserResource;
-use App\Models\Consultation;
 use App\Models\Organization;
 use App\Models\Resource as ResourceModel;
 use App\Models\ResourceSubmission;
@@ -29,10 +26,6 @@ class StatsOverview extends StatsOverviewWidget
     {
         $pendingSubmissions = ResourceSubmission::query()
             ->where('status', SubmissionStatus::Pending)
-            ->count();
-
-        $openConsultations = Consultation::query()
-            ->whereIn('status', [ConsultationStatus::Open, ConsultationStatus::InProgress])
             ->count();
 
         $pendingProfessionals = User::query()
@@ -59,12 +52,6 @@ class StatsOverview extends StatsOverviewWidget
                 ->icon(Heroicon::OutlinedInboxArrowDown)
                 ->color($pendingSubmissions > 0 ? 'warning' : 'gray')
                 ->url(ResourceSubmissionResource::getUrl('index')),
-            Stat::make(__('admin.stats.open_consultations'), $openConsultations)
-                ->description(__('admin.stats.open_consultations_desc'))
-                ->descriptionIcon(Heroicon::OutlinedChatBubbleLeftRight)
-                ->icon(Heroicon::OutlinedChatBubbleOvalLeftEllipsis)
-                ->color($openConsultations > 0 ? 'info' : 'gray')
-                ->url(ConsultationResource::getUrl('index')),
             Stat::make(__('admin.stats.professionals_to_verify'), $pendingProfessionals)
                 ->description(__('admin.stats.professionals_to_verify_desc'))
                 ->descriptionIcon(Heroicon::OutlinedShieldCheck)
