@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Resources\Schemas;
 
+use App\Enums\ResourceAccess;
 use App\Enums\ResourceStatus;
 use App\Enums\ResourceType;
 use App\Filament\Support\LimitedFileUpload;
@@ -42,6 +43,12 @@ class ResourceForm
                 Select::make('type')
                     ->options(ResourceType::options())
                     ->required(),
+                Select::make('access_levels')
+                    ->label(__('admin.fields.access_levels'))
+                    ->options(ResourceAccess::options())
+                    ->multiple()
+                    ->required()
+                    ->default([ResourceAccess::Public->value]),
                 Select::make('resource_category_id')
                     ->relationship('resourceCategory', 'name_ro')
                     ->searchable()

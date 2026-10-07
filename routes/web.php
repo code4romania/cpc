@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountAccessController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
@@ -14,10 +15,22 @@ Route::prefix('{locale}')
         Route::middleware('guest')->group(function (): void {
             Route::livewire('/login', 'pages::login')->name('login');
             Route::livewire('/register', 'pages::register')->name('register');
+            Route::livewire('/account-requested', 'pages::account-requested')->name('auth.requested');
         });
+
+        Route::get('/account/password/{user}', [AccountAccessController::class, 'showPasswordForm'])
+            ->middleware('signed')
+            ->name('account.password');
+        Route::post('/account/password/{user}', [AccountAccessController::class, 'storePassword'])
+            ->middleware('signed')
+            ->name('account.password.store');
+        Route::get('/account/renew/{user}', [AccountAccessController::class, 'renew'])
+            ->middleware('signed')
+            ->name('account.renew');
 
         Route::middleware('auth')->group(function (): void {
             Route::livewire('/auth/pending', 'pages::auth-pending')->name('auth.pending');
+            Route::livewire('/account', 'pages::account')->name('account.index');
 
             Route::middleware('professional.verified')
                 ->prefix('portal')

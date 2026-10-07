@@ -12,7 +12,7 @@ new #[Layout('layouts.app')] #[Title('Resource')] class extends Component
 
     public function mount(string $slug): void
     {
-        $this->resource = Resource::published()
+        $this->resource = Resource::published()->visibleTo(auth()->user())
             ->with('resourceCategory')
             ->where('slug', $slug)
             ->firstOrFail();
@@ -21,7 +21,7 @@ new #[Layout('layouts.app')] #[Title('Resource')] class extends Component
     /** @return Collection<int, Resource> */
     public function relatedResources(): Collection
     {
-        return Resource::published()
+        return Resource::published()->visibleTo(auth()->user())
             ->whereKeyNot($this->resource->getKey())
             ->where('resource_category_id', $this->resource->resource_category_id)
             ->limit(3)

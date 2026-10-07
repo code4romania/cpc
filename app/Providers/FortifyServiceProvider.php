@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Enums\AccountApprovalStatus;
 use App\Enums\UserRole;
 use App\Http\Responses\LoginResponse;
 use App\Http\Responses\RegisterResponse;
@@ -46,11 +47,12 @@ class FortifyServiceProvider extends ServiceProvider
                 ->where('email', $request->input(Fortify::username()))
                 ->first();
 
-            if (
-                $user
-                && $user->role === UserRole::Professional
-                && Hash::check((string) $request->input('password'), $user->password)
-            ) {
+            $canUsePublicLogin = $user !== null && (
+                $user->role === UserRole::Professional
+                || ($user->isOrganizationAccount() && $user->approval_status === AccountApprovalStatus::Approved)
+            );
+
+            if ($canUsePublicLogin && Hash::check((string) $request->input('password'), $user->password)) {
                 return $user;
             }
 
@@ -58,7 +60,7 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });

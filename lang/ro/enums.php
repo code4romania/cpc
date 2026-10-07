@@ -5,6 +5,8 @@ return [
         'admin' => 'Administrator',
         'editor' => 'Editor',
         'professional' => 'Profesionist',
+        'mai' => 'MAI',
+        'ngo' => 'ONG',
     ],
     'professional_role' => [
         'social_worker' => 'Asistent social',
@@ -23,6 +25,16 @@ return [
         'printable' => 'Printabile',
         'online' => 'Materiale Online/Social-media',
         'curriculum' => 'Curricule și materiale formări',
+    ],
+    'account_approval_status' => [
+        'pending' => 'În așteptare',
+        'approved' => 'Aprobat',
+        'rejected' => 'Respins',
+    ],
+    'resource_access' => [
+        'public' => 'Public',
+        'ngo' => 'ONG',
+        'mai' => 'MAI',
     ],
     'resource_status' => ['draft' => 'Schiță', 'published' => 'Publicat'],
     'partnership_entity_type' => [

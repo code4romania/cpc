@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ProfessionalRole;
+use App\Enums\UserRole;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -18,9 +18,15 @@ class extends Component
     /**
      * @return array<string, string>
      */
-    public function professionalRoles(): array
+    /**
+     * @return array<string, string>
+     */
+    public function accountRoles(): array
     {
-        return ProfessionalRole::options();
+        return [
+            UserRole::Mai->value => UserRole::Mai->label(),
+            UserRole::Ngo->value => UserRole::Ngo->label(),
+        ];
     }
 };
 ?>
@@ -79,49 +85,36 @@ class extends Component
                     id="organization"
                     name="organization"
                     type="text"
-                    label="{{ __('auth.organization') }} *"
+                    label="{{ __('auth.institution') }} *"
                     value="{{ old('organization') }}"
                     placeholder="{{ __('auth.organization_placeholder') }}"
                     required
                     :error="$errors->first('organization')"
                 />
 
-                <x-ui.select
-                    id="professional_role"
-                    name="professional_role"
-                    label="{{ __('auth.professional_role') }} *"
-                    placeholder="{{ __('auth.professional_role_placeholder') }}"
-                    required
-                    :error="$errors->first('professional_role')"
-                >
-                    @foreach ($this->professionalRoles() as $value => $label)
-                        <option value="{{ $value }}" @selected(old('professional_role') === $value)>{{ $label }}</option>
-                    @endforeach
-                </x-ui.select>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
                 <x-ui.input
-                    id="password"
-                    name="password"
-                    type="password"
-                    label="{{ __('auth.password') }} *"
-                    placeholder="{{ __('auth.password_min_placeholder') }}"
+                    id="reference_phone"
+                    name="reference_phone"
+                    type="tel"
+                    label="{{ __('auth.reference_phone') }} *"
+                    value="{{ old('reference_phone') }}"
                     required
-                    autocomplete="new-password"
-                    :error="$errors->first('password')"
-                />
-
-                <x-ui.input
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    type="password"
-                    label="{{ __('auth.password_confirmation') }} *"
-                    placeholder="{{ __('auth.password_confirmation_placeholder') }}"
-                    required
-                    autocomplete="new-password"
+                    :error="$errors->first('reference_phone')"
                 />
             </div>
+
+            <x-ui.select
+                id="account_role"
+                name="account_role"
+                label="{{ __('auth.account_role') }} *"
+                placeholder="{{ __('auth.account_role_placeholder') }}"
+                required
+                :error="$errors->first('account_role')"
+            >
+                @foreach ($this->accountRoles() as $value => $label)
+                    <option value="{{ $value }}" @selected(old('account_role') === $value)>{{ $label }}</option>
+                @endforeach
+            </x-ui.select>
 
             <label class="flex items-start gap-2 text-sm text-navy">
                 <input type="checkbox" name="terms" value="1" required class="mt-1 rounded border-[color:var(--color-border)] text-primary focus:ring-accent" @checked(old('terms'))>

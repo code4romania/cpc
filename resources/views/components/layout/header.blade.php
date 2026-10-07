@@ -50,6 +50,10 @@
                         <a href="{{ localized_route('auth.pending') }}" class="px-3 py-2 rounded-lg font-medium text-white hover:bg-primary/40">
                             {{ __('auth.pending_title') }}
                         </a>
+                    @elseif (auth()->user()->isApprovedOrganizationAccount())
+                        <a href="{{ localized_route('account.index') }}" class="px-3 py-2 rounded-lg font-medium text-white hover:bg-primary/40">
+                            {{ __('auth.account_title') }}
+                        </a>
                     @endif
 
                     <form method="POST" action="{{ url('/logout') }}">
@@ -58,6 +62,13 @@
                             {{ __('auth.logout') }}
                         </button>
                     </form>
+                @else
+                    <a href="{{ localized_route('login') }}" class="px-3 py-2 rounded-lg font-medium text-white hover:bg-primary/40">
+                        {{ __('auth.login_nav') }}
+                    </a>
+                    <a href="{{ localized_route('register') }}" class="px-3 py-2 rounded-lg font-medium text-white hover:bg-primary/40">
+                        {{ __('auth.register_nav') }}
+                    </a>
                 @endauth
 
                 <livewire:language-switcher />
@@ -95,6 +106,10 @@
                     <a href="{{ localized_route('auth.pending') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-white hover:bg-primary/40" @click="mobileOpen = false">
                         {{ __('auth.pending_title') }}
                     </a>
+                @elseif (auth()->user()->isApprovedOrganizationAccount())
+                    <a href="{{ localized_route('account.index') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-white hover:bg-primary/40" @click="mobileOpen = false">
+                        {{ __('auth.account_title') }}
+                    </a>
                 @endif
                 <form method="POST" action="{{ url('/logout') }}" class="px-4">
                     @csrf
@@ -102,6 +117,13 @@
                         {{ __('auth.logout') }}
                     </button>
                 </form>
+            @else
+                <a href="{{ localized_route('login') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-white hover:bg-primary/40">
+                    {{ __('auth.login_nav') }}
+                </a>
+                <a href="{{ localized_route('register') }}" class="block py-2 px-4 text-sm font-medium rounded-lg mb-1 text-white hover:bg-primary/40">
+                    {{ __('auth.register_nav') }}
+                </a>
             @endauth
 
             <div class="mt-4 pt-4 border-t border-primary px-4">

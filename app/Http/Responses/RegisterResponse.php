@@ -3,6 +3,7 @@
 namespace App\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,6 +21,8 @@ class RegisterResponse implements RegisterResponseContract
             ?? session('locale')
             ?? config('cpc.default_locale', 'ro');
 
-        return redirect(localized_route('auth.pending', [], $locale));
+        Auth::logout();
+
+        return redirect(localized_route('auth.requested', [], $locale));
     }
 }
