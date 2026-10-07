@@ -19,6 +19,9 @@ return [
         'title' => 'Titlu',
         'reviewed_by' => 'Revizuit de',
         'resource' => 'Resursă',
+        'access_levels' => 'Nivel de acces',
+        'approve' => 'Acceptă',
+        'reject' => 'Respinge',
     ],
     'stats' => [
         'published_resources' => 'Resurse publicate',
@@ -72,6 +75,11 @@ return [
             'navigation' => 'Județe',
             'label' => 'Județ',
             'plural' => 'Județe',
+        ],
+        'account_requests' => [
+            'navigation' => 'Cereri de cont',
+            'label' => 'Cerere de cont',
+            'plural' => 'Cereri de cont',
         ],
         'consultations' => [
             'navigation' => 'Consultații',

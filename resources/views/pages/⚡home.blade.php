@@ -19,7 +19,7 @@ new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
     /** @return Collection<int, Resource> */
     public function featuredResources(): Collection
     {
-        return Resource::featured()->published()->latest('published_at')->limit(6)->get();
+        return Resource::featured()->published()->visibleTo(auth()->user())->latest('published_at')->limit(6)->get();
     }
 };
 ?>

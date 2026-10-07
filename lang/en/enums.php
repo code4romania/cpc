@@ -5,6 +5,8 @@ return [
         'admin' => 'Administrator',
         'editor' => 'Editor',
         'professional' => 'Professional',
+        'mai' => 'MAI',
+        'ngo' => 'NGO',
     ],
     'professional_role' => [
         'social_worker' => 'Social Worker',
@@ -22,6 +24,16 @@ return [
         'video' => 'Videos',
         'printable' => 'Printables',
         'online' => 'Online / social media',
+    ],
+    'account_approval_status' => [
+        'pending' => 'Pending',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+    ],
+    'resource_access' => [
+        'public' => 'Public',
+        'ngo' => 'NGO',
+        'mai' => 'MAI',
     ],
     'resource_status' => ['draft' => 'Draft', 'published' => 'Published'],
     'organization_type' => [

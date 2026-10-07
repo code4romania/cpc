@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AccountApprovalStatus;
 use App\Enums\ProfessionalRole;
 use App\Enums\UserRole;
 use Database\Factories\UserFactory;
@@ -17,19 +18,19 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 /**
- * @property int                   $id
- * @property string                $name
- * @property string                $email
- * @property Carbon|null           $email_verified_at
- * @property string                $password
- * @property UserRole              $role
- * @property string|null           $organization
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property UserRole $role
+ * @property string|null $organization
  * @property ProfessionalRole|null $professional_role
- * @property Carbon|null           $verified_at
- * @property string                $locale
- * @property string|null           $remember_token
- * @property Carbon|null           $created_at
- * @property Carbon|null           $updated_at
+ * @property Carbon|null $verified_at
+ * @property string $locale
+ * @property string|null $remember_token
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
 #[Fillable([
     'name',
@@ -37,8 +38,12 @@ use Illuminate\Support\Str;
     'password',
     'role',
     'organization',
+    'reference_phone',
     'professional_role',
     'verified_at',
+    'approval_status',
+    'expires_at',
+    'renewal_notified_at',
     'locale',
 ])]
 #[Hidden(['password', 'remember_token'])]
@@ -46,6 +51,7 @@ class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
+
     use Notifiable;
 
     /**
@@ -58,6 +64,9 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'verified_at' => 'datetime',
+            'expires_at' => 'datetime',
+            'renewal_notified_at' => 'datetime',
+            'approval_status' => AccountApprovalStatus::class,
             'password' => 'hashed',
             'role' => UserRole::class,
             'professional_role' => ProfessionalRole::class,
@@ -95,6 +104,17 @@ class User extends Authenticatable implements FilamentUser
         return $this->isProfessional() && $this->verified_at !== null;
     }
 
+    public function isOrganizationAccount(): bool
+    {
+        return in_array($this->role, [UserRole::Mai, UserRole::Ngo], true);
+    }
+
+    public function isApprovedOrganizationAccount(): bool
+    {
+        return $this->isOrganizationAccount()
+            && $this->approval_status === AccountApprovalStatus::Approved;
+    }
+
     /**
      * Get the user's initials.
      */
@@ -103,7 +123,7 @@ class User extends Authenticatable implements FilamentUser
         $initials = Str::initials($this->name, true);
 
         return Str::length($initials) > 1
-            ? Str::substr($initials, 0, 1) . Str::substr($initials, -1)
+            ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
     }
 }

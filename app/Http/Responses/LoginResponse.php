@@ -19,6 +19,10 @@ class LoginResponse implements LoginResponseContract
             ?? session('locale')
             ?? config('cpc.default_locale', 'ro');
 
+        if ($user?->isApprovedOrganizationAccount()) {
+            return redirect()->intended(localized_route('account.index', [], $locale));
+        }
+
         if ($user?->isProfessional() && $user->verified_at === null) {
             return redirect()->intended(localized_route('auth.pending', [], $locale));
         }

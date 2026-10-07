@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Concerns\HasTranslations;
+use App\Enums\ResourceAccess;
 use App\Enums\ResourceStatus;
 use App\Enums\ResourceType;
+use App\Enums\UserRole;
 use Database\Factories\ResourceFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,6 +29,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
     'download_url',
     'video_url',
     'featured',
+    'access_levels',
     'status',
     'published_at',
 ])]
@@ -45,6 +48,7 @@ class Resource extends Model implements HasMedia
             'status' => ResourceStatus::class,
             'tags' => 'array',
             'featured' => 'boolean',
+            'access_levels' => 'array',
             'published_at' => 'datetime',
         ];
     }
@@ -74,6 +78,33 @@ class Resource extends Model implements HasMedia
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('featured', true);
+    }
+
+    /**
+     * @param  Builder<resource>  $query
+     * @return Builder<resource>
+     */
+    public function scopeVisibleTo(Builder $query, ?User $user): Builder
+    {
+        if ($user?->isAdmin() || $user?->isEditor()) {
+            return $query;
+        }
+
+        $levels = [ResourceAccess::Public->value];
+
+        if ($user?->isApprovedOrganizationAccount()) {
+            $levels[] = $user->role === UserRole::Mai
+                ? ResourceAccess::Mai->value
+                : ResourceAccess::Ngo->value;
+        }
+
+        return $query->where(function (Builder $query) use ($levels): void {
+            $query->whereNull('access_levels');
+
+            foreach ($levels as $level) {
+                $query->orWhereJsonContains('access_levels', $level);
+            }
+        });
     }
 
     public function getRouteKeyName(): string

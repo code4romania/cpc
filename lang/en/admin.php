@@ -19,6 +19,9 @@ return [
         'title' => 'Title',
         'reviewed_by' => 'Reviewed by',
         'resource' => 'Resource',
+        'access_levels' => 'Access level',
+        'approve' => 'Accept',
+        'reject' => 'Reject',
     ],
     'stats' => [
         'published_resources' => 'Published resources',
@@ -72,6 +75,11 @@ return [
             'navigation' => 'Counties',
             'label' => 'County',
             'plural' => 'Counties',
+        ],
+        'account_requests' => [
+            'navigation' => 'Account requests',
+            'label' => 'Account request',
+            'plural' => 'Account requests',
         ],
         'consultations' => [
             'navigation' => 'Consultations',

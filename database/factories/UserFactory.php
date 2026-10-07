@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\AccountApprovalStatus;
 use App\Enums\ProfessionalRole;
 use App\Enums\UserRole;
 use App\Models\User;
@@ -83,6 +84,18 @@ class UserFactory extends Factory
     {
         return $this->professional()->state(fn (array $attributes) => [
             'verified_at' => now(),
+        ]);
+    }
+
+    public function organizationAccount(UserRole $role = UserRole::Ngo): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => $role,
+            'approval_status' => AccountApprovalStatus::Approved,
+            'professional_role' => null,
+            'verified_at' => now(),
+            'expires_at' => now()->addYear(),
+            'reference_phone' => '0210000000',
         ]);
     }
 

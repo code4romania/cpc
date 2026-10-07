@@ -49,7 +49,7 @@ new #[Layout('layouts.app')] #[Title('Resources')] class extends Component
     /** @return array<int, string> */
     public function authorOptions(): array
     {
-        return Resource::published()->whereNotNull('author')->distinct()->orderBy('author')->pluck('author')->all();
+        return Resource::published()->visibleTo(auth()->user())->whereNotNull('author')->distinct()->orderBy('author')->pluck('author')->all();
     }
 
     public function resources(): LengthAwarePaginator
@@ -57,6 +57,7 @@ new #[Layout('layouts.app')] #[Title('Resources')] class extends Component
         $locale = app()->getLocale();
 
         return Resource::published()
+            ->visibleTo(auth()->user())
             ->with('resourceCategory')
             ->when($this->search, function ($query): void {
                 $query->where(function ($query): void {

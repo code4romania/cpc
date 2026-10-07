@@ -1,16 +1,18 @@
 <?php
 
-use App\Enums\ProfessionalRole;
 use App\Enums\UserRole;
 use App\Models\User;
 
-test('public navigation hides professional login and the role is not offered to admins', function () {
+test('public navigation links to login and signup, and admins can only create staff roles', function () {
     $this->get('/ro')
         ->assertOk()
-        ->assertDontSee(localized_route('login'), false)
-        ->assertDontSee(__('auth.login_nav', [], 'ro'), false);
+        ->assertSee(localized_route('login'), false)
+        ->assertSee(__('auth.login_nav', [], 'ro'), false)
+        ->assertSee(__('auth.register_nav', [], 'ro'), false);
 
     expect(UserRole::options())->not->toHaveKey(UserRole::Professional->value)
+        ->and(UserRole::options())->not->toHaveKey(UserRole::Mai->value)
+        ->and(UserRole::options())->not->toHaveKey(UserRole::Ngo->value)
         ->and(UserRole::options())->toHaveKey(UserRole::Admin->value);
 });
 
@@ -24,30 +26,6 @@ test('register page renders in english', function () {
     $this->get('/en/register')
         ->assertOk()
         ->assertSee(__('auth.register_title', [], 'en'), false);
-});
-
-test('professional can register and is unverified', function () {
-    $response = $this->from('/ro/register')->post('/register', [
-        'name' => 'Jane Professional',
-        'email' => 'jane@example.com',
-        'organization' => 'ANITP',
-        'professional_role' => ProfessionalRole::SocialWorker->value,
-        'password' => 'password',
-        'password_confirmation' => 'password',
-        'terms' => '1',
-    ]);
-
-    $response->assertRedirect(route('auth.pending', ['locale' => 'ro']));
-
-    $user = User::query()->where('email', 'jane@example.com')->first();
-
-    expect($user)->not->toBeNull()
-        ->and($user->role)->toBe(UserRole::Professional)
-        ->and($user->verified_at)->toBeNull()
-        ->and($user->organization)->toBe('ANITP')
-        ->and($user->professional_role)->toBe(ProfessionalRole::SocialWorker);
-
-    $this->assertAuthenticatedAs($user);
 });
 
 test('unverified professional is redirected from portal to pending', function () {

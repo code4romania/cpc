@@ -7,6 +7,8 @@ enum UserRole: string
     case Admin = 'admin';
     case Editor = 'editor';
     case Professional = 'professional';
+    case Mai = 'mai';
+    case Ngo = 'ngo';
 
     public function label(): string
     {
@@ -18,8 +20,7 @@ enum UserRole: string
      */
     public static function options(): array
     {
-        return collect(self::cases())
-            ->reject(fn (self $role): bool => $role === self::Professional)
+        return collect([self::Admin, self::Editor])
             ->mapWithKeys(fn (self $role): array => [$role->value => $role->label()])
             ->all();
     }
