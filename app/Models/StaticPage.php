@@ -19,8 +19,22 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class StaticPage extends Model
 {
+    /**
+     * Pages an administrator may edit. New pages cannot be added.
+     *
+     * @var list<string>
+     */
+    public const MANAGED_SLUGS = [
+        'terms',
+        'privacy',
+        'home',
+        'about',
+        'contact',
+    ];
+
     /** @use HasFactory<StaticPageFactory> */
     use HasFactory;
+
     use HasTranslations;
 
     protected function casts(): array
@@ -31,7 +45,7 @@ class StaticPage extends Model
     }
 
     /**
-     * @param  Builder<StaticPage> $query
+     * @param  Builder<StaticPage>  $query
      * @return Builder<StaticPage>
      */
     public function scopePublished(Builder $query): Builder
