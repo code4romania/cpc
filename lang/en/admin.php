@@ -84,6 +84,11 @@ return [
             'label' => 'Professional Resource',
             'plural' => 'Professional Resources',
         ],
+        'partnership_intents' => [
+            'navigation' => 'Partnership intents',
+            'label' => 'Partnership intent',
+            'plural' => 'Partnership intents',
+        ],
         'resource_submissions' => [
             'navigation' => 'Resource Submissions',
             'label' => 'Resource Submission',

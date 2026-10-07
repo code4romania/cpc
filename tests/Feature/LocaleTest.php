@@ -20,8 +20,8 @@ test('locale is applied to translations', function () {
 });
 
 test('all public routes respond for both locales', function (string $path) {
-    $this->get('/ro' . $path)->assertOk();
-    $this->get('/en' . $path)->assertOk();
+    $this->get('/ro'.$path)->assertOk();
+    $this->get('/en'.$path)->assertOk();
 })->with([
     '',
     '/resources',
@@ -32,6 +32,7 @@ test('all public routes respond for both locales', function (string $path) {
     '/partner-organizations',
     '/terms',
     '/contact',
+    '/partnership',
     '/privacy',
     '/accessibility',
 ]);

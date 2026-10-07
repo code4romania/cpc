@@ -70,5 +70,11 @@ new #[Layout('layouts.app')] #[Title('Contact')] class extends Component
                 </dl>
             </x-ui.card>
         @endforeach
+
+        <section class="rounded-xl bg-accent p-8 text-center text-white">
+            <h2 class="text-2xl font-bold">{{ __('partnership.cta_title') }}</h2>
+            <p class="mt-3 mb-6">{{ __('partnership.cta_body') }}</p>
+            <x-ui.button href="{{ localized_route('partnership.index') }}" variant="secondary">{{ __('partnership.cta_button') }}</x-ui.button>
+        </section>
     </main>
 </div>

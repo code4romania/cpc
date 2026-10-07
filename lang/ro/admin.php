@@ -84,6 +84,11 @@ return [
             'label' => 'Resursă profesională',
             'plural' => 'Resurse profesionale',
         ],
+        'partnership_intents' => [
+            'navigation' => 'Intenții de parteneriat',
+            'label' => 'Intenție de parteneriat',
+            'plural' => 'Intenții de parteneriat',
+        ],
         'resource_submissions' => [
             'navigation' => 'Trimiteri resurse',
             'label' => 'Trimitere resursă',
