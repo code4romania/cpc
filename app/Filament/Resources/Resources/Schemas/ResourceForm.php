@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Resources\Schemas;
 
 use App\Enums\ResourceStatus;
 use App\Enums\ResourceType;
+use App\Filament\Support\LimitedFileUpload;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -52,8 +53,10 @@ class ResourceForm
                     ->url(),
                 TextInput::make('video_url')
                     ->url(),
-                SpatieMediaLibraryFileUpload::make('file')
-                    ->collection('file'),
+                LimitedFileUpload::configure(
+                    SpatieMediaLibraryFileUpload::make('file')->collection('file'),
+                    50,
+                ),
                 Toggle::make('featured'),
                 Select::make('status')
                     ->options(ResourceStatus::options())

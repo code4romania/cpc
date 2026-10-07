@@ -93,6 +93,7 @@ return [
         'data_points' => 'Data Points',
         'messages' => 'Messages',
     ],
+    'upload_limit' => 'Maximum file size: :size MB.',
     'notifications' => [
         'submission_approved' => 'Submission approved',
         'submission_rejected' => 'Submission rejected',

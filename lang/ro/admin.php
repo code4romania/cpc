@@ -93,6 +93,7 @@ return [
         'data_points' => 'Puncte de date',
         'messages' => 'Mesaje',
     ],
+    'upload_limit' => 'Dimensiunea maximă a fișierului: :size MB.',
     'notifications' => [
         'submission_approved' => 'Trimitere aprobată',
         'submission_rejected' => 'Trimitere respinsă',
