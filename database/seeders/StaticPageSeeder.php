@@ -14,6 +14,27 @@ class StaticPageSeeder extends Seeder
     {
         $pages = [
             [
+                'slug' => 'home',
+                'title_ro' => __('home.hero_title', [], 'ro'),
+                'title_en' => __('home.hero_title', [], 'en'),
+                'body_ro' => __('home.hero_subtitle', [], 'ro'),
+                'body_en' => __('home.hero_subtitle', [], 'en'),
+            ],
+            [
+                'slug' => 'about',
+                'title_ro' => __('about.title', [], 'ro'),
+                'title_en' => __('about.title', [], 'en'),
+                'body_ro' => __('about.mission_body', [], 'ro'),
+                'body_en' => __('about.mission_body', [], 'en'),
+            ],
+            [
+                'slug' => 'contact',
+                'title_ro' => __('contact.title', [], 'ro'),
+                'title_en' => __('contact.title', [], 'en'),
+                'body_ro' => __('contact.subtitle', [], 'ro'),
+                'body_en' => __('contact.subtitle', [], 'en'),
+            ],
+            [
                 'slug' => 'terms',
                 'title_ro' => 'Termeni și condiții',
                 'title_en' => 'Terms and Conditions',
@@ -26,13 +47,6 @@ class StaticPageSeeder extends Seeder
                 'title_en' => 'Privacy Policy',
                 'body_ro' => 'Protejăm datele personale conform legislației aplicabile și colectăm numai informațiile necesare funcționării platformei. Nu trebuie încărcate date cu caracter personal despre victime sau copii aflați în situații de risc. Pentru solicitări privind datele personale, contactați administratorul platformei.',
                 'body_en' => 'We protect personal data under applicable law and collect only information needed to operate the platform. Personally identifiable information about victims or children at risk must not be uploaded. Contact the platform administrator for privacy requests.',
-            ],
-            [
-                'slug' => 'accessibility',
-                'title_ro' => 'Declarație de accesibilitate',
-                'title_en' => 'Accessibility Statement',
-                'body_ro' => 'Ne propunem ca platforma să fie utilizabilă de cât mai multe persoane, inclusiv de utilizatorii tehnologiilor asistive. Lucrăm continuu la navigarea cu tastatura, contrast, structură semantică și alternative text. Ne puteți semnala orice barieră de accesibilitate.',
-                'body_en' => 'We aim to make the platform usable by as many people as possible, including assistive-technology users. We continuously improve keyboard navigation, contrast, semantic structure, and text alternatives. Please report any accessibility barrier you encounter.',
             ],
         ];
 

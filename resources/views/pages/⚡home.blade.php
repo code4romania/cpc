@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Resource;
+use App\Models\StaticPage;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -15,6 +16,11 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
     public int $statConviction = 78;
 
     public int $statRecovered = 89;
+
+    public function pageCopy(): ?StaticPage
+    {
+        return StaticPage::query()->published()->where('slug', 'home')->first();
+    }
 
     /** @return Collection<int, Resource> */
     public function featuredResources(): Collection
@@ -36,9 +42,9 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
                     <svg class="w-12 h-12 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
-                    <h1 class="text-4xl md:text-5xl font-bold">{{ __('home.hero_title') }}</h1>
+                    <h1 class="text-4xl md:text-5xl font-bold">{{ $this->pageCopy()?->title ?: __('home.hero_title') }}</h1>
                 </div>
-                <p class="text-xl md:text-2xl mb-8 text-white">{{ __('home.hero_subtitle') }}</p>
+                <div class="text-xl md:text-2xl mb-8 text-white">{!! $this->pageCopy()?->body ?: e(__('home.hero_subtitle')) !!}</div>
                 <div class="flex flex-wrap gap-4">
                     <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary" class="!text-navy">{{ __('home.explore') }}</x-ui.button>
                     <x-ui.button href="{{ localized_route('about') }}" variant="accent">{{ __('home.learn_more') }}</x-ui.button>

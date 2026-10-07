@@ -1,19 +1,26 @@
 <?php
 
+use App\Models\StaticPage;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Layout('layouts.app')] #[Title('About')] class extends Component {};
+new #[Layout('layouts.app')] #[Title('About')] class extends Component
+{
+    public function pageCopy(): ?StaticPage
+    {
+        return StaticPage::query()->published()->where('slug', 'about')->first();
+    }
+};
 ?>
 
 <div class="min-h-screen bg-background">
-    <x-page-header :title="__('about.title')" :subtitle="__('about.subtitle')" />
+    <x-page-header :title="$this->pageCopy()?->title ?: __('about.title')" :subtitle="__('about.subtitle')" />
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
         <x-ui.card class="p-8">
             <h2 class="text-2xl font-bold text-navy mb-4">{{ __('about.mission_title') }}</h2>
-            <p class="text-navy leading-7">{{ __('about.mission_body') }}</p>
+            <div class="text-navy leading-7">{!! $this->pageCopy()?->body ?: e(__('about.mission_body')) !!}</div>
         </x-ui.card>
 
         <section>

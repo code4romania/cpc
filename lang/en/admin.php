@@ -62,6 +62,7 @@ return [
             'navigation' => 'Static Pages',
             'label' => 'Static Page',
             'plural' => 'Static Pages',
+            'blocks_hint' => 'You can edit the text and images in the existing content. Maximum image size: 5 MB.',
         ],
         'statistic_datasets' => [
             'navigation' => 'Statistic Datasets',
