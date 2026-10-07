@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? config('app.name', 'CPC') }}</title>
+    <title>{{ $title ?? 'ZEROTRAFIC' }}</title>
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
     @isset($metaDescription)
         <meta name="description" content="{{ $metaDescription }}">
     @endisset

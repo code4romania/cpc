@@ -6,7 +6,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Layout('layouts.app')] #[Title('CPC')] class extends Component
+new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
 {
     public int $statCases = 823;
 

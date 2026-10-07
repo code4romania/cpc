@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'brand' => 'Protecția Copilului',
+    'brand' => 'ZEROTRAFIC',
     'brand_sub' => 'Centru de Resurse',
     'tagline' => 'Platformă dezvoltată de ANITP în parteneriat cu Asociația Code for Romania în cadrul Child Protection Compact (CPC)',
     'quicklinks' => 'Linkuri rapide',

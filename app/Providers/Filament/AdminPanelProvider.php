@@ -29,6 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('ZEROTRAFIC')
+            ->favicon(asset('favicon.png'))
             ->colors([
                 'primary' => Color::hex('#2a4c82'),
             ])
