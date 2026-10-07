@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Professionals\Schemas;
 
+use App\Filament\Support\LimitedFileUpload;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
@@ -34,8 +35,10 @@ class ProfessionalForm
                     ->columnSpanFull(),
                 TextInput::make('category')->required(),
                 TextInput::make('type')->required(),
-                SpatieMediaLibraryFileUpload::make('file')
-                    ->collection('file'),
+                LimitedFileUpload::configure(
+                    SpatieMediaLibraryFileUpload::make('file')->collection('file'),
+                    50,
+                ),
                 TextInput::make('file_size')->numeric(),
                 Toggle::make('is_published'),
                 DateTimePicker::make('last_updated_at'),

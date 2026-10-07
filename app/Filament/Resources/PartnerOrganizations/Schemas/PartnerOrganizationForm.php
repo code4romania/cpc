@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PartnerOrganizations\Schemas;
 
+use App\Filament\Support\LimitedFileUpload;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -18,9 +19,10 @@ class PartnerOrganizationForm
             ->components([
                 TextInput::make('name')
                     ->required(),
-                SpatieMediaLibraryFileUpload::make('logo')
-                    ->collection('logo')
-                    ->image(),
+                LimitedFileUpload::configure(
+                    SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->image(),
+                    5,
+                ),
                 Tabs::make('Translations')
                     ->tabs([
                         Tab::make('Română')->schema([
