@@ -20,6 +20,8 @@ new #[Layout('layouts.app')] #[Title('Contact')] class extends Component
     <x-page-header :title="__('contact.title')" :subtitle="__('contact.subtitle')" />
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-6">
+        <x-support-lines />
+
         @foreach ($this->organizationKeys() as $key)
             <x-ui.card wire:key="contact-{{ $key }}" class="p-8">
                 <h2 class="text-2xl font-bold text-navy mb-4">{{ __("contact.organizations.$key.name") }}</h2>

@@ -106,6 +106,11 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
         </div>
     </section>
 
+    <section class="pb-4 bg-background">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <x-support-lines />
+        </div>
+    </section>
 
     {{-- Featured resources --}}
     <section class="py-16 bg-background">
