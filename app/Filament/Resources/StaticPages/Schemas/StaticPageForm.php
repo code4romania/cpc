@@ -16,17 +16,25 @@ class StaticPageForm
         return $schema
             ->components([
                 TextInput::make('slug')
-                    ->required()
-                    ->unique(ignoreRecord: true),
+                    ->disabled()
+                    ->dehydrated(false),
                 Tabs::make('Translations')
                     ->tabs([
                         Tab::make('Română')->schema([
                             TextInput::make('title_ro')->required(),
-                            RichEditor::make('body_ro')->required(),
+                            RichEditor::make('body_ro')
+                                ->required()
+                                ->fileAttachmentsDisk('public')
+                                ->fileAttachmentsDirectory('static-pages')
+                                ->helperText(__('admin.resources.static_pages.blocks_hint')),
                         ]),
                         Tab::make('English')->schema([
                             TextInput::make('title_en')->required(),
-                            RichEditor::make('body_en')->required(),
+                            RichEditor::make('body_en')
+                                ->required()
+                                ->fileAttachmentsDisk('public')
+                                ->fileAttachmentsDirectory('static-pages')
+                                ->helperText(__('admin.resources.static_pages.blocks_hint')),
                         ]),
                     ])
                     ->columnSpanFull(),

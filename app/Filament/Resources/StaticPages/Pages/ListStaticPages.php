@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\StaticPages\Pages;
 
 use App\Filament\Resources\StaticPages\StaticPageResource;
-use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListStaticPages extends ListRecords
@@ -12,8 +11,6 @@ class ListStaticPages extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        return [];
     }
 }

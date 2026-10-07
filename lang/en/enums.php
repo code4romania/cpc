@@ -22,6 +22,7 @@ return [
         'video' => 'Videos',
         'printable' => 'Printables',
         'online' => 'Online / social media',
+        'curriculum' => 'Curricula and training materials',
     ],
     'resource_status' => ['draft' => 'Draft', 'published' => 'Published'],
     'partnership_entity_type' => [

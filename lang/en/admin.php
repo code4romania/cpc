@@ -62,6 +62,7 @@ return [
             'navigation' => 'Static Pages',
             'label' => 'Static Page',
             'plural' => 'Static Pages',
+            'blocks_hint' => 'You can edit the text and images in the existing content. Maximum image size: 5 MB.',
         ],
         'statistic_datasets' => [
             'navigation' => 'Statistic Datasets',
@@ -98,6 +99,7 @@ return [
         'data_points' => 'Data Points',
         'messages' => 'Messages',
     ],
+    'upload_limit' => 'Maximum file size: :size MB.',
     'notifications' => [
         'submission_approved' => 'Submission approved',
         'submission_rejected' => 'Submission rejected',

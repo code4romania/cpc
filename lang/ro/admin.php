@@ -62,6 +62,7 @@ return [
             'navigation' => 'Pagini statice',
             'label' => 'Pagină statică',
             'plural' => 'Pagini statice',
+            'blocks_hint' => 'Poți edita textul și imaginile din conținutul existent. Dimensiunea maximă a unei imagini: 5 MB.',
         ],
         'statistic_datasets' => [
             'navigation' => 'Seturi statistice',
@@ -98,6 +99,7 @@ return [
         'data_points' => 'Puncte de date',
         'messages' => 'Mesaje',
     ],
+    'upload_limit' => 'Dimensiunea maximă a fișierului: :size MB.',
     'notifications' => [
         'submission_approved' => 'Trimitere aprobată',
         'submission_rejected' => 'Trimitere respinsă',

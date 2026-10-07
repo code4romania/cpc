@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\StaticPage;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -9,6 +10,11 @@ new #[Layout('layouts.app')] #[Title('Contact')] class extends Component
     /**
      * @return list<string>
      */
+    public function pageCopy(): ?StaticPage
+    {
+        return StaticPage::query()->published()->where('slug', 'contact')->first();
+    }
+
     public function organizationKeys(): array
     {
         return ['anitp', 'fonpc', 'eliberare', 'tdh', 'world_vision', 'code'];
@@ -17,9 +23,14 @@ new #[Layout('layouts.app')] #[Title('Contact')] class extends Component
 ?>
 
 <div class="min-h-screen bg-background">
-    <x-page-header :title="__('contact.title')" :subtitle="__('contact.subtitle')" />
+    <x-page-header
+        :title="$this->pageCopy()?->title ?: __('contact.title')"
+        :subtitle="trim(strip_tags((string) ($this->pageCopy()?->body ?: __('contact.subtitle'))))"
+    />
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-6">
+        <x-support-lines />
+
         @foreach ($this->organizationKeys() as $key)
             <x-ui.card wire:key="contact-{{ $key }}" class="p-8">
                 <h2 class="text-2xl font-bold text-navy mb-4">{{ __("contact.organizations.$key.name") }}</h2>

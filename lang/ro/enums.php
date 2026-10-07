@@ -22,6 +22,7 @@ return [
         'video' => 'Materiale video',
         'printable' => 'Printabile',
         'online' => 'Materiale Online/Social-media',
+        'curriculum' => 'Curricule și materiale formări',
     ],
     'resource_status' => ['draft' => 'Schiță', 'published' => 'Publicat'],
     'partnership_entity_type' => [
