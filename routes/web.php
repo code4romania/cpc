@@ -3,7 +3,7 @@
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/' . config('cpc.default_locale', 'ro'));
+Route::redirect('/', '/'.config('cpc.default_locale', 'ro'));
 
 Route::prefix('{locale}')
     ->where(['locale' => 'ro|en'])
@@ -24,9 +24,6 @@ Route::prefix('{locale}')
                 ->group(function (): void {
                     Route::livewire('/', 'pages::portal-index')->name('portal.index');
                     Route::livewire('/resources', 'pages::portal-resources')->name('portal.resources');
-                    Route::livewire('/consultations', 'pages::portal-consultations-index')->name('portal.consultations.index');
-                    Route::livewire('/consultations/create', 'pages::portal-consultations-create')->name('portal.consultations.create');
-                    Route::livewire('/consultations/{consultation}', 'pages::portal-consultations-show')->name('portal.consultations.show');
                     Route::livewire('/profile', 'pages::portal-profile')->name('portal.profile');
                 });
         });

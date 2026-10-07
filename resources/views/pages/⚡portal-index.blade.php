@@ -26,7 +26,6 @@ new #[Layout('layouts.app')] #[Title('Professional Portal')] class extends Compo
         <div class="grid md:grid-cols-3 gap-6">
             @foreach ([
                 ['route' => 'portal.resources', 'title' => 'portal.resources', 'body' => 'portal.resources_body'],
-                ['route' => 'portal.consultations.index', 'title' => 'portal.consultations', 'body' => 'portal.consultations_body'],
                 ['route' => 'portal.profile', 'title' => 'portal.profile', 'body' => 'portal.profile_body'],
             ] as $item)
                 <a wire:key="{{ $item['route'] }}" href="{{ localized_route($item['route']) }}"
