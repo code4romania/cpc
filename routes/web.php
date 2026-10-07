@@ -3,7 +3,7 @@
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/' . config('cpc.default_locale', 'ro'));
+Route::redirect('/', '/'.config('cpc.default_locale', 'ro'));
 
 Route::prefix('{locale}')
     ->where(['locale' => 'ro|en'])
@@ -45,6 +45,7 @@ Route::prefix('{locale}')
         Route::livewire('/submit', 'pages::submit')->name('submit.index');
         Route::livewire('/about', 'pages::about')->name('about');
         Route::livewire('/contact', 'pages::contact')->name('contact');
+        Route::livewire('/partnership', 'pages::partnership')->name('partnership.index');
         Route::livewire('/partner-organizations', 'pages::partners-index')->name('partners.index');
         Route::livewire('/terms', 'pages::static-page')->defaults('slug', 'terms')->name('terms');
         Route::livewire('/privacy', 'pages::static-page')->defaults('slug', 'privacy')->name('privacy');

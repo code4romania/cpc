@@ -53,11 +53,5 @@ new #[Layout('layouts.app')] #[Title('About')] class extends Component {};
         <x-ui.alert variant="emergency" :title="__('about.notice_title')">
             {{ __('about.notice_body') }}
         </x-ui.alert>
-
-        <section class="rounded-xl bg-accent p-8 text-center text-white">
-            <h2 class="text-2xl font-bold">{{ __('about.cta_title') }}</h2>
-            <p class="mt-3 mb-6">{{ __('about.cta_body') }}</p>
-            <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary">{{ __('about.cta_button') }}</x-ui.button>
-        </section>
     </main>
 </div>

@@ -24,6 +24,11 @@ return [
         'online' => 'Materiale Online/Social-media',
     ],
     'resource_status' => ['draft' => 'Schiță', 'published' => 'Publicat'],
+    'partnership_entity_type' => [
+        'public_institution' => 'Instituție publică',
+        'ngo' => 'ONG',
+        'private_company' => 'Companie privată',
+    ],
     'organization_type' => [
         'public_institution' => 'Instituții publice',
         'ngo' => 'Organizații nonguvernamentale',

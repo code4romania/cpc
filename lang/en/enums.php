@@ -24,6 +24,11 @@ return [
         'online' => 'Online / social media',
     ],
     'resource_status' => ['draft' => 'Draft', 'published' => 'Published'],
+    'partnership_entity_type' => [
+        'public_institution' => 'Public institution',
+        'ngo' => 'NGO',
+        'private_company' => 'Private company',
+    ],
     'organization_type' => [
         'public_institution' => 'Public institutions',
         'ngo' => 'Non-governmental organizations',
