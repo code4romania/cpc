@@ -7,6 +7,7 @@ use App\Enums\ResourceStatus;
 use App\Enums\ResourceType;
 use App\Filament\Support\LimitedFileUpload;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TagsInput;
@@ -31,12 +32,26 @@ class ResourceForm
                         Tab::make('Română')
                             ->schema([
                                 TextInput::make('title_ro')->required(),
-                                Textarea::make('description_ro')->required(),
+                                Textarea::make('description_ro')
+                                    ->label(__('resources.short_description'))
+                                    ->required()
+                                    ->rows(3),
+                                RichEditor::make('body_ro')
+                                    ->label(__('resources.full_description'))
+                                    ->fileAttachmentsDisk('public')
+                                    ->fileAttachmentsDirectory('resources'),
                             ]),
                         Tab::make('English')
                             ->schema([
                                 TextInput::make('title_en')->required(),
-                                Textarea::make('description_en')->required(),
+                                Textarea::make('description_en')
+                                    ->label(__('resources.short_description'))
+                                    ->required()
+                                    ->rows(3),
+                                RichEditor::make('body_en')
+                                    ->label(__('resources.full_description'))
+                                    ->fileAttachmentsDisk('public')
+                                    ->fileAttachmentsDirectory('resources'),
                             ]),
                     ])
                     ->columnSpanFull(),

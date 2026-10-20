@@ -63,7 +63,11 @@ new #[Layout('layouts.app')] #[Title('Resource')] class extends Component
             </header>
             <div class="p-8">
                 <h2 class="text-xl font-semibold text-navy mb-4">{{ __('resources.about') }}</h2>
-                <p class="text-muted leading-7">{{ $resource->description }}</p>
+                @if (filled($resource->body))
+                    <div class="prose prose-slate max-w-none text-navy">{!! $resource->body !!}</div>
+                @else
+                    <p class="text-muted leading-7">{{ $resource->description }}</p>
+                @endif
                 @if ($resource->tags)
                     <div class="flex flex-wrap gap-2 mt-8">
                         @foreach ($resource->tags as $tag)
