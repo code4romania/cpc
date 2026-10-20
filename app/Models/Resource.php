@@ -41,6 +41,15 @@ class Resource extends Model implements HasMedia
     use HasTranslations;
     use InteractsWithMedia;
 
+    protected static function booted(): void
+    {
+        static::saving(function (Resource $resource): void {
+            if ($resource->status === ResourceStatus::Published && $resource->published_at === null) {
+                $resource->published_at = now();
+            }
+        });
+    }
+
     protected function casts(): array
     {
         return [
