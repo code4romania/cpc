@@ -35,8 +35,20 @@ class UserForm
                     ->required()
                     ->live(),
                 TextInput::make('organization')
+                    ->label(__('auth.institution'))
                     ->maxLength(255)
-                    ->visible(fn (Get $get): bool => $get('role') === UserRole::Professional->value),
+                    ->visible(fn (Get $get): bool => in_array($get('role'), [
+                        UserRole::Professional->value,
+                        UserRole::Mai->value,
+                        UserRole::Ngo->value,
+                    ], true)),
+                TextInput::make('reference_phone')
+                    ->label(__('auth.reference_phone'))
+                    ->maxLength(50)
+                    ->visible(fn (Get $get): bool => in_array($get('role'), [
+                        UserRole::Mai->value,
+                        UserRole::Ngo->value,
+                    ], true)),
                 Select::make('professional_role')
                     ->options(ProfessionalRole::options())
                     ->visible(fn (Get $get): bool => $get('role') === UserRole::Professional->value),

@@ -1,9 +1,12 @@
 <?php
 
+use App\Enums\AccountApprovalStatus;
 use App\Enums\UserRole;
+use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Models\User;
+use Livewire\Livewire;
 
-test('public navigation links to login and signup, and admins can only create staff roles', function () {
+test('public navigation links to login and signup, and admins can assign staff and organization roles', function () {
     $this->get('/ro')
         ->assertOk()
         ->assertSee(localized_route('login'), false)
@@ -11,9 +14,29 @@ test('public navigation links to login and signup, and admins can only create st
         ->assertSee(__('auth.register_nav', [], 'ro'), false);
 
     expect(UserRole::options())->not->toHaveKey(UserRole::Professional->value)
-        ->and(UserRole::options())->not->toHaveKey(UserRole::Mai->value)
-        ->and(UserRole::options())->not->toHaveKey(UserRole::Ngo->value)
+        ->and(UserRole::options())->toHaveKey(UserRole::Mai->value)
+        ->and(UserRole::options())->toHaveKey(UserRole::Ngo->value)
         ->and(UserRole::options())->toHaveKey(UserRole::Admin->value);
+
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(CreateUser::class)
+        ->fillForm([
+            'name' => 'MAI User',
+            'email' => 'mai@example.com',
+            'password' => 'password',
+            'role' => UserRole::Mai->value,
+            'organization' => 'MAI',
+        ])
+        ->call('create')
+        ->assertHasNoFormErrors();
+
+    $account = User::query()->where('email', 'mai@example.com')->first();
+
+    expect($account)->not->toBeNull()
+        ->and($account->role)->toBe(UserRole::Mai)
+        ->and($account->approval_status)->toBe(AccountApprovalStatus::Approved)
+        ->and($account->expires_at)->not->toBeNull();
 });
 
 test('login page renders in romanian', function () {
