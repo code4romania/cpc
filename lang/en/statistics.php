@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Statistics and Data - Child Trafficking in Romania',
+    'number_value' => 'Number',
     'subtitle' => 'Updated data on child trafficking and abuse in Romania. All charts can be embedded on your website.',
     'total_cases' => 'Total Cases 2024',
     'cases_note' => '+6.3% vs 2023',
