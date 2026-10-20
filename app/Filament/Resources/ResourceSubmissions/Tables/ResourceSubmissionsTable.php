@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ResourceSubmissions\Tables;
 use App\Actions\ApproveResourceSubmission;
 use App\Enums\ResourceType;
 use App\Enums\SubmissionStatus;
+use App\Filament\Resources\ResourceSubmissions\Schemas\ResourceSubmissionInfolist;
 use App\Models\ResourceSubmission;
 use App\Models\User;
 use Filament\Actions\Action;
@@ -67,7 +68,8 @@ class ResourceSubmissionsTable
                     ->options(SubmissionStatus::options()),
             ])
             ->recordActions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->schema(ResourceSubmissionInfolist::schema()),
                 Action::make('approve')
                     ->icon('heroicon-o-check')
                     ->color('success')

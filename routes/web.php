@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\AccountAccessController;
+use App\Http\Controllers\DownloadResourceSubmissionFileController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/'.config('cpc.default_locale', 'ro'));
+
+Route::middleware('auth')->get('/resource-submissions/{submission}/files/{index}', DownloadResourceSubmissionFileController::class)
+    ->whereNumber('index')
+    ->name('resource-submissions.files.download');
 
 Route::prefix('{locale}')
     ->where(['locale' => 'ro|en'])
