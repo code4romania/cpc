@@ -184,7 +184,7 @@ class StaticPageBlocks
             return $value !== [];
         }
 
-        return is_string($value) && $value !== $key;
+        return $value !== $key;
     }
 
     private static function translation(string $key, string $locale): string
@@ -195,6 +195,6 @@ class StaticPageBlocks
             return implode("\n", array_map(strval(...), $value));
         }
 
-        return is_string($value) && $value !== $key ? $value : '';
+        return $value !== $key ? $value : '';
     }
 }

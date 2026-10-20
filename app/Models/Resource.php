@@ -92,8 +92,8 @@ class Resource extends Model implements HasMedia
     }
 
     /**
-     * @param  Builder<resource>  $query
-     * @return Builder<resource>
+     * @param  Builder<\App\Models\Resource>  $query
+     * @return Builder<\App\Models\Resource>
      */
     public function scopeVisibleTo(Builder $query, ?User $user): Builder
     {
