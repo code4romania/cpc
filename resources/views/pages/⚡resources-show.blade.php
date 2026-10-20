@@ -56,6 +56,9 @@ new #[Layout('layouts.app')] #[Title('Resource')] class extends Component
                     @if ($resource->download_url)
                         <x-ui.button href="{{ $resource->download_url }}" target="_blank">{{ __('resources.download') }}</x-ui.button>
                     @endif
+                    @if ($resource->file_url)
+                        <x-ui.button href="{{ $resource->file_url }}" target="_blank">{{ $resource->getFirstMedia('file')?->file_name ?? __('resources.download') }}</x-ui.button>
+                    @endif
                     @if ($resource->video_url)
                         <x-ui.button href="{{ $resource->video_url }}" target="_blank" variant="accent">{{ __('resources.watch') }}</x-ui.button>
                     @endif

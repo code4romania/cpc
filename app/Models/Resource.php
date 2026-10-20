@@ -151,7 +151,9 @@ class Resource extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('file')->singleFile();
+        $this->addMediaCollection('file')
+            ->singleFile()
+            ->useDisk('public');
     }
 
     public function getFileUrlAttribute(): ?string
