@@ -7,6 +7,7 @@ use App\Enums\ResourceType;
 use App\Enums\SubmissionStatus;
 use App\Models\ResourceSubmission;
 use App\Models\User;
+use App\Notifications\ResourceSubmissionRejected;
 use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Facades\Filament;
@@ -101,6 +102,9 @@ class ResourceSubmissionsTable
                             'reviewed_by' => $reviewer->getKey(),
                             'reviewed_at' => now(),
                         ]);
+
+                        \Illuminate\Support\Facades\Notification::route('mail', $record->submitter_email)
+                            ->notify(new ResourceSubmissionRejected($record));
 
                         Notification::make()
                             ->title(__('admin.notifications.submission_rejected'))

@@ -1,7 +1,11 @@
 <?php
 
 use App\Enums\PartnershipEntityType;
+use App\Enums\UserRole;
 use App\Models\PartnershipIntent;
+use App\Models\User;
+use App\Notifications\PartnershipIntentReceived;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -43,7 +47,7 @@ new #[Layout('layouts.app')] #[Title('Partnership')] class extends Component
             'personalDataConsent' => ['accepted'],
         ]);
 
-        PartnershipIntent::query()->create([
+        $intent = PartnershipIntent::query()->create([
             'entity_name' => $validated['entityName'],
             'entity_type' => $validated['entityType'],
             'activity_domain' => $validated['activityDomain'],
@@ -55,6 +59,11 @@ new #[Layout('layouts.app')] #[Title('Partnership')] class extends Component
             'personal_data_consent' => true,
             'locale' => app()->getLocale(),
         ]);
+
+        Notification::send(
+            User::query()->whereIn('role', [UserRole::Admin, UserRole::Editor])->get(),
+            new PartnershipIntentReceived($intent),
+        );
 
         $this->reset();
         $this->submitted = true;
