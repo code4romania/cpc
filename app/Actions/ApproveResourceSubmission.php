@@ -42,8 +42,8 @@ class ApproveResourceSubmission
                 'type' => $submission->type,
                 'resource_category_id' => $category->getKey(),
                 'download_url' => $submission->external_url,
-                'status' => ResourceStatus::Published,
-                'published_at' => now(),
+                'status' => ResourceStatus::Draft,
+                'published_at' => null,
             ]);
 
             $submission->update([
