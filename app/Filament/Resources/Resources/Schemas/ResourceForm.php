@@ -61,7 +61,7 @@ class ResourceForm
                 TextInput::make('video_url')
                     ->url(),
                 LimitedFileUpload::configure(
-                    SpatieMediaLibraryFileUpload::make('file')->collection('file'),
+                    SpatieMediaLibraryFileUpload::make('file')->collection('file')->visibility('public'),
                     50,
                 ),
                 Toggle::make('featured'),
