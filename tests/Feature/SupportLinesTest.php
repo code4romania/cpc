@@ -9,6 +9,7 @@ test('support lines appear on the home, about, and contact pages', function () {
         expect($html)
             ->toContain('Linii de sprijin')
             ->toContain('data-support-lines')
+            ->toContain('grid-cols-[max-content_minmax(0,1fr)]')
             ->toContain('0800 800 678')
             ->toContain('116 111')
             ->toContain('Telefonul Copilului');
