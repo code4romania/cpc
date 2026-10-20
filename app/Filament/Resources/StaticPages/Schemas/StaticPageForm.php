@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\StaticPages\Schemas;
 
+use App\Support\StaticPageBlocks;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -27,6 +28,7 @@ class StaticPageForm
                                 ->fileAttachmentsDisk('public')
                                 ->fileAttachmentsDirectory('static-pages')
                                 ->helperText(__('admin.resources.static_pages.blocks_hint')),
+                            ...StaticPageBlocks::formFields('ro'),
                         ]),
                         Tab::make('English')->schema([
                             TextInput::make('title_en')->required(),
@@ -35,6 +37,7 @@ class StaticPageForm
                                 ->fileAttachmentsDisk('public')
                                 ->fileAttachmentsDirectory('static-pages')
                                 ->helperText(__('admin.resources.static_pages.blocks_hint')),
+                            ...StaticPageBlocks::formFields('en'),
                         ]),
                     ])
                     ->columnSpanFull(),

@@ -7,24 +7,33 @@ use Livewire\Component;
 
 new #[Layout('layouts.app')] #[Title('About')] class extends Component
 {
+    private bool $pageLoaded = false;
+
+    private ?StaticPage $page = null;
+
     public function pageCopy(): ?StaticPage
     {
-        return StaticPage::query()->published()->where('slug', 'about')->first();
+        if (! $this->pageLoaded) {
+            $this->page = StaticPage::query()->published()->where('slug', 'about')->first();
+            $this->pageLoaded = true;
+        }
+
+        return $this->page;
     }
 };
 ?>
 
 <div class="min-h-screen bg-background">
-    <x-page-header :title="$this->pageCopy()?->title ?: __('about.title')" :subtitle="__('about.subtitle')" />
+    <x-page-header :title="$this->pageCopy()?->title ?: __('about.title')" :subtitle="page_text($this->pageCopy(), 'subtitle', 'about.subtitle')" />
 
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
         <x-ui.card class="p-8">
-            <h2 class="text-2xl font-bold text-navy mb-4">{{ __('about.mission_title') }}</h2>
+            <h2 class="text-2xl font-bold text-navy mb-4">{{ page_text($this->pageCopy(), 'mission_title', 'about.mission_title') }}</h2>
             <div class="text-navy leading-7">{!! $this->pageCopy()?->body ?: e(__('about.mission_body')) !!}</div>
         </x-ui.card>
 
         <section>
-            <h2 class="text-2xl font-bold text-navy mb-6">{{ __('about.values_title') }}</h2>
+            <h2 class="text-2xl font-bold text-navy mb-6">{{ page_text($this->pageCopy(), 'values_title', 'about.values_title') }}</h2>
             <div class="grid md:grid-cols-2 gap-6">
                 @foreach ([
                     'evidence' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
@@ -38,27 +47,27 @@ new #[Layout('layouts.app')] #[Title('About')] class extends Component
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-navy mb-3">{{ __("about.values.$value.title") }}</h3>
-                        <p class="text-muted">{{ __("about.values.$value.body") }}</p>
+                        <h3 class="text-xl font-semibold text-navy mb-3">{{ page_text($this->pageCopy(), "value_{$value}_title", "about.values.$value.title") }}</h3>
+                        <p class="text-muted">{{ page_text($this->pageCopy(), "value_{$value}_body", "about.values.$value.body") }}</p>
                     </x-ui.card>
                 @endforeach
             </div>
         </section>
 
         <x-ui.card class="p-8">
-            <h2 class="text-2xl font-bold text-navy mb-5">{{ __('about.offer_title') }}</h2>
+            <h2 class="text-2xl font-bold text-navy mb-5">{{ page_text($this->pageCopy(), 'offer_title', 'about.offer_title') }}</h2>
             <div class="space-y-5">
                 @foreach (['education', 'tools', 'development', 'cases'] as $offer)
                     <div wire:key="offer-{{ $offer }}">
-                        <h3 class="font-semibold text-navy">{{ __("about.offers.$offer.title") }}</h3>
-                        <p class="text-muted mt-1">{{ __("about.offers.$offer.body") }}</p>
+                        <h3 class="font-semibold text-navy">{{ page_text($this->pageCopy(), "offer_{$offer}_title", "about.offers.$offer.title") }}</h3>
+                        <p class="text-muted mt-1">{{ page_text($this->pageCopy(), "offer_{$offer}_body", "about.offers.$offer.body") }}</p>
                     </div>
                 @endforeach
             </div>
         </x-ui.card>
 
-        <x-ui.alert variant="emergency" :title="__('about.notice_title')">
-            {{ __('about.notice_body') }}
+        <x-ui.alert variant="emergency" :title="page_text($this->pageCopy(), 'notice_title', 'about.notice_title')">
+            {{ page_text($this->pageCopy(), 'notice_body', 'about.notice_body') }}
         </x-ui.alert>
 
         <x-support-lines />

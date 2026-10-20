@@ -17,9 +17,18 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
 
     public int $statRecovered = 89;
 
+    private bool $pageLoaded = false;
+
+    private ?StaticPage $page = null;
+
     public function pageCopy(): ?StaticPage
     {
-        return StaticPage::query()->published()->where('slug', 'home')->first();
+        if (! $this->pageLoaded) {
+            $this->page = StaticPage::query()->published()->where('slug', 'home')->first();
+            $this->pageLoaded = true;
+        }
+
+        return $this->page;
     }
 
     /** @return Collection<int, Resource> */
@@ -46,8 +55,8 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
                 </div>
                 <div class="text-xl md:text-2xl mb-8 text-white">{!! $this->pageCopy()?->body ?: e(__('home.hero_subtitle')) !!}</div>
                 <div class="flex flex-wrap gap-4">
-                    <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary" class="!text-navy">{{ __('home.explore') }}</x-ui.button>
-                    <x-ui.button href="{{ localized_route('about') }}" variant="accent">{{ __('home.learn_more') }}</x-ui.button>
+                    <x-ui.button href="{{ localized_route('resources.index') }}" variant="secondary" class="!text-navy">{{ page_text($this->pageCopy(), 'explore', 'home.explore') }}</x-ui.button>
+                    <x-ui.button href="{{ localized_route('about') }}" variant="accent">{{ page_text($this->pageCopy(), 'learn_more', 'home.learn_more') }}</x-ui.button>
                 </div>
             </div>
         </div>
@@ -55,8 +64,8 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
 
     {{-- Emergency banner --}}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <x-ui.alert variant="emergency" :title="__('home.emergency_title')">
-            {{ __('home.emergency_text') }}
+        <x-ui.alert variant="emergency" :title="page_text($this->pageCopy(), 'emergency_title', 'home.emergency_title')">
+            {{ page_text($this->pageCopy(), 'emergency_text', 'home.emergency_text') }}
             <strong>{{ config('cpc.emergency_hotline', '112') }}</strong>.
         </x-ui.alert>
     </div>
@@ -64,7 +73,7 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
     {{-- Features --}}
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-navy mb-12 text-center">{{ __('home.features_title') }}</h2>
+            <h2 class="text-3xl font-bold text-navy mb-12 text-center">{{ page_text($this->pageCopy(), 'features_title', 'home.features_title') }}</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach ([
                     ['icon' => 'book', 'bg' => 'bg-tint-blue', 'color' => 'text-primary', 'title' => 'home.feat_edu_title', 'desc' => 'home.feat_edu_desc'],
@@ -104,8 +113,8 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
                                 </svg>
                             @endif
                         </div>
-                        <h3 class="text-xl font-semibold text-navy mb-2 transition-colors duration-300 group-hover:text-accent">{{ __($card['title']) }}</h3>
-                        <p class="text-muted">{{ __($card['desc']) }}</p>
+                        <h3 class="text-xl font-semibold text-navy mb-2 transition-colors duration-300 group-hover:text-accent">{{ page_text($this->pageCopy(), str($card['title'])->after('home.')->toString(), $card['title']) }}</h3>
+                        <p class="text-muted">{{ page_text($this->pageCopy(), str($card['desc'])->after('home.')->toString(), $card['desc']) }}</p>
                     </div>
                 @endforeach
             </div>
@@ -122,9 +131,9 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
     <section class="py-16 bg-background">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl font-bold text-navy">{{ __('home.featured_title') }}</h2>
+                <h2 class="text-3xl font-bold text-navy">{{ page_text($this->pageCopy(), 'featured_title', 'home.featured_title') }}</h2>
                 <x-ui.button href="{{ localized_route('resources.index') }}" variant="ghost" size="sm">
-                    {{ __('home.view_all') }}
+                    {{ page_text($this->pageCopy(), 'view_all', 'home.view_all') }}
                 </x-ui.button>
             </div>
             <div class="grid md:grid-cols-2 gap-6">
@@ -149,18 +158,18 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
     <section class="py-16 bg-white" x-data>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-navy mb-4">{{ __('home.stats_title') }}</h2>
-                <p class="text-lg text-muted max-w-3xl mx-auto">{{ __('home.stats_subtitle') }}</p>
+                <h2 class="text-3xl font-bold text-navy mb-4">{{ page_text($this->pageCopy(), 'stats_title', 'home.stats_title') }}</h2>
+                <p class="text-lg text-muted max-w-3xl mx-auto">{{ page_text($this->pageCopy(), 'stats_subtitle', 'home.stats_subtitle') }}</p>
             </div>
             <div class="grid md:grid-cols-4 gap-6 mb-8">
-                <x-stat-card :label="__('home.stat_cases')" :value="$statCases" tone="primary" animate />
-                <x-stat-card :label="__('home.stat_victims')" :value="$statVictims" tone="accent" animate />
-                <x-stat-card :label="__('home.stat_conviction')" :value="$statConviction" suffix="%" tone="muted" animate />
-                <x-stat-card :label="__('home.stat_recovered')" :value="$statRecovered" suffix="%" tone="navy" animate />
+                <x-stat-card :label="page_text($this->pageCopy(), 'stat_cases', 'home.stat_cases')" :value="$statCases" tone="primary" animate />
+                <x-stat-card :label="page_text($this->pageCopy(), 'stat_victims', 'home.stat_victims')" :value="$statVictims" tone="accent" animate />
+                <x-stat-card :label="page_text($this->pageCopy(), 'stat_conviction', 'home.stat_conviction')" :value="$statConviction" suffix="%" tone="muted" animate />
+                <x-stat-card :label="page_text($this->pageCopy(), 'stat_recovered', 'home.stat_recovered')" :value="$statRecovered" suffix="%" tone="navy" animate />
             </div>
             <div class="text-center">
                 <x-ui.button href="{{ localized_route('statistics.index') }}" variant="primary">
-                    {{ __('home.view_all_stats') }}
+                    {{ page_text($this->pageCopy(), 'view_all_stats', 'home.view_all_stats') }}
                 </x-ui.button>
             </div>
         </div>
@@ -170,16 +179,16 @@ new #[Layout('layouts.app')] #[Title('ZEROTRAFIC')] class extends Component
     <section class="relative py-16 text-white overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-navy/95 to-primary/85"></div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold mb-4">{{ __('home.cta_title') }}</h2>
-            <p class="text-xl text-muted mb-8 max-w-3xl mx-auto">{{ __('home.cta_subtitle') }}</p>
+            <h2 class="text-3xl font-bold mb-4">{{ page_text($this->pageCopy(), 'cta_title', 'home.cta_title') }}</h2>
+            <p class="text-xl text-muted mb-8 max-w-3xl mx-auto">{{ page_text($this->pageCopy(), 'cta_subtitle', 'home.cta_subtitle') }}</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{{ localized_route('submit.index') }}"
                    class="inline-flex items-center justify-center gap-2 bg-white text-navy px-8 py-4 rounded-lg font-semibold hover:bg-background transition-colors">
-                    {{ __('home.cta_submit') }}
+                    {{ page_text($this->pageCopy(), 'cta_submit', 'home.cta_submit') }}
                 </a>
                 <a href="{{ localized_route('partners.index') }}"
                    class="inline-flex items-center justify-center gap-2 bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-colors border-2 border-white/30">
-                    {{ __('home.cta_partners') }}
+                    {{ page_text($this->pageCopy(), 'cta_partners', 'home.cta_partners') }}
                 </a>
             </div>
         </div>
