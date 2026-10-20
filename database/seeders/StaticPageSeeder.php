@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\StaticPage;
+use App\Support\StaticPageBlocks;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class StaticPageSeeder extends Seeder
 {
@@ -51,9 +53,15 @@ class StaticPageSeeder extends Seeder
         ];
 
         foreach ($pages as $page) {
+            $attributes = [...$page, 'is_published' => true];
+
+            if (Schema::hasColumn('static_pages', 'blocks')) {
+                $attributes['blocks'] = StaticPageBlocks::defaults($page['slug']);
+            }
+
             StaticPage::query()->updateOrCreate(
                 ['slug' => $page['slug']],
-                [...$page, 'is_published' => true],
+                $attributes,
             );
         }
     }

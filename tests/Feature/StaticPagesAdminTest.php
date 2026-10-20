@@ -25,3 +25,26 @@ test('static pages are limited to the managed set and cannot be created or delet
         ->assertSee('You can edit the text and images in the existing content. Maximum image size: 5 MB.', false)
         ->assertSee('wire:name="App\\Filament\\Resources\\StaticPages\\Pages\\EditStaticPage"', false);
 });
+
+test('an admin can edit an existing homepage block without adding a new one', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(EditStaticPage::class, ['record' => 'home'])
+        ->assertFormSet([
+            'blocks.emergency_title.ro' => 'Raportare de urgență',
+            'blocks.feat_edu_title.ro' => 'Materiale educaționale',
+        ])
+        ->set('data.blocks.emergency_title.ro', 'Titlu de urgență editat')
+        ->set('data.blocks.emergency_title.en', 'Edited emergency title')
+        ->call('save')
+        ->assertHasNoFormErrors();
+
+    $this->get('/ro')
+        ->assertSuccessful()
+        ->assertSee('Titlu de urgență editat', false)
+        ->assertSee('Materiale educaționale', false);
+
+    $this->get('/en')
+        ->assertSuccessful()
+        ->assertSee('Edited emergency title', false);
+});
