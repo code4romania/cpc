@@ -19,5 +19,7 @@ return [
     'download' => 'Download resource',
     'watch' => 'Watch video',
     'about' => 'About this resource',
+    'short_description' => 'Short description',
+    'full_description' => 'Full description',
     'related' => 'Related resources',
 ];

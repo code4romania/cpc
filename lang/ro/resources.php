@@ -19,5 +19,7 @@ return [
     'download' => 'Descarcă resursa',
     'watch' => 'Vizionează videoclipul',
     'about' => 'Despre această resursă',
+    'short_description' => 'Descriere scurtă',
+    'full_description' => 'Descriere completă',
     'related' => 'Resurse conexe',
 ];

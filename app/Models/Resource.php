@@ -22,6 +22,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
     'title_en',
     'description_ro',
     'description_en',
+    'body_ro',
+    'body_en',
     'type',
     'resource_category_id',
     'tags',
@@ -129,6 +131,11 @@ class Resource extends Model implements HasMedia
     public function getDescriptionAttribute(): ?string
     {
         return $this->getTranslated('description');
+    }
+
+    public function getBodyAttribute(): ?string
+    {
+        return $this->getTranslated('body');
     }
 
     /**
