@@ -54,6 +54,8 @@ test('admin can approve a resource submission', function () {
         ->and($submission->reviewed_at)->not->toBeNull()
         ->and($resource)->not->toBeNull()
         ->and($resource->resource_category_id)->toBe($category->getKey())
-        ->and($resource->status)->toBe(ResourceStatus::Published)
-        ->and($resource->published_at)->not->toBeNull();
+        ->and($resource->status)->toBe(ResourceStatus::Draft)
+        ->and($resource->published_at)->toBeNull();
+
+    $this->get('/en/resources')->assertDontSee('Know Your Rights', false);
 });
