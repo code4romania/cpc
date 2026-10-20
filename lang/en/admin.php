@@ -23,6 +23,10 @@ return [
         'approve' => 'Accept',
         'reject' => 'Reject',
     ],
+    'tabs' => [
+        'response' => 'Submitted response',
+        'review' => 'Review',
+    ],
     'stats' => [
         'published_resources' => 'Published resources',
         'published_resources_desc' => 'Visible on the public site',

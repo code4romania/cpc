@@ -23,6 +23,10 @@ return [
         'approve' => 'Acceptă',
         'reject' => 'Respinge',
     ],
+    'tabs' => [
+        'response' => 'Răspuns trimis',
+        'review' => 'Revizuire',
+    ],
     'stats' => [
         'published_resources' => 'Resurse publicate',
         'published_resources_desc' => 'Vizibile pe site-ul public',
