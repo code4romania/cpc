@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Resources\Tables;
 
+use App\Enums\ResourceAccess;
 use App\Enums\ResourceStatus;
 use App\Enums\ResourceType;
 use Filament\Actions\BulkActionGroup;
@@ -11,6 +12,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ResourcesTable
 {
@@ -64,6 +66,18 @@ class ResourcesTable
                     ->relationship('resourceCategory', 'name_ro')
                     ->searchable()
                     ->preload(),
+                SelectFilter::make('access_levels')
+                    ->label(__('admin.fields.access_levels'))
+                    ->options(ResourceAccess::options())
+                    ->query(function (Builder $query, array $data): Builder {
+                        $value = $data['value'] ?? null;
+
+                        if (! is_string($value) || $value === '') {
+                            return $query;
+                        }
+
+                        return $query->whereJsonContains('access_levels', $value);
+                    }),
             ])
             ->recordActions([
                 EditAction::make(),
