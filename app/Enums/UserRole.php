@@ -20,7 +20,7 @@ enum UserRole: string
      */
     public static function options(): array
     {
-        return collect([self::Admin, self::Editor])
+        return collect([self::Admin, self::Editor, self::Mai, self::Ngo])
             ->mapWithKeys(fn (self $role): array => [$role->value => $role->label()])
             ->all();
     }
