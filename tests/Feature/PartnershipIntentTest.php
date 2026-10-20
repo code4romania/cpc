@@ -4,6 +4,7 @@ use App\Enums\PartnershipEntityType;
 use App\Filament\Resources\PartnershipIntents\Pages\ListPartnershipIntents;
 use App\Models\PartnershipIntent;
 use App\Models\User;
+use Filament\Actions\Testing\TestAction;
 use Livewire\Livewire;
 
 test('the partnership call to action is on contact and not on about', function () {
@@ -54,4 +55,23 @@ test('admins can see partnership intents in the moderation tab', function () {
     Livewire::test(ListPartnershipIntents::class)
         ->assertSee($intent->entity_name)
         ->assertSee(mb_substr($intent->intent, 0, 40));
+});
+
+test('admins can open the full partnership intent', function () {
+    $intent = PartnershipIntent::factory()->create([
+        'entity_name' => 'Centrul de Prevenire',
+        'activity_domain' => 'Formare profesională',
+        'contact_role' => 'Coordonator programe',
+        'phone' => '0722111222',
+        'intent' => str_repeat('Vrem un parteneriat pe termen lung pentru prevenirea traficului. ', 8),
+    ]);
+
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ListPartnershipIntents::class)
+        ->mountAction(TestAction::make('view')->table($intent))
+        ->assertMountedActionModalSee($intent->intent)
+        ->assertMountedActionModalSee('Formare profesională')
+        ->assertMountedActionModalSee('Coordonator programe')
+        ->assertMountedActionModalSee('0722111222');
 });
