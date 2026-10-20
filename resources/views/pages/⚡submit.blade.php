@@ -2,9 +2,13 @@
 
 use App\Enums\ResourceType;
 use App\Enums\SubmissionStatus;
+use App\Enums\UserRole;
 use App\Models\County;
 use App\Models\ResourceCategory;
 use App\Models\ResourceSubmission;
+use App\Models\User;
+use App\Notifications\ResourceSubmissionReceived;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -123,7 +127,7 @@ new #[Layout('layouts.app')] #[Title('Submit Resource')] class extends Component
             ->values()
             ->all();
 
-        ResourceSubmission::create([
+        $submission = ResourceSubmission::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
             'type' => $validated['type'],
@@ -145,6 +149,11 @@ new #[Layout('layouts.app')] #[Title('Submit Resource')] class extends Component
             'locale' => app()->getLocale(),
             'status' => SubmissionStatus::Pending,
         ]);
+
+        Notification::send(
+            User::query()->whereIn('role', [UserRole::Admin, UserRole::Editor])->get(),
+            new ResourceSubmissionReceived($submission),
+        );
 
         $this->submitted = true;
         $this->resetExcept('submitted');

@@ -8,14 +8,18 @@ use App\Models\Resource;
 use App\Models\ResourceCategory;
 use App\Models\ResourceSubmission;
 use App\Models\User;
+use App\Notifications\ResourceSubmissionApproved;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class ApproveResourceSubmission
 {
     public function __invoke(ResourceSubmission $submission, User $reviewer): Resource
     {
-        return DB::transaction(function () use ($submission, $reviewer): Resource {
+        $shouldNotify = false;
+
+        $resource = DB::transaction(function () use ($submission, $reviewer, &$shouldNotify): Resource {
             $submission = ResourceSubmission::query()
                 ->lockForUpdate()
                 ->whereKey($submission->getKey())
@@ -29,6 +33,8 @@ class ApproveResourceSubmission
                     ->whereKey($submission->resource_id)
                     ->firstOrFail();
             }
+
+            $shouldNotify = true;
 
             $category = $this->resolveCategory($submission->category);
             $slug = $this->uniqueSlug($submission->title);
@@ -56,6 +62,15 @@ class ApproveResourceSubmission
 
             return $resource;
         });
+
+        if ($shouldNotify) {
+            $submission->refresh();
+
+            Notification::route('mail', $submission->submitter_email)
+                ->notify(new ResourceSubmissionApproved($submission));
+        }
+
+        return $resource;
     }
 
     private function resolveCategory(?string $category): ResourceCategory
