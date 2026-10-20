@@ -51,7 +51,7 @@ return [
     'submission_status' => ['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'],
     'consultation_status' => ['open' => 'Open', 'in_progress' => 'In progress', 'closed' => 'Closed'],
     'consultation_urgency' => ['low' => 'Low', 'medium' => 'Medium', 'high' => 'High'],
-    'chart_type' => ['bar' => 'Bar', 'line' => 'Line', 'pie' => 'Pie', 'area' => 'Area'],
+    'chart_type' => ['bar' => 'Bar', 'line' => 'Line', 'pie' => 'Pie', 'area' => 'Area', 'number' => 'Number'],
     'index_type' => [
         'vulnerability' => 'Structural Vulnerability',
         'resilience' => 'Institutional Resilience',

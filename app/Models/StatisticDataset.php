@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable([
     'slug',
     'chart_type',
+    'number_value',
     'title_ro',
     'title_en',
     'description_ro',
@@ -28,6 +29,7 @@ class StatisticDataset extends Model
 {
     /** @use HasFactory<StatisticDatasetFactory> */
     use HasFactory;
+
     use HasTranslations;
 
     protected function casts(): array
@@ -46,7 +48,7 @@ class StatisticDataset extends Model
     }
 
     /**
-     * @param  Builder<StatisticDataset> $query
+     * @param  Builder<StatisticDataset>  $query
      * @return Builder<StatisticDataset>
      */
     public function scopePublished(Builder $query): Builder

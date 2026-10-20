@@ -8,10 +8,11 @@ enum ChartType: string
     case Line = 'line';
     case Pie = 'pie';
     case Area = 'area';
+    case Number = 'number';
 
     public function label(): string
     {
-        return __('enums.chart_type.' . $this->value);
+        return __('enums.chart_type.'.$this->value);
     }
 
     /**

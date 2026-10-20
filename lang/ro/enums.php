@@ -51,7 +51,7 @@ return [
     'submission_status' => ['pending' => 'În așteptare', 'approved' => 'Aprobat', 'rejected' => 'Respins'],
     'consultation_status' => ['open' => 'Deschisă', 'in_progress' => 'În lucru', 'closed' => 'Închisă'],
     'consultation_urgency' => ['low' => 'Scăzută', 'medium' => 'Medie', 'high' => 'Ridicată'],
-    'chart_type' => ['bar' => 'Bare', 'line' => 'Linie', 'pie' => 'Circular', 'area' => 'Arie'],
+    'chart_type' => ['bar' => 'Bare', 'line' => 'Linie', 'pie' => 'Circular', 'area' => 'Arie', 'number' => 'Număr'],
     'index_type' => [
         'vulnerability' => 'Vulnerabilitate structurală',
         'resilience' => 'Reziliență instituțională',

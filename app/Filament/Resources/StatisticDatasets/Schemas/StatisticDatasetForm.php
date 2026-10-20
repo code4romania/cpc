@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 class StatisticDatasetForm
@@ -23,7 +24,13 @@ class StatisticDatasetForm
                     ->unique(ignoreRecord: true),
                 Select::make('chart_type')
                     ->options(ChartType::options())
-                    ->required(),
+                    ->required()
+                    ->live(),
+                TextInput::make('number_value')
+                    ->label(__('statistics.number_value'))
+                    ->maxLength(50)
+                    ->visible(fn (Get $get): bool => $get('chart_type') === ChartType::Number->value)
+                    ->required(fn (Get $get): bool => $get('chart_type') === ChartType::Number->value),
                 Tabs::make('Translations')
                     ->tabs([
                         Tab::make('Română')->schema([

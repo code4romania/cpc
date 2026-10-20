@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Statistici și date - Traficul de copii în România',
+    'number_value' => 'Număr',
     'subtitle' => 'Date actualizate privind traficul și abuzul de copii în România. Toate graficele pot fi integrate pe site-ul dvs.',
     'total_cases' => 'Total cazuri 2024',
     'cases_note' => '+6.3% vs 2023',

@@ -31,7 +31,9 @@
     $palette = ['#2a4c82', '#7950a4', '#648baa', '#242159'];
 @endphp
 
-@if ($points->isEmpty())
+@if ($type === ChartType::Number)
+    <p class="text-5xl font-bold text-navy">{{ $dataset->number_value }}</p>
+@elseif ($points->isEmpty())
     <p class="text-sm text-muted">{{ __('statistics.none') }}</p>
 @elseif ($isPie)
     @php
