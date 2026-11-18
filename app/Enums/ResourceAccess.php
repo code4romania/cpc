@@ -22,4 +22,15 @@ enum ResourceAccess: string
             ->mapWithKeys(fn (self $access): array => [$access->value => $access->label()])
             ->all();
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function professionalOptions(): array
+    {
+        return collect(self::cases())
+            ->reject(fn (self $access): bool => $access === self::Public)
+            ->mapWithKeys(fn (self $access): array => [$access->value => $access->label()])
+            ->all();
+    }
 }

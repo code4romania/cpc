@@ -22,12 +22,19 @@ class ResourceCategory extends Model
 {
     /** @use HasFactory<ResourceCategoryFactory> */
     use HasFactory;
+
     use HasTranslations;
 
     /** @return HasMany<\App\Models\Resource, $this> */
     public function resources(): HasMany
     {
         return $this->hasMany(Resource::class);
+    }
+
+    /** @return HasMany<ProfessionalResource, $this> */
+    public function professionalResources(): HasMany
+    {
+        return $this->hasMany(ProfessionalResource::class);
     }
 
     public function getNameAttribute(): ?string

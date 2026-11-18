@@ -2,13 +2,17 @@
 
 namespace App\Filament\Resources\Professionals\Tables;
 
+use App\Enums\ResourceAccess;
+use App\Enums\ResourceStatus;
+use App\Enums\ResourceType;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProfessionalsTable
 {
@@ -16,22 +20,64 @@ class ProfessionalsTable
     {
         return $table
             ->columns([
+                TextColumn::make('slug')
+                    ->searchable(),
                 TextColumn::make('title_ro')
-                    ->label(__('admin.fields.title'))
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('category')
+                    ->searchable(),
+                TextColumn::make('title_en')
                     ->searchable(),
                 TextColumn::make('type')
-                    ->badge(),
-                IconColumn::make('is_published')
+                    ->badge()
+                    ->formatStateUsing(fn (ResourceType $state): string => $state->label())
+                    ->searchable(),
+                TextColumn::make('resourceCategory.name_ro')
+                    ->label(__('admin.fields.category'))
+                    ->searchable(),
+                TextColumn::make('author')
+                    ->searchable(),
+                TextColumn::make('download_url')
+                    ->searchable(),
+                TextColumn::make('video_url')
+                    ->searchable(),
+                IconColumn::make('featured')
                     ->boolean(),
-                TextColumn::make('last_updated_at')
+                TextColumn::make('status')
+                    ->badge()
+                    ->formatStateUsing(fn (ResourceStatus $state): string => $state->label())
+                    ->searchable(),
+                TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                TernaryFilter::make('is_published'),
+                SelectFilter::make('type')
+                    ->options(ResourceType::options()),
+                SelectFilter::make('status')
+                    ->options(ResourceStatus::options()),
+                SelectFilter::make('resource_category_id')
+                    ->relationship('resourceCategory', 'name_ro')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('access_levels')
+                    ->label(__('admin.fields.access_levels'))
+                    ->options(ResourceAccess::professionalOptions())
+                    ->query(function (Builder $query, array $data): Builder {
+                        $value = $data['value'] ?? null;
+
+                        if (! is_string($value) || $value === '') {
+                            return $query;
+                        }
+
+                        return $query->whereJsonContains('access_levels', $value);
+                    }),
             ])
             ->recordActions([
                 EditAction::make(),
