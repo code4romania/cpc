@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\ProfessionalResource;
+use App\Models\ResourceCategory;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -16,21 +17,26 @@ new #[Layout('layouts.app')] #[Title('Professional Resources')] class extends Co
     public function resources(): Collection
     {
         return ProfessionalResource::published()
+            ->with('resourceCategory')
             ->when($this->search, fn ($query) => $query->where(function ($query): void {
                 $query->where('title_ro', 'like', '%'.$this->search.'%')
                     ->orWhere('title_en', 'like', '%'.$this->search.'%')
                     ->orWhere('description_ro', 'like', '%'.$this->search.'%')
-                    ->orWhere('description_en', 'like', '%'.$this->search.'%');
+                    ->orWhere('description_en', 'like', '%'.$this->search.'%')
+                    ->orWhere('author', 'like', '%'.$this->search.'%');
             }))
-            ->when($this->category, fn ($query) => $query->where('category', $this->category))
-            ->latest('last_updated_at')
+            ->when($this->category, fn ($query) => $query->where('resource_category_id', $this->category))
+            ->latest('published_at')
             ->get();
     }
 
-    /** @return array<int, string> */
-    public function categories(): array
+    /** @return Collection<int, ResourceCategory> */
+    public function categories(): Collection
     {
-        return ProfessionalResource::published()->distinct()->orderBy('category')->pluck('category')->filter()->values()->all();
+        return ResourceCategory::query()
+            ->whereHas('professionalResources', fn ($query) => $query->published())
+            ->orderBy('name_ro')
+            ->get();
     }
 };
 ?>
@@ -43,7 +49,7 @@ new #[Layout('layouts.app')] #[Title('Professional Resources')] class extends Co
             <x-ui.select wire:model.live="category" :label="__('portal.category')">
                 <option value="">{{ __('portal.all_categories') }}</option>
                 @foreach ($this->categories() as $option)
-                    <option value="{{ $option }}">{{ $option }}</option>
+                    <option value="{{ $option->getKey() }}">{{ $option->name }}</option>
                 @endforeach
             </x-ui.select>
         </section>
@@ -52,9 +58,16 @@ new #[Layout('layouts.app')] #[Title('Professional Resources')] class extends Co
                 <x-ui.card wire:key="professional-resource-{{ $resource->id }}" class="p-6">
                     <h2 class="text-xl font-semibold text-navy">{{ $resource->title }}</h2>
                     <p class="text-muted mt-2">{{ $resource->description }}</p>
-                    <div class="flex flex-wrap gap-2 mt-4"><x-ui.badge variant="accent">{{ $resource->category }}</x-ui.badge><x-ui.badge>{{ $resource->type }}</x-ui.badge></div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        @if ($resource->resourceCategory)
+                            <x-ui.badge variant="accent">{{ $resource->resourceCategory->name }}</x-ui.badge>
+                        @endif
+                        <x-ui.badge>{{ $resource->type->label() }}</x-ui.badge>
+                    </div>
                     @if ($resource->file_url)
                         <x-ui.button class="mt-5" href="{{ $resource->file_url }}" target="_blank">{{ __('portal.download') }}</x-ui.button>
+                    @elseif ($resource->download_url)
+                        <x-ui.button class="mt-5" href="{{ $resource->download_url }}" target="_blank">{{ __('portal.download') }}</x-ui.button>
                     @endif
                 </x-ui.card>
             @empty
