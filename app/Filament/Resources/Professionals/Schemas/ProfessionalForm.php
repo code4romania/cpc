@@ -2,9 +2,15 @@
 
 namespace App\Filament\Resources\Professionals\Schemas;
 
+use App\Enums\ResourceAccess;
+use App\Enums\ResourceStatus;
+use App\Enums\ResourceType;
 use App\Filament\Support\LimitedFileUpload;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -23,25 +29,65 @@ class ProfessionalForm
                     ->unique(ignoreRecord: true),
                 Tabs::make('Translations')
                     ->tabs([
-                        Tab::make('Română')->schema([
-                            TextInput::make('title_ro')->required(),
-                            Textarea::make('description_ro')->required(),
-                        ]),
-                        Tab::make('English')->schema([
-                            TextInput::make('title_en')->required(),
-                            Textarea::make('description_en')->required(),
-                        ]),
+                        Tab::make('Română')
+                            ->schema([
+                                TextInput::make('title_ro')->required(),
+                                Textarea::make('description_ro')
+                                    ->label(__('resources.short_description'))
+                                    ->required()
+                                    ->rows(3),
+                                RichEditor::make('body_ro')
+                                    ->label(__('resources.full_description'))
+                                    ->fileAttachmentsDisk('public')
+                                    ->fileAttachmentsDirectory('professional-resources'),
+                            ]),
+                        Tab::make('English')
+                            ->schema([
+                                TextInput::make('title_en')->required(),
+                                Textarea::make('description_en')
+                                    ->label(__('resources.short_description'))
+                                    ->required()
+                                    ->rows(3),
+                                RichEditor::make('body_en')
+                                    ->label(__('resources.full_description'))
+                                    ->fileAttachmentsDisk('public')
+                                    ->fileAttachmentsDirectory('professional-resources'),
+                            ]),
                     ])
                     ->columnSpanFull(),
-                TextInput::make('category')->required(),
-                TextInput::make('type')->required(),
+                Select::make('type')
+                    ->options(ResourceType::options())
+                    ->required(),
+                Select::make('access_levels')
+                    ->label(__('admin.fields.access_levels'))
+                    ->options(ResourceAccess::professionalOptions())
+                    ->multiple()
+                    ->required()
+                    ->default([
+                        ResourceAccess::Ngo->value,
+                        ResourceAccess::Mai->value,
+                    ]),
+                Select::make('resource_category_id')
+                    ->relationship('resourceCategory', 'name_ro')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                TagsInput::make('tags'),
+                TextInput::make('author'),
+                TextInput::make('download_url')
+                    ->url(),
+                TextInput::make('video_url')
+                    ->url(),
                 LimitedFileUpload::configure(
-                    SpatieMediaLibraryFileUpload::make('file')->collection('file'),
+                    SpatieMediaLibraryFileUpload::make('file')->collection('file')->visibility('public'),
                     50,
                 ),
-                TextInput::make('file_size')->numeric(),
-                Toggle::make('is_published'),
-                DateTimePicker::make('last_updated_at'),
+                Toggle::make('featured'),
+                Select::make('status')
+                    ->options(ResourceStatus::options())
+                    ->default('draft')
+                    ->required(),
+                DateTimePicker::make('published_at'),
             ]);
     }
 }

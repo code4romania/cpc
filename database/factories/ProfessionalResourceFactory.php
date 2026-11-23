@@ -2,7 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Enums\ResourceAccess;
+use App\Enums\ResourceStatus;
+use App\Enums\ResourceType;
 use App\Models\ProfessionalResource;
+use App\Models\ResourceCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -19,6 +23,7 @@ class ProfessionalResourceFactory extends Factory
     public function definition(): array
     {
         $title = fake()->unique()->sentence(5);
+        $isPublished = fake()->boolean(80);
 
         return [
             'slug' => Str::slug($title),
@@ -26,11 +31,19 @@ class ProfessionalResourceFactory extends Factory
             'title_en' => $title,
             'description_ro' => fake()->paragraph(),
             'description_en' => fake()->paragraph(),
-            'category' => fake()->randomElement(['Investigation', 'Case Management', 'Legal']),
-            'type' => fake()->randomElement(['PDF Guide', 'Template Pack', 'Video Series']),
-            'file_size' => fake()->randomFloat(1, 1, 250) . ' MB',
-            'is_published' => true,
-            'last_updated_at' => fake()->dateTimeBetween('-1 year'),
+            'type' => fake()->randomElement(ResourceType::cases())->value,
+            'resource_category_id' => ResourceCategory::factory(),
+            'tags' => fake()->words(3),
+            'author' => fake()->name(),
+            'download_url' => fake()->optional()->url(),
+            'video_url' => null,
+            'featured' => fake()->boolean(20),
+            'access_levels' => [
+                ResourceAccess::Ngo->value,
+                ResourceAccess::Mai->value,
+            ],
+            'status' => $isPublished ? ResourceStatus::Published->value : ResourceStatus::Draft->value,
+            'published_at' => $isPublished ? fake()->dateTimeBetween('-2 years') : null,
         ];
     }
 }
